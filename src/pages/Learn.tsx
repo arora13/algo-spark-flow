@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Play, Pause, RotateCcw, ChevronRight, Clock, Memory, Zap, CheckCircle } from 'lucide-react';
+import { Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import CosmicBackground from '@/components/CosmicBackground';
 
@@ -259,7 +258,7 @@ const Learn = () => {
                     </div>
                     <div className="cosmic-card p-4 border-white/10">
                       <div className="flex items-center space-x-2 mb-2">
-                        <Memory className="h-5 w-5 text-neon-purple" />
+                        <HardDrive className="h-5 w-5 text-neon-purple" />
                         <h4 className="font-semibold text-white">Space Complexity</h4>
                       </div>
                       <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm font-mono border border-blue-500/30">
