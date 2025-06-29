@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import CosmicBackground from '@/components/CosmicBackground';
 
 const Learn = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState('merge-sort');
@@ -18,10 +17,10 @@ const Learn = () => {
       name: 'Merge Sort',
       category: 'Sorting',
       difficulty: 'Medium',
-      description: 'A stable, divide-and-conquer algorithm that splits arrays in half, sorts them recursively, and merges the results back together.',
+      description: 'A stable, divide-and-conquer algorithm that splits arrays in half, sorts them recursively, and merges the results back together with guaranteed O(n log n) performance.',
       timeComplexity: 'O(n log n)',
       spaceComplexity: 'O(n)',
-      realWorldUse: 'Used in external sorting, database operations, and parallel computing.',
+      realWorldUse: 'Used in external sorting, database operations, and parallel computing where stable sorting is required.',
       steps: [
         'Divide the array into two equal halves',
         'Recursively sort the left half',
@@ -35,10 +34,10 @@ const Learn = () => {
       name: 'Quick Sort',
       category: 'Sorting',
       difficulty: 'Medium',
-      description: 'An efficient in-place sorting algorithm that selects a pivot element and partitions the array around it.',
+      description: 'An efficient in-place sorting algorithm that selects a pivot element and partitions the array around it, achieving excellent average-case performance.',
       timeComplexity: 'O(n log n) avg, O(n²) worst',
       spaceComplexity: 'O(log n)',
-      realWorldUse: 'Default sorting algorithm in many programming languages and systems.',
+      realWorldUse: 'Default sorting algorithm in many programming languages and systems due to its excellent average performance.',
       steps: [
         'Choose a pivot element (usually last element)',
         'Partition array: elements < pivot go left, > pivot go right',
@@ -55,7 +54,7 @@ const Learn = () => {
       description: 'A simple comparison-based algorithm that repeatedly steps through the list and swaps adjacent elements if they\'re in the wrong order.',
       timeComplexity: 'O(n²)',
       spaceComplexity: 'O(1)',
-      realWorldUse: 'Teaching purposes and very small datasets.',
+      realWorldUse: 'Teaching purposes and very small datasets where simplicity is more important than efficiency.',
       steps: [
         'Start with the first element of the array',
         'Compare adjacent elements',
@@ -72,7 +71,7 @@ const Learn = () => {
       description: 'An efficient algorithm for finding an item in a sorted array by repeatedly dividing the search interval in half.',
       timeComplexity: 'O(log n)',
       spaceComplexity: 'O(1)',
-      realWorldUse: 'Database indexing, searching in sorted collections, and system libraries.',
+      realWorldUse: 'Database indexing, searching in sorted collections, and system libraries for fast lookups.',
       steps: [
         'Start with entire sorted array',
         'Find the middle element',
@@ -89,7 +88,7 @@ const Learn = () => {
       description: 'Builds the final sorted array one item at a time, similar to how you might sort playing cards in your hands.',
       timeComplexity: 'O(n²) worst, O(n) best',
       spaceComplexity: 'O(1)',
-      realWorldUse: 'Small datasets, nearly sorted data, and as a subroutine in hybrid algorithms.',
+      realWorldUse: 'Small datasets, nearly sorted data, and as a subroutine in hybrid algorithms like Timsort.',
       steps: [
         'Start with second element (assume first is sorted)',
         'Compare current element with previous elements',
@@ -106,7 +105,7 @@ const Learn = () => {
       description: 'Finds the minimum element and places it at the beginning, then repeats for the remaining unsorted portion.',
       timeComplexity: 'O(n²)',
       spaceComplexity: 'O(1)',
-      realWorldUse: 'When memory writes are costly, small datasets.',
+      realWorldUse: 'When memory writes are costly, small datasets where simplicity is valued.',
       steps: [
         'Find minimum element in unsorted portion',
         'Swap it with first element of unsorted portion',
@@ -132,7 +131,7 @@ const Learn = () => {
           }
           return prev + 1;
         });
-      }, 2500);
+      }, 2000);
     }
   };
 
@@ -147,35 +146,39 @@ const Learn = () => {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Easy': return 'from-green-400 to-green-600';
-      case 'Medium': return 'from-yellow-400 to-orange-500';
+      case 'Easy': return 'from-emerald-400 to-emerald-600';
+      case 'Medium': return 'from-amber-400 to-orange-500';
       case 'Hard': return 'from-red-400 to-red-600';
-      default: return 'from-gray-400 to-gray-600';
+      default: return 'from-slate-400 to-slate-600';
     }
   };
 
   return (
-    <div className="min-h-screen relative">
-      <CosmicBackground />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+      {/* Floating background shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="floating-shape w-96 h-96 bg-gradient-to-br from-blue-400/10 to-purple-400/10 -top-48 -right-48" style={{ animationDelay: '0s' }} />
+        <div className="floating-shape w-64 h-64 bg-gradient-to-br from-purple-400/10 to-pink-400/10 top-1/3 -left-32" style={{ animationDelay: '3s' }} />
+      </div>
       
       <div className="relative z-10 pt-8 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12 text-center">
-            <h1 className="font-poppins font-bold text-4xl sm:text-5xl text-white mb-6">
-              Interactive <span className="cosmic-text">Algorithm Learning</span>
+            <h1 className="font-poppins font-bold text-4xl sm:text-5xl text-slate-900 mb-6">
+              Interactive <span className="gradient-text">Algorithm Learning</span>
             </h1>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Master algorithms through immersive step-by-step visualizations and detailed explanations
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              Master algorithms through step-by-step visualizations and detailed explanations designed for AP Computer Science students
             </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Algorithm Selection Sidebar */}
             <div className="lg:col-span-1">
-              <Card className="cosmic-card border-white/20">
+              <Card className="glass-card border-white/40">
                 <CardHeader>
-                  <CardTitle className="font-poppins text-xl text-white flex items-center">
-                    <Zap className="mr-2 h-5 w-5 text-neon-blue" />
+                  <CardTitle className="font-poppins text-xl text-slate-900 flex items-center">
+                    <Zap className="mr-2 h-5 w-5 text-blue-600" />
                     Algorithms
                   </CardTitle>
                 </CardHeader>
@@ -195,22 +198,22 @@ const Learn = () => {
                           }}
                           className={`w-full text-left p-4 rounded-lg transition-all duration-300 group ${
                             isSelected
-                              ? 'bg-gradient-primary text-white neon-glow'
-                              : 'hover:bg-white/10 text-white/90 hover:text-white'
+                              ? 'bg-gradient-primary text-white soft-glow'
+                              : 'hover:bg-white/50 text-slate-700 hover:text-slate-900'
                           }`}
                         >
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center space-x-3">
                               <h3 className="font-semibold">{algo.name}</h3>
                               {isAlgoCompleted && (
-                                <CheckCircle className="h-4 w-4 text-green-400" />
+                                <CheckCircle className="h-4 w-4 text-emerald-500" />
                               )}
                             </div>
                             <ChevronRight className={`h-4 w-4 transition-transform ${isSelected ? 'rotate-90' : 'group-hover:translate-x-1'}`} />
                           </div>
                           <div className="flex items-center justify-between">
-                            <span className={`text-sm px-2 py-1 rounded-full ${
-                              isSelected ? 'text-white/80' : 'text-white/60'
+                            <span className={`text-sm ${
+                              isSelected ? 'text-white/80' : 'text-slate-500'
                             }`}>
                               {algo.category}
                             </span>
@@ -229,46 +232,46 @@ const Learn = () => {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Algorithm Overview */}
-              <Card className="cosmic-card border-white/20">
+              <Card className="glass-card border-white/40">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-poppins text-3xl text-white">
+                    <CardTitle className="font-poppins text-3xl text-slate-900">
                       {currentAlgorithm.name}
                     </CardTitle>
                     {isCompleted && (
-                      <div className="flex items-center space-x-2 px-3 py-1 bg-green-500/20 rounded-full border border-green-500/30">
-                        <CheckCircle className="h-4 w-4 text-green-400" />
-                        <span className="text-green-400 text-sm font-medium">Completed</span>
+                      <div className="flex items-center space-x-2 px-3 py-1 bg-emerald-100 rounded-full border border-emerald-200">
+                        <CheckCircle className="h-4 w-4 text-emerald-600" />
+                        <span className="text-emerald-700 text-sm font-medium">Completed</span>
                       </div>
                     )}
                   </div>
-                  <p className="text-white/80 text-lg leading-relaxed">{currentAlgorithm.description}</p>
-                  <p className="text-neon-blue text-sm mt-2">💡 <strong>Real-world use:</strong> {currentAlgorithm.realWorldUse}</p>
+                  <p className="text-slate-600 text-lg leading-relaxed">{currentAlgorithm.description}</p>
+                  <p className="text-blue-600 text-sm mt-2">💡 <strong>Real-world use:</strong> {currentAlgorithm.realWorldUse}</p>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-3 gap-6 mb-6">
-                    <div className="cosmic-card p-4 border-white/10">
+                    <div className="glass-card p-4 border-white/20">
                       <div className="flex items-center space-x-2 mb-2">
-                        <Clock className="h-5 w-5 text-neon-blue" />
-                        <h4 className="font-semibold text-white">Time Complexity</h4>
+                        <Clock className="h-5 w-5 text-blue-600" />
+                        <h4 className="font-semibold text-slate-900">Time Complexity</h4>
                       </div>
-                      <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-mono border border-green-500/30">
+                      <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-mono border border-emerald-200">
                         {currentAlgorithm.timeComplexity}
                       </span>
                     </div>
-                    <div className="cosmic-card p-4 border-white/10">
+                    <div className="glass-card p-4 border-white/20">
                       <div className="flex items-center space-x-2 mb-2">
-                        <HardDrive className="h-5 w-5 text-neon-purple" />
-                        <h4 className="font-semibold text-white">Space Complexity</h4>
+                        <HardDrive className="h-5 w-5 text-purple-600" />
+                        <h4 className="font-semibold text-slate-900">Space Complexity</h4>
                       </div>
-                      <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm font-mono border border-blue-500/30">
+                      <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-mono border border-blue-200">
                         {currentAlgorithm.spaceComplexity}
                       </span>
                     </div>
-                    <div className="cosmic-card p-4 border-white/10">
+                    <div className="glass-card p-4 border-white/20">
                       <div className="flex items-center space-x-2 mb-2">
-                        <Zap className="h-5 w-5 text-algo-pink" />
-                        <h4 className="font-semibold text-white">Difficulty</h4>
+                        <Zap className="h-5 w-5 text-pink-600" />
+                        <h4 className="font-semibold text-slate-900">Difficulty</h4>
                       </div>
                       <span className={`px-3 py-1 bg-gradient-to-r ${getDifficultyColor(currentAlgorithm.difficulty)} text-white rounded-full text-sm font-medium`}>
                         {currentAlgorithm.difficulty}
@@ -279,20 +282,20 @@ const Learn = () => {
               </Card>
 
               {/* Enhanced Visualization Area */}
-              <Card className="cosmic-card border-white/20">
+              <Card className="glass-card border-white/40">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-poppins text-xl text-white">Interactive Visualization</CardTitle>
+                    <CardTitle className="font-poppins text-xl text-slate-900">Step-by-Step Visualization</CardTitle>
                     <div className="flex space-x-2">
                       <Button
                         onClick={handlePlayPause}
-                        className="cosmic-button text-white"
+                        className="premium-button text-white"
                         size="sm"
                       >
                         {isPlaying ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
                         {isPlaying ? 'Pause' : 'Play'}
                       </Button>
-                      <Button onClick={handleReset} className="glass-morphism text-white hover:bg-white/20 border-white/30" size="sm">
+                      <Button onClick={handleReset} className="glass-card text-slate-700 hover:bg-white/70 border-white/40" size="sm">
                         <RotateCcw className="h-4 w-4" />
                       </Button>
                     </div>
@@ -300,8 +303,8 @@ const Learn = () => {
                 </CardHeader>
                 <CardContent>
                   {/* Enhanced Visualization Container */}
-                  <div className="h-80 cosmic-card border-white/10 flex items-center justify-center mb-6 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-cosmic-purple/20 to-algo-blue/20" />
+                  <div className="h-80 glass-card border-white/20 flex items-center justify-center mb-6 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50" />
                     
                     {/* Enhanced visualizations for different algorithms */}
                     {(selectedAlgorithm.includes('sort')) && (
@@ -309,12 +312,12 @@ const Learn = () => {
                         {[64, 34, 25, 12, 22, 11, 90, 48].map((value, index) => (
                           <div
                             key={index}
-                            className={`w-12 rounded-t-lg transition-all duration-700 flex flex-col items-center justify-end ${
-                              index <= currentStep ? 'bg-gradient-to-t from-neon-blue to-neon-purple neon-glow animate-glow-pulse' : 'bg-gradient-to-t from-gray-600 to-gray-400'
+                            className={`w-12 rounded-t-lg transition-all duration-700 flex flex-col items-center justify-end algo-bar ${
+                              index <= currentStep ? 'highlighted' : 'bg-gradient-to-t from-slate-400 to-slate-300'
                             }`}
                             style={{ height: `${value * 2}px` }}
                           >
-                            <div className="text-xs text-white font-bold mb-2 bg-black/50 px-2 py-1 rounded">{value}</div>
+                            <div className="text-xs text-white font-bold mb-2 bg-slate-900/70 px-2 py-1 rounded">{value}</div>
                           </div>
                         ))}
                       </div>
@@ -327,9 +330,9 @@ const Learn = () => {
                           <div
                             key={index}
                             className={`w-14 h-14 flex items-center justify-center rounded-xl transition-all duration-700 font-bold ${
-                              index === Math.floor(10/2) && currentStep >= 1 ? 'bg-gradient-primary text-white neon-glow animate-glow-pulse transform scale-110' :
-                              index <= currentStep ? 'bg-algo-blue/30 text-neon-blue border-2 border-neon-blue/50' :
-                              'bg-gray-700/50 text-white/60 border border-gray-500/30'
+                              index === Math.floor(10/2) && currentStep >= 1 ? 'bg-gradient-primary text-white soft-glow transform scale-110' :
+                              index <= currentStep ? 'bg-blue-100 text-blue-700 border-2 border-blue-300' :
+                              'bg-slate-100 text-slate-500 border border-slate-300'
                             }`}
                           >
                             {value}
@@ -338,11 +341,11 @@ const Learn = () => {
                       </div>
                     )}
                     
-                    <div className="absolute bottom-4 left-4 cosmic-card p-4 border-white/20 max-w-md">
-                      <p className="text-sm font-medium text-white mb-1">
-                        <span className="text-neon-blue">Step {currentStep + 1} of {currentAlgorithm.steps.length}</span>
+                    <div className="absolute bottom-4 left-4 glass-card p-4 border-white/30 max-w-md">
+                      <p className="text-sm font-medium text-slate-900 mb-1">
+                        <span className="text-blue-600">Step {currentStep + 1} of {currentAlgorithm.steps.length}</span>
                       </p>
-                      <p className="text-white/80 text-sm">
+                      <p className="text-slate-600 text-sm">
                         {currentAlgorithm.steps[currentStep]}
                       </p>
                     </div>
@@ -350,32 +353,32 @@ const Learn = () => {
 
                   {/* Enhanced Step-by-step breakdown */}
                   <Tabs defaultValue="steps" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 bg-white/10 border border-white/20">
-                      <TabsTrigger value="steps" className="text-white data-[state=active]:bg-gradient-primary">Algorithm Steps</TabsTrigger>
-                      <TabsTrigger value="code" className="text-white data-[state=active]:bg-gradient-primary">Pseudocode</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-2 bg-white/40 border border-white/30">
+                      <TabsTrigger value="steps" className="text-slate-700 data-[state=active]:bg-gradient-primary data-[state=active]:text-white">Algorithm Steps</TabsTrigger>
+                      <TabsTrigger value="code" className="text-slate-700 data-[state=active]:bg-gradient-primary data-[state=active]:text-white">Pseudocode</TabsTrigger>
                     </TabsList>
                     <TabsContent value="steps" className="mt-6">
                       <div className="space-y-4">
                         {currentAlgorithm.steps.map((step, index) => (
                           <div
                             key={index}
-                            className={`p-4 rounded-xl border-l-4 transition-all duration-300 ${
+                            className={`p-4 rounded-xl border-l-4 transition-all duration-300 algo-step ${
                               index <= currentStep
-                                ? 'border-neon-blue bg-blue-500/10 text-white backdrop-blur-sm'
-                                : 'border-gray-500/30 bg-gray-700/20 text-white/60'
+                                ? 'active border-blue-500 bg-blue-50 text-slate-900'
+                                : 'border-slate-300 bg-slate-50 text-slate-600'
                             }`}
                           >
                             <div className="flex items-center space-x-4">
                               <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                                 index <= currentStep
-                                  ? 'bg-gradient-primary text-white neon-glow'
-                                  : 'bg-gray-600 text-gray-300'
+                                  ? 'bg-gradient-primary text-white'
+                                  : 'bg-slate-400 text-white'
                               }`}>
                                 {index + 1}
                               </span>
                               <span className="flex-1">{step}</span>
                               {index <= currentStep && (
-                                <CheckCircle className="h-5 w-5 text-green-400" />
+                                <CheckCircle className="h-5 w-5 text-emerald-500" />
                               )}
                             </div>
                           </div>
@@ -384,7 +387,7 @@ const Learn = () => {
                     </TabsContent>
                     <TabsContent value="code" className="mt-6">
                       <div className="code-editor p-6 font-mono text-sm">
-                        <pre className="text-green-400 leading-relaxed">
+                        <pre className="text-emerald-400 leading-relaxed">
                           {selectedAlgorithm === 'merge-sort' && `function mergeSort(arr) {
     if (arr.length <= 1) return arr;
     
@@ -513,7 +516,7 @@ function partition(arr, low, high) {
                   <div className="mt-8 flex justify-end">
                     <Button 
                       onClick={handleComplete}
-                      className="cosmic-button text-white px-8 py-3 font-semibold group"
+                      className="premium-button text-white px-8 py-3 font-semibold group"
                       disabled={!user}
                     >
                       {user ? (

@@ -6,7 +6,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Play, HelpCircle, CheckCircle, XCircle, Code, Brain, Target, Zap, Clock } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import CosmicBackground from '@/components/CosmicBackground';
 
 const Practice = () => {
   const [selectedProblem, setSelectedProblem] = useState('two-sum');
@@ -196,31 +195,31 @@ const Practice = () => {
       
       setTestResults(mockResults);
       const passedCount = mockResults.filter(r => r.passed).length;
-      setOutput(`✅ Execution completed!\n📊 ${passedCount}/${mockResults.length} test cases passed\n${passedCount === mockResults.length ? '🎉 All tests passed! Great job!' : '🔍 Some tests failed. Check the results below.'}`);
+      setOutput(`✅ Execution completed!\n📊 ${passedCount}/${mockResults.length} test cases passed\n${passedCount === mockResults.length ? '🎉 All tests passed! Great job!' : '🔍 Some tests failed. Check the details below.'}`);
       setIsRunning(false);
-    }, 2500);
+    }, 2000);
   };
 
   const handleGetHint = () => {
     const hint = currentProblem.hints[Math.floor(Math.random() * currentProblem.hints.length)];
-    setOutput(`💡 Hint: ${hint}\n\n🎯 Try implementing this approach and run your code to see how it performs!`);
+    setOutput(`💡 AI Debug Helper: ${hint}\n\n🎯 Try implementing this approach and run your code to see how it performs!`);
   };
 
   const handleSubmit = () => {
     if (testResults.length > 0 && testResults.every(test => test.passed)) {
       updateProgress('problem', selectedProblem);
-      setOutput('🎉 Congratulations! All test cases passed!\n⭐ Problem marked as solved!\n🏆 Keep up the great work!');
+      setOutput('🎉 Congratulations! All test cases passed!\n⭐ Problem marked as solved!\n🏆 Keep up the excellent work!');
     } else {
-      setOutput('❌ Some test cases failed. Please review your solution and try again.\n🔍 Check the test results for more details.\n💪 You\'re close! Keep trying!');
+      setOutput('❌ Some test cases failed. Please review your solution and try again.\n🔍 Check the test results for specific details.\n💪 You\'re getting close! Keep trying!');
     }
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Easy': return 'from-green-400 to-green-600';
-      case 'Medium': return 'from-yellow-400 to-orange-500';
+      case 'Easy': return 'from-emerald-400 to-emerald-600';
+      case 'Medium': return 'from-amber-400 to-orange-500';
       case 'Hard': return 'from-red-400 to-red-600';
-      default: return 'from-gray-400 to-gray-600';
+      default: return 'from-slate-400 to-slate-600';
     }
   };
 
@@ -235,27 +234,31 @@ const Practice = () => {
   };
 
   return (
-    <div className="min-h-screen relative">
-      <CosmicBackground />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+      {/* Floating background shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="floating-shape w-80 h-80 bg-gradient-to-br from-purple-400/10 to-pink-400/10 -top-40 -right-40" style={{ animationDelay: '1s' }} />
+        <div className="floating-shape w-56 h-56 bg-gradient-to-br from-blue-400/10 to-indigo-400/10 bottom-20 -left-28" style={{ animationDelay: '4s' }} />
+      </div>
       
       <div className="relative z-10 pt-8 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12 text-center">
-            <h1 className="font-poppins font-bold text-4xl sm:text-5xl text-white mb-6">
-              Coding <span className="cosmic-text">Practice Arena</span>
+            <h1 className="font-poppins font-bold text-4xl sm:text-5xl text-slate-900 mb-6">
+              Coding <span className="gradient-text">Practice Arena</span>
             </h1>
-            <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Sharpen your skills with our advanced coding challenges and AI-powered debugging assistance
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              Sharpen your programming skills with our curated coding challenges and AI-powered debugging assistance
             </p>
           </div>
 
           <div className="grid lg:grid-cols-5 gap-8">
             {/* Enhanced Problem Selection Sidebar */}
             <div className="lg:col-span-2">
-              <Card className="cosmic-card border-white/20 mb-6">
+              <Card className="glass-card border-white/40 mb-6">
                 <CardHeader>
-                  <CardTitle className="font-poppins text-xl text-white flex items-center">
-                    <Code className="mr-2 h-5 w-5 text-neon-blue" />
+                  <CardTitle className="font-poppins text-xl text-slate-900 flex items-center">
+                    <Code className="mr-2 h-5 w-5 text-blue-600" />
                     Practice Problems
                   </CardTitle>
                 </CardHeader>
@@ -277,18 +280,18 @@ const Practice = () => {
                           }}
                           className={`w-full text-left p-4 rounded-lg transition-all duration-300 group ${
                             isSelected
-                              ? 'bg-gradient-primary text-white neon-glow'
-                              : 'hover:bg-white/10 text-white/90 hover:text-white'
+                              ? 'bg-gradient-primary text-white soft-glow'
+                              : 'hover:bg-white/50 text-slate-700 hover:text-slate-900'
                           }`}
                         >
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center space-x-3">
                               <h3 className="font-semibold text-lg">{problem.title}</h3>
                               {isProblemCompleted && (
-                                <CheckCircle className="h-4 w-4 text-green-400" />
+                                <CheckCircle className="h-4 w-4 text-emerald-500" />
                               )}
                             </div>
-                            <span className="text-neon-blue font-bold text-sm">+{problem.points}</span>
+                            <span className="text-blue-600 font-bold text-sm">+{problem.points}</span>
                           </div>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-2">
@@ -307,34 +310,34 @@ const Practice = () => {
               </Card>
 
               {/* Enhanced Problem Details */}
-              <Card className="cosmic-card border-white/20">
+              <Card className="glass-card border-white/40">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-poppins text-lg text-white">Problem Details</CardTitle>
+                    <CardTitle className="font-poppins text-lg text-slate-900">Problem Details</CardTitle>
                     {isCompleted && (
-                      <div className="flex items-center space-x-2 px-2 py-1 bg-green-500/20 rounded-full border border-green-500/30">
-                        <CheckCircle className="h-3 w-3 text-green-400" />
-                        <span className="text-green-400 text-xs font-medium">Solved</span>
+                      <div className="flex items-center space-x-2 px-2 py-1 bg-emerald-100 rounded-full border border-emerald-200">
+                        <CheckCircle className="h-3 w-3 text-emerald-600" />
+                        <span className="text-emerald-700 text-xs font-medium">Solved</span>
                       </div>
                     )}
                   </div>
                 </CardHeader>
                 <CardContent>
                   <Tabs defaultValue="description" className="w-full">
-                    <TabsList className="grid w-full grid-cols-3 bg-white/10 border border-white/20">
-                      <TabsTrigger value="description" className="text-white data-[state=active]:bg-gradient-primary text-xs">Description</TabsTrigger>
-                      <TabsTrigger value="examples" className="text-white data-[state=active]:bg-gradient-primary text-xs">Examples</TabsTrigger>
-                      <TabsTrigger value="hints" className="text-white data-[state=active]:bg-gradient-primary text-xs">Hints</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-3 bg-white/40 border border-white/30">
+                      <TabsTrigger value="description" className="text-slate-700 data-[state=active]:bg-gradient-primary data-[state=active]:text-white text-xs">Description</TabsTrigger>
+                      <TabsTrigger value="examples" className="text-slate-700 data-[state=active]:bg-gradient-primary data-[state=active]:text-white text-xs">Examples</TabsTrigger>
+                      <TabsTrigger value="hints" className="text-slate-700 data-[state=active]:bg-gradient-primary data-[state=active]:text-white text-xs">Hints</TabsTrigger>
                     </TabsList>
                     <TabsContent value="description" className="mt-4">
                       <div className="space-y-4">
-                        <p className="text-white/90 leading-relaxed">{currentProblem.description}</p>
+                        <p className="text-slate-700 leading-relaxed">{currentProblem.description}</p>
                         <div>
-                          <h4 className="font-semibold text-white mb-3 flex items-center">
+                          <h4 className="font-semibold text-slate-900 mb-3 flex items-center">
                             <Clock className="mr-2 h-4 w-4" />
                             Constraints:
                           </h4>
-                          <ul className="list-disc list-inside space-y-1 text-sm text-white/70">
+                          <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
                             {currentProblem.constraints.map((constraint, index) => (
                               <li key={index}>{constraint}</li>
                             ))}
@@ -345,24 +348,24 @@ const Practice = () => {
                     <TabsContent value="examples" className="mt-4">
                       <div className="space-y-4">
                         {currentProblem.examples.map((example, index) => (
-                          <div key={index} className="cosmic-card p-4 border-white/10">
-                            <h4 className="font-semibold text-white mb-3">Example {index + 1}:</h4>
+                          <div key={index} className="glass-card p-4 border-white/20">
+                            <h4 className="font-semibold text-slate-900 mb-3">Example {index + 1}:</h4>
                             <div className="space-y-2">
                               <div>
-                                <span className="font-medium text-neon-blue">Input: </span>
-                                <span className="font-mono text-sm bg-gray-800/50 px-2 py-1 rounded text-white">
+                                <span className="font-medium text-blue-600">Input: </span>
+                                <span className="font-mono text-sm bg-slate-100 px-2 py-1 rounded text-slate-800">
                                   {example.input}
                                 </span>
                               </div>
                               <div>
-                                <span className="font-medium text-neon-purple">Output: </span>
-                                <span className="font-mono text-sm bg-gray-800/50 px-2 py-1 rounded text-white">
+                                <span className="font-medium text-purple-600">Output: </span>
+                                <span className="font-mono text-sm bg-slate-100 px-2 py-1 rounded text-slate-800">
                                   {example.output}
                                 </span>
                               </div>
                               <div>
-                                <span className="font-medium text-algo-pink">Explanation: </span>
-                                <span className="text-sm text-white/80">{example.explanation}</span>
+                                <span className="font-medium text-pink-600">Explanation: </span>
+                                <span className="text-sm text-slate-600">{example.explanation}</span>
                               </div>
                             </div>
                           </div>
@@ -372,11 +375,11 @@ const Practice = () => {
                     <TabsContent value="hints" className="mt-4">
                       <div className="space-y-3">
                         {currentProblem.hints.map((hint, index) => (
-                          <div key={index} className="flex items-start space-x-3 p-3 cosmic-card border-white/10">
+                          <div key={index} className="flex items-start space-x-3 p-3 glass-card border-white/20">
                             <span className="w-6 h-6 bg-gradient-primary rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                               {index + 1}
                             </span>
-                            <p className="text-white/80 text-sm">{hint}</p>
+                            <p className="text-slate-600 text-sm">{hint}</p>
                           </div>
                         ))}
                       </div>
@@ -389,17 +392,17 @@ const Practice = () => {
             {/* Enhanced Code Editor and Output */}
             <div className="lg:col-span-3 space-y-6">
               {/* Enhanced Code Editor */}
-              <Card className="cosmic-card border-white/20">
+              <Card className="glass-card border-white/40">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-poppins text-xl text-white flex items-center">
-                      <Code className="mr-2 h-5 w-5 text-neon-blue" />
+                    <CardTitle className="font-poppins text-xl text-slate-900 flex items-center">
+                      <Code className="mr-2 h-5 w-5 text-blue-600" />
                       Code Editor
                     </CardTitle>
                     <div className="flex space-x-2">
                       <Button
                         onClick={handleGetHint}
-                        className="glass-morphism text-white hover:bg-white/20 border-white/30 text-sm group"
+                        className="glass-card text-slate-700 hover:bg-white/70 border-white/40 text-sm group"
                         size="sm"
                       >
                         <HelpCircle className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
@@ -408,7 +411,7 @@ const Practice = () => {
                       <Button
                         onClick={handleRunCode}
                         disabled={isRunning}
-                        className="cosmic-button text-white group"
+                        className="premium-button text-white group"
                       >
                         <Play className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
                         {isRunning ? 'Running...' : 'Run Code'}
@@ -421,7 +424,7 @@ const Practice = () => {
                     <Textarea
                       value={code || currentProblem.template}
                       onChange={(e) => setCode(e.target.value)}
-                      className="min-h-[400px] bg-transparent border-0 text-green-400 font-mono resize-none focus-visible:ring-0 text-sm leading-relaxed"
+                      className="min-h-[400px] bg-transparent border-0 text-emerald-400 font-mono resize-none focus-visible:ring-0 text-sm leading-relaxed"
                       placeholder="Write your solution here..."
                     />
                   </div>
@@ -431,27 +434,27 @@ const Practice = () => {
               {/* Enhanced Output and Test Results */}
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Enhanced Console Output */}
-                <Card className="cosmic-card border-white/20">
+                <Card className="glass-card border-white/40">
                   <CardHeader>
-                    <CardTitle className="font-poppins text-lg text-white flex items-center">
-                      <Brain className="mr-2 h-5 w-5 text-neon-purple" />
+                    <CardTitle className="font-poppins text-lg text-slate-900 flex items-center">
+                      <Brain className="mr-2 h-5 w-5 text-purple-600" />
                       Console Output
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="terminal-output rounded-lg p-4 font-mono text-sm min-h-[200px] max-h-[300px] overflow-y-auto">
-                      <pre className="text-green-400 whitespace-pre-wrap leading-relaxed">
-                        {output || '👋 Welcome to AlgoFlow Practice!\n🚀 Click "Run Code" to test your solution\n💡 Use "AI Debug Helper" if you need assistance'}
+                      <pre className="text-emerald-400 whitespace-pre-wrap leading-relaxed">
+                        {output || '👋 Welcome to AlgoFlow Practice!\n🚀 Click "Run Code" to test your solution\n💡 Use "AI Debug Helper" for intelligent assistance'}
                       </pre>
                     </div>
                   </CardContent>
                 </Card>
 
                 {/* Enhanced Test Results */}
-                <Card className="cosmic-card border-white/20">
+                <Card className="glass-card border-white/40">
                   <CardHeader>
-                    <CardTitle className="font-poppins text-lg text-white flex items-center">
-                      <Target className="mr-2 h-5 w-5 text-algo-pink" />
+                    <CardTitle className="font-poppins text-lg text-slate-900 flex items-center">
+                      <Target className="mr-2 h-5 w-5 text-pink-600" />
                       Test Results
                     </CardTitle>
                   </CardHeader>
@@ -463,31 +466,31 @@ const Practice = () => {
                             key={index}
                             className={`p-4 rounded-xl border-l-4 transition-all duration-300 ${
                               test.passed
-                                ? 'border-green-500 bg-green-500/10 backdrop-blur-sm'
-                                : 'border-red-500 bg-red-500/10 backdrop-blur-sm'
+                                ? 'border-emerald-500 bg-emerald-50'
+                                : 'border-red-500 bg-red-50'
                             }`}
                           >
                             <div className="flex items-center space-x-3 mb-2">
                               {test.passed ? (
-                                <CheckCircle className="h-5 w-5 text-green-400" />
+                                <CheckCircle className="h-5 w-5 text-emerald-500" />
                               ) : (
-                                <XCircle className="h-5 w-5 text-red-400" />
+                                <XCircle className="h-5 w-5 text-red-500" />
                               )}
-                              <span className="font-medium text-white">
+                              <span className="font-medium text-slate-900">
                                 {test.input}
                               </span>
                             </div>
                             {!test.passed && (
                               <div className="text-sm space-y-1 ml-8">
-                                <div className="text-red-300">Expected: <span className="font-mono bg-red-900/20 px-2 py-1 rounded">{test.expected}</span></div>
-                                <div className="text-red-300">Got: <span className="font-mono bg-red-900/20 px-2 py-1 rounded">{test.actual}</span></div>
+                                <div className="text-red-600">Expected: <span className="font-mono bg-red-100 px-2 py-1 rounded">{test.expected}</span></div>
+                                <div className="text-red-600">Got: <span className="font-mono bg-red-100 px-2 py-1 rounded">{test.actual}</span></div>
                               </div>
                             )}
                           </div>
                         ))}
                         <Button
                           onClick={handleSubmit}
-                          className="w-full cosmic-button text-white font-semibold py-3 group"
+                          className="w-full premium-button text-white font-semibold py-3 group"
                           disabled={!user}
                         >
                           {user ? (
@@ -501,10 +504,10 @@ const Practice = () => {
                         </Button>
                       </div>
                     ) : (
-                      <div className="text-white/60 text-center py-12">
+                      <div className="text-slate-500 text-center py-12">
                         <Brain className="h-12 w-12 mx-auto mb-4 opacity-50" />
                         <p>Run your code to see test results</p>
-                        <p className="text-sm mt-2">Your solution will be tested against multiple cases</p>
+                        <p className="text-sm mt-2">Your solution will be evaluated against multiple test cases</p>
                       </div>
                     )}
                   </CardContent>
