@@ -19,7 +19,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <div className="min-h-screen bg-gradient-hero font-inter">
+        <div className="min-h-screen font-inter relative">
           <Toaster />
           <Sonner />
           <BrowserRouter>

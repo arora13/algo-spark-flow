@@ -3,115 +3,132 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Play, Code, Trophy, Users } from 'lucide-react';
+import { Play, Code, Trophy, Users, Zap, Brain, Target, Sparkles } from 'lucide-react';
+import CosmicBackground from '@/components/CosmicBackground';
 
 const Index = () => {
   const features = [
     {
-      icon: Play,
+      icon: Brain,
       title: 'Interactive Visualizations',
-      description: 'Watch algorithms come to life with step-by-step animated explanations.'
+      description: 'Watch algorithms come to life with frame-by-frame animated explanations that make complex concepts crystal clear.',
+      gradient: 'from-algo-blue to-algo-purple'
     },
     {
       icon: Code,
       title: 'Hands-on Practice',
-      description: 'Code in our terminal-style editor with real-time feedback and AI assistance.'
+      description: 'Code in our advanced terminal-style editor with real-time feedback, AI assistance, and instant debugging help.',
+      gradient: 'from-algo-purple to-algo-pink'
     },
     {
       icon: Trophy,
-      title: 'Track Progress',
-      description: 'Monitor your learning journey with detailed progress tracking and achievements.'
+      title: 'Progress Tracking',
+      description: 'Monitor your learning journey with detailed analytics, achievements, and personalized study recommendations.',
+      gradient: 'from-algo-pink to-algo-cyan'
     },
     {
-      icon: Users,
+      icon: Target,
       title: 'Built for Students',
-      description: 'Designed specifically for AP Computer Science and early college CS students.'
+      description: 'Specifically designed for AP Computer Science and early college CS students with curriculum-aligned content.',
+      gradient: 'from-algo-cyan to-neon-blue'
     }
   ];
 
   const algorithms = [
-    'Merge Sort', 'Quick Sort', 'Binary Search', 'Depth-First Search',
+    'Merge Sort', 'Quick Sort', 'Bubble Sort', 'Insertion Sort', 
+    'Selection Sort', 'Binary Search', 'Depth-First Search',
     'Breadth-First Search', 'Dijkstra\'s Algorithm', 'Dynamic Programming'
   ];
 
+  const stats = [
+    { number: '10+', label: 'Core Algorithms', icon: Zap },
+    { number: '50+', label: 'Practice Problems', icon: Code },
+    { number: '1000+', label: 'Students Learning', icon: Users },
+    { number: '98%', label: 'Success Rate', icon: Sparkles }
+  ];
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <CosmicBackground />
+      
       {/* Hero Section */}
-      <section className="relative px-4 sm:px-6 lg:px-8 pt-20 pb-32">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in">
-              <h1 className="font-poppins font-bold text-4xl sm:text-5xl lg:text-6xl text-gray-900 leading-tight mb-6">
-                Master Algorithms
-                <span className="block bg-gradient-primary bg-clip-text text-transparent">
-                  Interactively
-                </span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Learn key computer science algorithms through animated visualizations and hands-on coding practice. 
-                Perfect for AP Computer Science and college CS students.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/learn">
-                  <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-white rounded-full px-8 py-4 font-medium transition-all duration-200 hover:scale-105 w-full sm:w-auto">
-                    Start Learning
-                  </Button>
-                </Link>
-                <Link to="/practice">
-                  <Button size="lg" variant="outline" className="rounded-full px-8 py-4 font-medium border-2 border-algo-blue text-algo-blue hover:bg-algo-blue hover:text-white transition-all duration-200 w-full sm:w-auto">
-                    Try Practice Mode
-                  </Button>
-                </Link>
-              </div>
+      <section className="relative px-4 sm:px-6 lg:px-8 pt-32 pb-40">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block mb-6">
+              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white/80 text-sm font-medium">
+                🚀 The Future of Algorithm Learning
+              </span>
             </div>
             
-            {/* 3D Floating Elements */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-radial from-algo-blue/20 to-transparent rounded-full blur-3xl"></div>
-              <div className="relative grid grid-cols-3 gap-4 p-8">
-                {[...Array(9)].map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-16 h-16 rounded-xl bg-gradient-to-br ${
-                      i % 3 === 0 ? 'from-algo-blue to-algo-purple' :
-                      i % 3 === 1 ? 'from-algo-pink to-algo-purple' :
-                      'from-algo-cyan to-algo-blue'
-                    } opacity-80 animate-float shadow-lg`}
-                    style={{
-                      animationDelay: `${i * 0.2}s`,
-                      animationDuration: `${3 + (i % 3)}s`
-                    }}
-                  ></div>
-                ))}
-              </div>
+            <h1 className="font-poppins font-bold text-5xl sm:text-6xl lg:text-7xl text-white leading-tight mb-8">
+              Master Algorithms with
+              <span className="block cosmic-text text-6xl sm:text-7xl lg:text-8xl mt-2">
+                AlgoFlow
+              </span>
+            </h1>
+            
+            <p className="text-xl sm:text-2xl text-white/90 mb-12 leading-relaxed max-w-4xl mx-auto">
+              Experience the most immersive way to learn computer science algorithms through 
+              <span className="text-neon-blue font-semibold"> stunning visualizations</span>, 
+              <span className="text-algo-pink font-semibold"> interactive coding challenges</span>, and 
+              <span className="text-neon-purple font-semibold"> AI-powered assistance</span>.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+              <Link to="/learn">
+                <Button size="lg" className="cosmic-button text-white px-10 py-4 text-lg font-semibold w-full sm:w-auto group">
+                  <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                  Start Learning Free
+                </Button>
+              </Link>
+              <Link to="/practice">
+                <Button size="lg" className="glass-morphism text-white hover:bg-white/20 px-10 py-4 text-lg font-semibold border-white/30 w-full sm:w-auto group">
+                  <Code className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                  Try Practice Mode
+                </Button>
+              </Link>
+            </div>
+
+            {/* Stats Section */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div className="cosmic-card p-6 mb-4 group hover:scale-105 transition-all duration-300">
+                    <stat.icon className="h-8 w-8 text-neon-blue mx-auto mb-3 group-hover:text-neon-purple transition-colors" />
+                    <div className="text-3xl font-bold text-white cosmic-text mb-2">{stat.number}</div>
+                    <div className="text-white/70 font-medium">{stat.label}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-poppins font-bold text-3xl sm:text-4xl text-gray-900 mb-4">
-              Why Choose AlgoFlow?
+      <section className="relative py-32 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-white mb-6">
+              Why Choose <span className="cosmic-text">AlgoFlow</span>?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our platform combines the best of visual learning and hands-on practice to help you master algorithms effectively.
+            <p className="text-xl text-white/80 max-w-3xl mx-auto">
+              We've reimagined algorithm education with cutting-edge technology and stunning visual design
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 animate-glow">
-                    <feature.icon className="h-8 w-8 text-white" />
+              <Card key={index} className="cosmic-card hover:scale-105 transition-all duration-500 group slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <CardContent className="p-8 text-center h-full flex flex-col">
+                  <div className={`w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 neon-glow`}>
+                    <feature.icon className="h-10 w-10 text-white" />
                   </div>
-                  <h3 className="font-poppins font-semibold text-lg text-gray-900 mb-2">
+                  <h3 className="font-poppins font-bold text-xl text-white mb-4 group-hover:text-neon-blue transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-white/70 leading-relaxed flex-grow">
                     {feature.description}
                   </p>
                 </CardContent>
@@ -122,28 +139,30 @@ const Index = () => {
       </section>
 
       {/* Algorithms Section */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-poppins font-bold text-3xl sm:text-4xl text-gray-900 mb-4">
-            Master Essential Algorithms
+      <section className="relative py-32 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-white mb-6">
+            Master <span className="cosmic-text">Essential Algorithms</span>
           </h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-            From sorting and searching to graph algorithms and dynamic programming - we've got you covered.
+          <p className="text-xl text-white/80 mb-16 max-w-3xl mx-auto">
+            From fundamental sorting and searching to advanced graph algorithms and dynamic programming
           </p>
           
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-4 mb-16">
             {algorithms.map((algorithm, index) => (
               <span
                 key={index}
-                className="px-6 py-3 bg-gradient-to-r from-algo-blue/10 to-algo-purple/10 rounded-full text-gray-700 font-medium border border-algo-blue/20 hover:border-algo-blue/40 transition-all duration-200 hover:scale-105"
+                className="px-6 py-3 cosmic-card text-white font-medium hover:scale-105 transition-all duration-200 cursor-pointer group slide-up"
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
-                {algorithm}
+                <span className="group-hover:text-neon-blue transition-colors">{algorithm}</span>
               </span>
             ))}
           </div>
           
           <Link to="/learn">
-            <Button size="lg" className="bg-gradient-primary hover:opacity-90 text-white rounded-full px-8 py-4 font-medium transition-all duration-200 hover:scale-105">
+            <Button size="lg" className="cosmic-button text-white px-10 py-4 text-lg font-semibold group">
+              <Brain className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
               Explore All Algorithms
             </Button>
           </Link>
@@ -151,19 +170,31 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-primary">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-poppins font-bold text-3xl sm:text-4xl text-white mb-4">
-            Ready to Level Up Your Algorithm Skills?
-          </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Join thousands of students who are mastering algorithms with AlgoFlow.
-          </p>
-          <Link to="/login">
-            <Button size="lg" className="bg-white text-algo-blue rounded-full px-8 py-4 font-medium hover:bg-gray-50 transition-all duration-200 hover:scale-105">
-              Get Started Free
-            </Button>
-          </Link>
+      <section className="relative py-32 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <div className="cosmic-card p-16 neon-glow">
+            <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-white mb-6">
+              Ready to <span className="cosmic-text">Level Up</span> Your Skills?
+            </h2>
+            <p className="text-xl text-white/80 mb-10 leading-relaxed">
+              Join thousands of students who are mastering algorithms with our immersive, 
+              next-generation learning platform.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to="/login">
+                <Button size="lg" className="bg-white text-cosmic-dark hover:bg-white/90 px-10 py-4 text-lg font-semibold w-full sm:w-auto group">
+                  <Sparkles className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                  Get Started Free
+                </Button>
+              </Link>
+              <Link to="/learn">
+                <Button size="lg" className="cosmic-button text-white px-10 py-4 text-lg font-semibold w-full sm:w-auto group">
+                  <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                  Watch Demo
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>
