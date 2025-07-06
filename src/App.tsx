@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import Learn from "./pages/Learn";
 import Practice from "./pages/Practice";
+import About from "./pages/About";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
@@ -28,6 +29,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/learn" element={<Learn />} />
               <Route path="/practice" element={<Practice />} />
+              <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="*" element={<NotFound />} />

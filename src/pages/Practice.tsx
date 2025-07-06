@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -7,7 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import FloatingElements from '@/components/FloatingElements';
 import { 
   Play, Code, ArrowLeft, CheckCircle, XCircle, Target, 
-  Brain, Clock, HelpCircle, Trophy, Lightbulb 
+  Brain, Clock, HelpCircle, Trophy, Lightbulb, Pause,
+  RotateCcw, ChevronRight
 } from 'lucide-react';
 
 const Practice = () => {
@@ -24,28 +25,32 @@ const Practice = () => {
       name: 'Merge Sort',
       description: 'Master divide-and-conquer with these challenging problems',
       problemCount: 3,
-      difficulty: 'Medium'
+      difficulty: 'Medium',
+      color: 'from-blue-400 to-cyan-400'
     },
     {
       id: 'quick-sort', 
       name: 'Quick Sort',
       description: 'Practice partitioning and pivot selection strategies',
       problemCount: 3,
-      difficulty: 'Medium'
+      difficulty: 'Medium',
+      color: 'from-purple-400 to-pink-400'
     },
     {
       id: 'binary-search',
       name: 'Binary Search',
       description: 'Perfect your search skills with these curated challenges',
       problemCount: 3,
-      difficulty: 'Easy'
+      difficulty: 'Easy',
+      color: 'from-green-400 to-emerald-400'
     },
     {
       id: 'sorting-basics',
       name: 'Sorting Fundamentals',
       description: 'Build foundation with bubble, insertion, and selection sort',
       problemCount: 4,
-      difficulty: 'Easy'
+      difficulty: 'Easy',
+      color: 'from-amber-400 to-orange-400'
     }
   ];
 
@@ -57,6 +62,12 @@ const Practice = () => {
         difficulty: 'Medium',
         description: 'Given an array of intervals, merge all overlapping intervals and return an array of non-overlapping intervals.',
         detailedDescription: 'This problem tests your understanding of the merge process in merge sort. You\'ll need to sort intervals by start time, then merge overlapping ones - similar to how merge sort combines sorted subarrays.',
+        keyPoints: ['Sorting by start time', 'Merging overlapping intervals', 'Array manipulation'],
+        hints: [
+          'Sort the intervals by their start times first',
+          'Use a result array to store merged intervals',
+          'Compare the end of the last merged interval with the start of the current interval'
+        ],
         examples: [
           {
             input: 'intervals = [[1,3],[2,6],[8,10],[15,18]]',
@@ -78,6 +89,12 @@ const Practice = () => {
         difficulty: 'Medium', 
         description: 'Sort a linked list using merge sort algorithm with O(n log n) time complexity and O(1) space complexity.',
         detailedDescription: 'Apply merge sort to a linked list! This challenges you to implement the divide-and-conquer approach without using extra space for arrays.',
+        keyPoints: ['Linked list manipulation', 'Divide and conquer', 'Space optimization'],
+        hints: [
+          'Use fast and slow pointers to find the middle of the list',
+          'Recursively sort the left and right halves',
+          'Merge the two sorted halves together'
+        ],
         examples: [
           {
             input: 'head = [4,2,1,3]',
@@ -100,6 +117,12 @@ const Practice = () => {
         difficulty: 'Hard',
         description: 'Count the number of inversions in an array. An inversion is when a larger element appears before a smaller element.',
         detailedDescription: 'This problem demonstrates how merge sort can solve more than just sorting. During the merge process, you can count how many inversions exist.',
+        keyPoints: ['Inversion counting', 'Modified merge sort', 'Divide and conquer'],
+        hints: [
+          'Use the merge sort framework but count inversions during merging',
+          'When taking from the right array, count inversions',
+          'The number of inversions is the number of elements remaining in the left array'
+        ],
         examples: [
           {
             input: 'arr = [2,3,8,6,1]',
@@ -116,6 +139,86 @@ const Practice = () => {
 }`
       }
     ],
+    'quick-sort': [
+      {
+        id: 'kth-largest',
+        title: 'Kth Largest Element',
+        difficulty: 'Medium',
+        description: 'Find the kth largest element in an unsorted array using the quickselect algorithm.',
+        detailedDescription: 'This problem uses the partitioning concept from quicksort. Instead of sorting the entire array, we can find the kth largest element in O(n) average time.',
+        keyPoints: ['Quickselect algorithm', 'Partitioning', 'Average O(n) time'],
+        hints: [
+          'Use the partition function from quicksort',
+          'After partitioning, check which side contains the kth largest',
+          'Recursively search only the relevant partition'
+        ],
+        examples: [
+          {
+            input: 'nums = [3,2,1,5,6,4], k = 2',
+            output: '5',
+            explanation: 'The 2nd largest element is 5.'
+          }
+        ],
+        template: `function findKthLargest(nums, k) {
+    // Use quickselect algorithm
+    // Partition and recursively search
+    
+    return 0;
+}`
+      },
+      {
+        id: 'sort-colors',
+        title: 'Sort Colors (Dutch Flag)',
+        difficulty: 'Medium',
+        description: 'Sort an array with only 0s, 1s, and 2s in-place using the Dutch National Flag algorithm.',
+        detailedDescription: 'This problem demonstrates the three-way partitioning technique used in quicksort when dealing with duplicate keys.',
+        keyPoints: ['Three-way partitioning', 'In-place sorting', 'Single pass algorithm'],
+        hints: [
+          'Use three pointers: low, mid, and high',
+          'Move 0s to the beginning and 2s to the end',
+          'Process elements at the mid pointer'
+        ],
+        examples: [
+          {
+            input: 'nums = [2,0,2,1,1,0]',
+            output: '[0,0,1,1,2,2]',
+            explanation: 'Colors are sorted with 0s first, then 1s, then 2s.'
+          }
+        ],
+        template: `function sortColors(nums) {
+    // Implement Dutch National Flag algorithm
+    // Use three pointers for partitioning
+    
+    return nums;
+}`
+      },
+      {
+        id: 'partition-labels',
+        title: 'Partition Labels',
+        difficulty: 'Medium',
+        description: 'Partition a string into as many parts as possible so that each letter appears in at most one part.',
+        detailedDescription: 'This problem requires partitioning strategy similar to quicksort, where we need to determine optimal split points.',
+        keyPoints: ['Greedy partitioning', 'Character frequency', 'Optimal splitting'],
+        hints: [
+          'First, find the last occurrence of each character',
+          'Use a greedy approach to extend partitions',
+          'A partition ends when we reach the farthest last occurrence seen so far'
+        ],
+        examples: [
+          {
+            input: 's = "ababcbacadefegdehijhklij"',
+            output: '[9,7,8]',
+            explanation: 'The partitions are "ababcbaca", "defegde", "hijhklij".'
+          }
+        ],
+        template: `function partitionLabels(s) {
+    // Find last occurrence of each character
+    // Use greedy partitioning strategy
+    
+    return [];
+}`
+      }
+    ],
     'binary-search': [
       {
         id: 'search-insert',
@@ -123,6 +226,12 @@ const Practice = () => {
         difficulty: 'Easy',
         description: 'Given a sorted array and a target value, return the index where target should be inserted to maintain sorted order.',
         detailedDescription: 'This problem is a perfect introduction to binary search variations. Instead of just finding an element, you need to find the correct insertion position.',
+        keyPoints: ['Binary search variant', 'Insertion position', 'Sorted array'],
+        hints: [
+          'Use standard binary search template',
+          'When target is not found, left pointer gives insertion position',
+          'Handle edge cases: target smaller/larger than all elements'
+        ],
         examples: [
           {
             input: 'nums = [1,3,5,6], target = 5',
@@ -148,6 +257,12 @@ const Practice = () => {
         difficulty: 'Medium',
         description: 'Find a peak element in an array. A peak element is greater than its neighbors. Array may contain multiple peaks.',
         detailedDescription: 'This problem shows how binary search can work on unsorted data when certain properties hold. The key insight is that you can always move toward the higher neighbor.',
+        keyPoints: ['Peak finding', 'Unsorted binary search', 'Neighbor comparison'],
+        hints: [
+          'Compare middle element with its neighbors',
+          'Move toward the side with higher neighbor',
+          'A peak always exists due to boundary conditions'
+        ],
         examples: [
           {
             input: 'nums = [1,2,3,1]',
@@ -169,6 +284,12 @@ const Practice = () => {
         difficulty: 'Medium',
         description: 'Search for a target in a rotated sorted array. The array was originally sorted, then rotated at some pivot.',
         detailedDescription: 'This advanced binary search problem tests your ability to identify which half of the array maintains sorted order, then decide which half to search.',
+        keyPoints: ['Rotated array', 'Modified binary search', 'Sorted half identification'],
+        hints: [
+          'Identify which half (left or right) is sorted',
+          'Check if target lies within the sorted half',
+          'Search the appropriate half based on target location'
+        ],
         examples: [
           {
             input: 'nums = [4,5,6,7,0,1,2], target = 0',
@@ -182,6 +303,116 @@ const Practice = () => {
     // Check if target is in sorted half
     
     return -1;
+}`
+      }
+    ],
+    'sorting-basics': [
+      {
+        id: 'bubble-sort-implementation',
+        title: 'Implement Bubble Sort',
+        difficulty: 'Easy',
+        description: 'Implement the bubble sort algorithm to sort an array in ascending order.',
+        detailedDescription: 'Bubble sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. This is a fundamental sorting algorithm that helps understand comparison-based sorting.',
+        keyPoints: ['Adjacent comparisons', 'Swapping elements', 'Multiple passes'],
+        hints: [
+          'Use nested loops - outer for passes, inner for comparisons',
+          'Compare adjacent elements and swap if needed',
+          'Optimize by reducing comparisons in each pass'
+        ],
+        examples: [
+          {
+            input: 'arr = [64, 34, 25, 12, 22, 11, 90]',
+            output: '[11, 12, 22, 25, 34, 64, 90]',
+            explanation: 'Array is sorted using bubble sort with adjacent swaps.'
+          }
+        ],
+        template: `function bubbleSort(arr) {
+    // Implement bubble sort
+    // Use nested loops for comparisons
+    // Swap adjacent elements if needed
+    
+    return arr;
+}`
+      },
+      {
+        id: 'insertion-sort-implementation',
+        title: 'Implement Insertion Sort',
+        difficulty: 'Easy',
+        description: 'Implement the insertion sort algorithm to sort an array by building a sorted portion one element at a time.',
+        detailedDescription: 'Insertion sort builds the final sorted array one item at a time. It takes each element and inserts it into its correct position among the previously sorted elements.',
+        keyPoints: ['Building sorted portion', 'Element insertion', 'Shifting elements'],
+        hints: [
+          'Start from the second element (index 1)',
+          'Compare with elements before it and shift them right',
+          'Insert the current element in its correct position'
+        ],
+        examples: [
+          {
+            input: 'arr = [5, 2, 4, 6, 1, 3]',
+            output: '[1, 2, 3, 4, 5, 6]',
+            explanation: 'Each element is inserted into its correct position in the sorted portion.'
+          }
+        ],
+        template: `function insertionSort(arr) {
+    // Implement insertion sort
+    // Build sorted portion gradually
+    // Insert each element in correct position
+    
+    return arr;
+}`
+      },
+      {
+        id: 'selection-sort-implementation',
+        title: 'Implement Selection Sort',
+        difficulty: 'Easy',
+        description: 'Implement the selection sort algorithm by repeatedly finding the minimum element and placing it at the beginning.',
+        detailedDescription: 'Selection sort divides the array into sorted and unsorted portions. It repeatedly selects the smallest element from the unsorted portion and moves it to the end of the sorted portion.',
+        keyPoints: ['Finding minimum element', 'Swapping with first position', 'Expanding sorted portion'],
+        hints: [
+          'Find the minimum element in the unsorted portion',
+          'Swap it with the first element of unsorted portion',
+          'Move the boundary between sorted and unsorted portions'
+        ],
+        examples: [
+          {
+            input: 'arr = [29, 10, 14, 37, 13]',
+            output: '[10, 13, 14, 29, 37]',
+            explanation: 'Repeatedly select minimum and place at correct position.'
+          }
+        ],
+        template: `function selectionSort(arr) {
+    // Implement selection sort
+    // Find minimum in unsorted portion
+    // Swap with first unsorted element
+    
+    return arr;
+}`
+      },
+      {
+        id: 'sort-comparison',
+        title: 'Sorting Algorithm Analysis',
+        difficulty: 'Easy',
+        description: 'Compare the performance of bubble sort, insertion sort, and selection sort on different types of input arrays.',
+        detailedDescription: 'This problem helps you understand the practical differences between basic sorting algorithms by implementing a comparison function that analyzes their performance characteristics.',
+        keyPoints: ['Algorithm comparison', 'Performance analysis', 'Best/worst case scenarios'],
+        hints: [
+          'Implement all three sorting algorithms',
+          'Count the number of comparisons and swaps',
+          'Test on different input types: sorted, reverse sorted, random'
+        ],
+        examples: [
+          {
+            input: 'arr = [3, 1, 4, 1, 5], algorithms = ["bubble", "insertion", "selection"]',
+            output: '{"bubble": {"comparisons": 10, "swaps": 5}, "insertion": {"comparisons": 6, "swaps": 4}, "selection": {"comparisons": 10, "swaps": 3}}',
+            explanation: 'Performance metrics for each sorting algorithm on the given input.'
+          }
+        ],
+        template: `function compareSortingAlgorithms(arr, algorithms) {
+    // Implement bubble, insertion, and selection sort
+    // Count operations for each algorithm
+    // Return performance comparison
+    
+    return {};
 }`
       }
     ]
@@ -208,52 +439,70 @@ const Practice = () => {
   if (!selectedAlgorithm) {
     // Algorithm Selection View
     return (
-      <div className="min-h-screen relative">
+      <div className="min-h-screen relative overflow-hidden">
         <FloatingElements />
         
-        <div className="relative z-10 pt-24 pb-16">
-          <div className="container-width">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 font-dm-sans">
-                Hands-On <span className="bg-gradient-primary bg-clip-text text-transparent">Algorithm Practice</span>
+        <div className="relative z-10 pt-32 pb-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent">
+                Algorithm Practice
               </h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                Apply your algorithm knowledge with carefully crafted coding challenges. 
-                Each problem is designed to reinforce key concepts and build problem-solving skills.
+                Master computer science algorithms through hands-on coding challenges. 
+                Each problem is carefully designed to reinforce core concepts and build problem-solving intuition.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {algorithms.map((algorithm) => (
-                <Card 
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {algorithms.map((algorithm, index) => (
+                <motion.div
                   key={algorithm.id}
-                  className="gradient-card hover-lift cursor-pointer border-0 shadow-xl"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
                   onClick={() => setSelectedAlgorithm(algorithm.id)}
+                  className="group cursor-pointer"
                 >
-                  <CardContent className="p-8">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
-                        <Code className="h-6 w-6 text-white" />
+                  <Card className="glass-panel border-0 shadow-xl hover:shadow-2xl transition-all duration-300 h-full">
+                    <CardContent className="p-8">
+                      <div className="flex items-center justify-between mb-6">
+                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${algorithm.color} flex items-center justify-center shadow-lg`}>
+                          <Code className="h-7 w-7 text-white" />
+                        </div>
+                        <Badge 
+                          variant={algorithm.difficulty === 'Easy' ? 'secondary' : 'outline'}
+                          className="text-sm font-medium"
+                        >
+                          {algorithm.difficulty}
+                        </Badge>
                       </div>
-                      <Badge variant={algorithm.difficulty === 'Easy' ? 'secondary' : 'outline'}>
-                        {algorithm.difficulty}
-                      </Badge>
-                    </div>
-                    
-                    <h3 className="text-xl font-bold text-slate-900 mb-3">{algorithm.name}</h3>
-                    <p className="text-slate-600 mb-4 leading-relaxed">{algorithm.description}</p>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-500">
-                        {algorithm.problemCount} problems
-                      </span>
-                      <div className="flex items-center text-primary">
-                        <span className="text-sm font-medium mr-2">Start Practice</span>
-                        <Play className="h-4 w-4" />
+                      
+                      <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
+                        {algorithm.name}
+                      </h3>
+                      <p className="text-slate-600 mb-6 leading-relaxed text-lg">
+                        {algorithm.description}
+                      </p>
+                      
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500 font-medium">
+                          {algorithm.problemCount} challenges
+                        </span>
+                        <div className="flex items-center text-blue-600 group-hover:text-blue-700 transition-colors">
+                          <span className="font-semibold mr-2">Start Practice</span>
+                          <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -268,69 +517,89 @@ const Practice = () => {
     const currentAlgorithm = algorithms.find(a => a.id === selectedAlgorithm);
     
     return (
-      <div className="min-h-screen relative">
+      <div className="min-h-screen relative overflow-hidden">
         <FloatingElements />
         
-        <div className="relative z-10 pt-24 pb-16">
-          <div className="container-width">
-            <div className="mb-8">
+        <div className="relative z-10 pt-32 pb-20">
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="mb-8"
+            >
               <Button 
                 onClick={() => setSelectedAlgorithm(null)}
-                className="btn-secondary mb-6"
+                variant="ghost"
+                className="mb-6 text-slate-600 hover:text-slate-900 hover:bg-slate-100 p-3 rounded-xl"
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
+                <ArrowLeft className="h-5 w-5 mr-2" />
                 Back to Algorithms
               </Button>
               
-              <h1 className="text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
-                {currentAlgorithm?.name} <span className="bg-gradient-primary bg-clip-text text-transparent">Practice</span>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-slate-900 to-blue-900 bg-clip-text text-transparent">
+                {currentAlgorithm?.name} Challenges
               </h1>
               <p className="text-xl text-slate-600 leading-relaxed">
                 {currentAlgorithm?.description}
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid gap-6">
+            <div className="space-y-6">
               {algorithmProblems.map((problem, index) => (
-                <Card 
+                <motion.div
                   key={problem.id}
-                  className="gradient-card hover-lift cursor-pointer border-0 shadow-xl"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -4 }}
                   onClick={() => setSelectedProblem(problem.id)}
+                  className="group cursor-pointer"
                 >
-                  <CardContent className="p-8">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center text-white font-bold">
-                          {index + 1}
+                  <Card className="glass-panel border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <CardContent className="p-8">
+                      <div className="flex items-start justify-between mb-6">
+                        <div className="flex items-start space-x-6">
+                          <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                            {index + 1}
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+                              {problem.title}
+                            </h3>
+                            <p className="text-slate-700 leading-relaxed text-lg mb-4">
+                              {problem.description}
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                              {problem.keyPoints?.map((point, i) => (
+                                <span key={i} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                                  {point}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="text-xl font-bold text-slate-900">{problem.title}</h3>
-                          <p className="text-slate-600 mt-1">{problem.detailedDescription}</p>
+                        <Badge 
+                          variant={problem.difficulty === 'Easy' ? 'secondary' : problem.difficulty === 'Medium' ? 'outline' : 'destructive'}
+                          className="text-sm font-medium"
+                        >
+                          {problem.difficulty}
+                        </Badge>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-4 text-sm text-slate-500">
+                          <span>{problem.examples?.length || 1} example{(problem.examples?.length || 1) > 1 ? 's' : ''}</span>
+                          <span>•</span>
+                          <span>{problem.hints?.length || 0} hint{(problem.hints?.length || 0) !== 1 ? 's' : ''}</span>
+                        </div>
+                        <div className="flex items-center text-blue-600 group-hover:text-blue-700 transition-colors">
+                          <span className="font-semibold mr-2">Solve Challenge</span>
+                          <Target className="h-5 w-5 group-hover:scale-110 transition-transform" />
                         </div>
                       </div>
-                      <Badge variant={problem.difficulty === 'Easy' ? 'secondary' : problem.difficulty === 'Medium' ? 'outline' : 'destructive'}>
-                        {problem.difficulty}
-                      </Badge>
-                    </div>
-                    
-                    <p className="text-slate-700 mb-4 leading-relaxed">{problem.description}</p>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex space-x-2">
-                        {problem.examples.slice(0, 2).map((_, i) => (
-                          <div key={i} className="w-2 h-2 bg-primary/30 rounded-full" />
-                        ))}
-                        <span className="text-sm text-slate-500 ml-2">
-                          {problem.examples.length} example{problem.examples.length > 1 ? 's' : ''}
-                        </span>
-                      </div>
-                      <div className="flex items-center text-primary">
-                        <span className="text-sm font-medium mr-2">Solve Problem</span>
-                        <Target className="h-4 w-4" />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -347,28 +616,38 @@ const Practice = () => {
   if (!currentProblem) return null;
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative overflow-hidden">
       <FloatingElements />
       
       <div className="relative z-10 pt-24 pb-16">
-        <div className="container-width">
-          <div className="mb-6">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="mb-6"
+          >
             <Button 
               onClick={() => setSelectedProblem(null)}
-              className="btn-secondary"
+              variant="ghost"
+              className="text-slate-600 hover:text-slate-900 hover:bg-slate-100 p-3 rounded-xl"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeft className="h-5 w-5 mr-2" />
               Back to {currentAlgorithm?.name} Problems
             </Button>
-          </div>
+          </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Problem Description */}
-            <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
               <Card className="glass-panel border-0 shadow-xl">
-                <CardHeader>
+                <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-dm-sans text-2xl text-slate-900">
+                    <CardTitle className="text-3xl font-bold text-slate-900">
                       {currentProblem.title}
                     </CardTitle>
                     <Badge variant={currentProblem.difficulty === 'Easy' ? 'secondary' : currentProblem.difficulty === 'Medium' ? 'outline' : 'destructive'}>
@@ -376,17 +655,39 @@ const Practice = () => {
                     </Badge>
                   </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-6">
                   <div className="prose prose-slate max-w-none">
-                    <p className="text-slate-700 leading-relaxed mb-6">
+                    <p className="text-slate-700 leading-relaxed text-lg mb-6">
                       {currentProblem.description}
                     </p>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-                      <p className="text-slate-700 text-sm leading-relaxed">
-                        <strong className="text-blue-700">Algorithm Connection:</strong> {currentProblem.detailedDescription}
-                      </p>
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 mb-6">
+                      <div className="flex items-start space-x-3">
+                        <Brain className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-blue-900 mb-2">Algorithm Connection</h4>
+                          <p className="text-blue-800 leading-relaxed">
+                            {currentProblem.detailedDescription}
+                          </p>
+                        </div>
+                      </div>
                     </div>
+
+                    {currentProblem.keyPoints && (
+                      <div className="mb-6">
+                        <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center">
+                          <Target className="h-5 w-5 text-emerald-500 mr-2" />
+                          Key Concepts
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {currentProblem.keyPoints.map((point, index) => (
+                            <span key={index} className="px-3 py-2 bg-emerald-100 text-emerald-700 rounded-lg text-sm font-medium">
+                              {point}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
                       <Lightbulb className="h-5 w-5 text-amber-500 mr-2" />
@@ -394,149 +695,186 @@ const Practice = () => {
                     </h4>
                     
                     {currentProblem.examples.map((example, index) => (
-                      <div key={index} className="glass-panel p-4 rounded-xl mb-4">
-                        <div className="space-y-3">
-                          <div className="bg-slate-100 p-3 rounded-lg">
-                            <span className="font-medium text-slate-700">Input: </span>
-                            <code className="text-sm bg-white px-2 py-1 rounded">
+                      <div key={index} className="glass-panel p-6 rounded-2xl mb-4 border border-slate-200">
+                        <div className="space-y-4">
+                          <div className="bg-slate-100 p-4 rounded-xl">
+                            <span className="font-semibold text-slate-700 block mb-2">Input:</span>
+                            <code className="text-sm bg-white px-3 py-2 rounded-lg border text-slate-800 block">
                               {example.input}
                             </code>
                           </div>
-                          <div className="bg-green-100 p-3 rounded-lg">
-                            <span className="font-medium text-green-700">Output: </span>
-                            <code className="text-sm bg-white px-2 py-1 rounded">
+                          <div className="bg-green-50 p-4 rounded-xl border border-green-200">
+                            <span className="font-semibold text-green-700 block mb-2">Output:</span>
+                            <code className="text-sm bg-white px-3 py-2 rounded-lg border text-slate-800 block">
                               {example.output}
                             </code>
                           </div>
-                          <div className="bg-blue-100 p-3 rounded-lg">
-                            <span className="font-medium text-blue-700">Explanation: </span>
-                            <span className="text-sm text-slate-700">{example.explanation}</span>
+                          <div className="bg-blue-50 p-4 rounded-xl border border-blue-200">
+                            <span className="font-semibold text-blue-700 block mb-2">Explanation:</span>
+                            <p className="text-sm text-slate-700 leading-relaxed">{example.explanation}</p>
                           </div>
                         </div>
                       </div>
                     ))}
+
+                    {currentProblem.hints && (
+                      <div className="mt-6">
+                        <h4 className="text-lg font-semibold text-slate-900 mb-3 flex items-center">
+                          <HelpCircle className="h-5 w-5 text-purple-500 mr-2" />
+                          Hints
+                        </h4>
+                        <div className="space-y-2">
+                          {currentProblem.hints.map((hint, index) => (
+                            <div key={index} className="bg-purple-50 border border-purple-200 p-4 rounded-xl">
+                              <p className="text-purple-800 text-sm leading-relaxed">
+                                <strong>Hint {index + 1}:</strong> {hint}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
 
             {/* Code Editor and Results */}
-            <div className="space-y-6">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-6"
+            >
               {/* Code Editor */}
               <Card className="glass-panel border-0 shadow-xl">
-                <CardHeader>
+                <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="font-dm-sans text-xl text-slate-900 flex items-center">
-                      <Code className="mr-3 h-5 w-5 text-primary" />
+                    <CardTitle className="text-xl font-bold text-slate-900 flex items-center">
+                      <Code className="mr-3 h-6 w-6 text-blue-600" />
                       Code Editor
                     </CardTitle>
                     <div className="flex space-x-3">
                       <Button
-                        onClick={() => setOutput('💡 Hint: Think about the key properties of ' + currentAlgorithm?.name.toLowerCase() + ' and how they apply to this problem!')}
-                        className="btn-secondary"
+                        onClick={() => setOutput('💡 Hint: ' + (currentProblem.hints?.[0] || 'Think about the key properties of ' + currentAlgorithm?.name.toLowerCase() + ' and how they apply to this problem!'))}
+                        variant="outline"
                         size="sm"
+                        className="border-amber-200 text-amber-700 hover:bg-amber-50"
                       >
                         <HelpCircle className="h-4 w-4 mr-2" />
-                        Hint
+                        Get Hint
                       </Button>
                       <Button
                         onClick={handleRunCode}
                         disabled={isRunning}
-                        className="btn-primary"
+                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg"
                       >
-                        <Play className="h-4 w-4 mr-2" />
-                        {isRunning ? 'Running...' : 'Run Code'}
+                        {isRunning ? (
+                          <>
+                            <div className="animate-spin h-4 w-4 mr-2 border-2 border-white border-t-transparent rounded-full" />
+                            Running...
+                          </>
+                        ) : (
+                          <>
+                            <Play className="h-4 w-4 mr-2" />
+                            Run Code
+                          </>
+                        )}
                       </Button>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="code-editor rounded-xl p-4">
+                  <div className="code-editor rounded-2xl p-6 bg-slate-900 border">
                     <Textarea
                       value={code || currentProblem.template}
                       onChange={(e) => setCode(e.target.value)}
-                      className="min-h-[400px] bg-transparent border-0 text-emerald-400 font-mono resize-none focus-visible:ring-0"
+                      className="min-h-[400px] bg-transparent border-0 text-emerald-400 font-mono text-sm resize-none focus-visible:ring-0 placeholder:text-slate-500"
                       placeholder="Write your solution here..."
                     />
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Output and Test Results */}
-              <div className="grid gap-6">
-                {/* Console Output */}
+              {/* Console Output */}
+              <Card className="glass-panel border-0 shadow-xl">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl font-bold text-slate-900 flex items-center">
+                    <Brain className="mr-2 h-6 w-6 text-purple-600" />
+                    Console Output
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="bg-slate-900 rounded-2xl p-6 font-mono text-sm min-h-[150px] border">
+                    <pre className="text-emerald-400 whitespace-pre-wrap leading-relaxed">
+                      {output || '👋 Welcome to AlgoFlow Practice!\n\n🚀 Write your solution and click "Run Code"\n💡 Use "Get Hint" if you need guidance\n\n✨ Happy coding!'}
+                    </pre>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Test Results */}
+              {testResults.length > 0 && (
                 <Card className="glass-panel border-0 shadow-xl">
-                  <CardHeader>
-                    <CardTitle className="font-dm-sans text-lg text-slate-900 flex items-center">
-                      <Brain className="mr-2 h-5 w-5 text-purple-600" />
-                      Console Output
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl font-bold text-slate-900 flex items-center">
+                      <Trophy className="mr-2 h-6 w-6 text-amber-600" />
+                      Test Results
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="bg-slate-950 rounded-xl p-4 font-mono text-sm min-h-[150px]">
-                      <pre className="text-emerald-400 whitespace-pre-wrap">
-                        {output || '👋 Welcome to AlgoFlow Practice!\n\n🚀 Write your solution and click "Run Code"\n💡 Use "Hint" if you need guidance\n\n✨ Happy coding!'}
-                      </pre>
+                    <div className="space-y-4">
+                      {testResults.map((test, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className={`p-4 rounded-xl border-l-4 ${
+                            test.passed
+                              ? 'border-emerald-500 bg-emerald-50'
+                              : 'border-red-500 bg-red-50'
+                          }`}
+                        >
+                          <div className="flex items-center space-x-3 mb-2">
+                            {test.passed ? (
+                              <CheckCircle className="h-5 w-5 text-emerald-500" />
+                            ) : (
+                              <XCircle className="h-5 w-5 text-red-500" />
+                            )}
+                            <span className="font-semibold text-slate-900">
+                              {test.input}
+                            </span>
+                          </div>
+                          {!test.passed && (
+                            <div className="text-sm space-y-2 ml-8">
+                              <div className="text-red-600">
+                                Expected: <code className="bg-white px-2 py-1 rounded border">{test.expected}</code>
+                              </div>
+                              <div className="text-red-600">
+                                Got: <code className="bg-white px-2 py-1 rounded border">{test.actual}</code>
+                              </div>
+                            </div>
+                          )}
+                        </motion.div>
+                      ))}
+                      
+                      <Button
+                        className={`w-full text-lg py-6 mt-6 shadow-lg ${
+                          testResults.every(test => test.passed)
+                            ? 'bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white'
+                            : 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                        }`}
+                        disabled={!testResults.every(test => test.passed)}
+                      >
+                        <Trophy className="mr-2 h-5 w-5" />
+                        {testResults.every(test => test.passed) ? 'Submit Solution' : 'Fix Issues to Submit'}
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
-
-                {/* Test Results */}
-                {testResults.length > 0 && (
-                  <Card className="glass-panel border-0 shadow-xl">
-                    <CardHeader>
-                      <CardTitle className="font-dm-sans text-lg text-slate-900 flex items-center">
-                        <Trophy className="mr-2 h-5 w-5 text-amber-600" />
-                        Test Results
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        {testResults.map((test, index) => (
-                          <div
-                            key={index}
-                            className={`p-4 rounded-xl border-l-4 ${
-                              test.passed
-                                ? 'border-emerald-500 bg-emerald-50'
-                                : 'border-red-500 bg-red-50'
-                            }`}
-                          >
-                            <div className="flex items-center space-x-3 mb-2">
-                              {test.passed ? (
-                                <CheckCircle className="h-5 w-5 text-emerald-500" />
-                              ) : (
-                                <XCircle className="h-5 w-5 text-red-500" />
-                              )}
-                              <span className="font-medium text-slate-900">
-                                {test.input}
-                              </span>
-                            </div>
-                            {!test.passed && (
-                              <div className="text-sm space-y-1 ml-8">
-                                <div className="text-red-600">
-                                  Expected: <code className="bg-white px-2 py-1 rounded">{test.expected}</code>
-                                </div>
-                                <div className="text-red-600">
-                                  Got: <code className="bg-white px-2 py-1 rounded">{test.actual}</code>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                        
-                        <Button
-                          className="w-full btn-primary text-lg py-4"
-                          disabled={!testResults.every(test => test.passed)}
-                        >
-                          <Trophy className="mr-2 h-5 w-5" />
-                          {testResults.every(test => test.passed) ? 'Submit Solution' : 'Fix Issues to Submit'}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            </div>
+              )}
+            </motion.div>
           </div>
         </div>
       </div>
