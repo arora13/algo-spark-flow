@@ -44,9 +44,9 @@ const About = () => {
   ];
 
   const stats = [
-    { number: '8+', label: 'Core Algorithms' },
-    { number: '25+', label: 'Practice Problems' },
-    { number: '100+', label: 'Interactive Steps' },
+    { number: '6', label: 'Core Algorithms' },
+    { number: '15+', label: 'Practice Problems' },
+    { number: 'Unlimited', label: 'User Interaction' },
     { number: '24/7', label: 'Available Learning' }
   ];
 
