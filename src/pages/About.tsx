@@ -27,7 +27,7 @@ const About = () => {
     {
       icon: Target,
       title: 'Targeted Learning',
-      description: 'Curriculum specifically designed for AP Computer Science and early college students.',
+      description: 'Curriculum specifically designed for High School and Early College students.',
       color: 'from-green-500 to-emerald-500'
     },
     {
@@ -93,7 +93,7 @@ const About = () => {
                       by combining visual storytelling with hands-on practice.
                     </p>
                     <p className="text-lg text-slate-700 leading-relaxed mb-8">
-                      Our platform is designed specifically for AP Computer Science and early college 
+                      Our platform is designed specifically for High School and Early College 
                       students who want to build a solid foundation in algorithmic thinking and 
                       problem-solving skills.
                     </p>
@@ -234,7 +234,7 @@ const About = () => {
                     Ready to Master Algorithms?
                   </h2>
                   <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                    Join thousands of students who have transformed their understanding 
+                    Join our community of students who hope to transform their understanding 
                     of computer science through visual learning and hands-on practice.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
