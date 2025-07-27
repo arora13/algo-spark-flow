@@ -107,8 +107,7 @@ const Index = () => {
             
             <p className="text-xl lg:text-2xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: '0.2s' }}>
               The perfect platform for High School and Early College students to understand 
-              core algorithms through <span className="font-semibold text-primary">stunning animations</span> and 
-              <span className="font-semibold text-purple-600"> hands-on practice</span>.
+              core algorithms through stunning animations and <span className="font-semibold text-purple-600"> hands-on practice</span>.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 animate-slide-up" style={{ animationDelay: '0.3s' }}>
