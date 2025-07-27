@@ -81,7 +81,7 @@ const Index = () => {
   const stats = [
     { number: '6', label: 'Core Algorithms', icon: Brain },
     { number: '15+', label: 'Practice Problems', icon: Code },
-    { number: 'Unlimited+', label: 'User Interaction', icon: Users },
+    { number: 'Unlimited', label: 'User Interaction', icon: Users },
     { number: '95%', label: 'Success Rate', icon: Star }
   ];
 
