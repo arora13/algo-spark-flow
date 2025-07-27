@@ -69,7 +69,7 @@ const Index = () => {
     {
       icon: Target,
       title: 'AP CS Focused',
-      description: 'Curriculum-aligned content designed specifically for AP Computer Science and early college students.'
+      description: 'Curriculum-aligned content designed specifically for High School and Early College students.'
     },
     {
       icon: Lightbulb,
@@ -80,8 +80,8 @@ const Index = () => {
 
   const stats = [
     { number: '6', label: 'Core Algorithms', icon: Brain },
-    { number: '50+', label: 'Practice Problems', icon: Code },
-    { number: '10K+', label: 'Students Learning', icon: Users },
+    { number: '15+', label: 'Practice Problems', icon: Code },
+    { number: 'Unlimited+', label: 'User Interaction', icon: Users },
     { number: '95%', label: 'Success Rate', icon: Star }
   ];
 
@@ -106,7 +106,7 @@ const Index = () => {
             </h1>
             
             <p className="text-xl lg:text-2xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              The perfect platform for AP Computer Science and college students to understand 
+              The perfect platform for High School and Early College students to understand 
               core algorithms through <span className="font-semibold text-primary">stunning animations</span> and 
               <span className="font-semibold text-purple-600"> hands-on practice</span>.
             </p>
@@ -216,7 +216,7 @@ const Index = () => {
               Ready to <span className="bg-gradient-primary bg-clip-text text-transparent">Master Algorithms</span>?
             </h2>
             <p className="text-xl text-slate-600 mb-10 leading-relaxed">
-              Join thousands of students who are excelling in their computer science studies 
+              Join our community of students who are excelling in their computer science studies 
               with our interactive learning platform designed specifically for visual learners.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
