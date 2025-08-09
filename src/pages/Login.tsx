@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,41 +13,67 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
   const { login, signup, user } = useAuth();
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (user) {
-      navigate('/dashboard');
-    }
+    if (user) navigate('/dashboard');
   }, [user, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErr(null);
     setIsLoading(true);
-    
-    const success = await login(email, password);
-    if (success) {
-      navigate('/dashboard');
-    } else {
-      alert('Login failed. Please check your credentials.');
+    try {
+      const ok = await login?.(email.trim(), password);
+      if (ok) {
+        navigate('/dashboard');
+      } else {
+        setErr('Login failed. Check your email and password.');
+      }
+    } catch (e: any) {
+      setErr(e?.message || 'Something went wrong while logging in.');
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErr(null);
     setIsLoading(true);
-    
-    const success = await signup(email, password, name);
-    if (success) {
-      navigate('/dashboard');
-    } else {
-      alert('Signup failed. Please try again.');
+    try {
+      const ok = await signup?.(email.trim(), password, name.trim());
+      if (ok) {
+        navigate('/dashboard');
+      } else {
+        setErr('Signup failed. Please try a different email or password.');
+      }
+    } catch (e: any) {
+      setErr(e?.message || 'Something went wrong while creating your account.');
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
+  };
+
+  const handleDemoLogin = async () => {
+    setErr(null);
+    setIsLoading(true);
+    try {
+      // Change these if your AuthContext expects specific demo creds
+      const ok = await login?.('demo@algoflow.dev', 'demo1234');
+      if (ok) {
+        navigate('/dashboard');
+      } else {
+        setErr('Demo login is disabled. Ask an admin to enable it.');
+      }
+    } catch (e: any) {
+      setErr(e?.message || 'Could not perform demo login.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -73,7 +98,13 @@ const Login = () => {
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
-              
+
+              {err && (
+                <div className="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-200">
+                  {err}
+                </div>
+              )}
+
               <TabsContent value="login">
                 <form onSubmit={handleLogin} className="space-y-6">
                   <div className="space-y-2">
@@ -88,10 +119,11 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         className="pl-10"
                         required
+                        autoComplete="email"
                       />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="password">Password</Label>
                     <div className="relative">
@@ -104,20 +136,31 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         className="pl-10"
                         required
+                        autoComplete="current-password"
                       />
                     </div>
                   </div>
-                  
+
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-primary hover:opacity-90 text-white rounded-full py-3 font-medium transition-all duration-200 hover:scale-105"
+                    className="w-full bg-gradient-primary hover:opacity-90 text-white rounded-full py-3 font-medium transition-all duration-200 hover:scale-105 disabled:opacity-60"
                   >
                     {isLoading ? 'Signing in...' : 'Sign In'}
                   </Button>
+
+                  <Button
+                    type="button"
+                    onClick={handleDemoLogin}
+                    disabled={isLoading}
+                    variant="outline"
+                    className="w-full rounded-full py-3 font-medium mt-2"
+                  >
+                    {isLoading ? 'Please wait...' : 'Try Demo Login'}
+                  </Button>
                 </form>
               </TabsContent>
-              
+
               <TabsContent value="signup">
                 <form onSubmit={handleSignup} className="space-y-6">
                   <div className="space-y-2">
@@ -132,10 +175,11 @@ const Login = () => {
                         onChange={(e) => setName(e.target.value)}
                         className="pl-10"
                         required
+                        autoComplete="name"
                       />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="signup-email">Email</Label>
                     <div className="relative">
@@ -148,10 +192,11 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         className="pl-10"
                         required
+                        autoComplete="email"
                       />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Password</Label>
                     <div className="relative">
@@ -164,14 +209,15 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         className="pl-10"
                         required
+                        autoComplete="new-password"
                       />
                     </div>
                   </div>
-                  
+
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-primary hover:opacity-90 text-white rounded-full py-3 font-medium transition-all duration-200 hover:scale-105"
+                    className="w-full bg-gradient-primary hover:opacity-90 text-white rounded-full py-3 font-medium transition-all duration-200 hover:scale-105 disabled:opacity-60"
                   >
                     {isLoading ? 'Creating account...' : 'Create Account'}
                   </Button>
@@ -192,7 +238,7 @@ const Login = () => {
 
         <div className="mt-8 text-center">
           <p className="text-gray-600">
-            Demo credentials: Use any email and password to login
+            Demo credentials: click “Try Demo Login”, or use any email and password if your AuthContext allows it.
           </p>
         </div>
       </div>

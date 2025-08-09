@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -17,12 +16,14 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b">
       <div className="container-width">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Emoji Logo */}
           <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center text-white text-lg">
+              🚀
             </div>
-            <span className="text-xl font-bold text-slate-900 font-dm-sans">AlgoFlow</span>
+            <span className="text-xl font-bold text-slate-900 font-dm-sans">
+              Algo Spark Flow
+            </span>
           </Link>
 
           {/* Navigation Links */}

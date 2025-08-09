@@ -1,37 +1,32 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import FloatingElements from '@/components/FloatingElements';
-import { 
-  Brain, Code, Target, Users, BookOpen, Lightbulb, 
-  ChevronRight, Star, Award, Zap, Heart 
-} from 'lucide-react';
 
 const About = () => {
   const features = [
     {
-      icon: Brain,
+      emoji: '🧠',
       title: 'Visual Learning',
       description: 'Interactive animations that break down complex algorithms into understandable steps.',
       color: 'from-blue-500 to-cyan-500'
     },
     {
-      icon: Code,
+      emoji: '💻',
       title: 'Hands-On Practice',
       description: 'LeetCode-style coding challenges that reinforce theoretical knowledge with practical application.',
       color: 'from-purple-500 to-pink-500'
     },
     {
-      icon: Target,
+      emoji: '🎯',
       title: 'Targeted Learning',
       description: 'Curriculum specifically designed for High School and Early College students.',
       color: 'from-green-500 to-emerald-500'
     },
     {
-      icon: Lightbulb,
+      emoji: '💡',
       title: 'Step-by-Step Guidance',
       description: 'Clear explanations, hints, and pseudocode to help you understand each algorithm deeply.',
       color: 'from-amber-500 to-orange-500'
@@ -63,8 +58,8 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-20"
           >
-            <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
-              <Brain className="h-10 w-10 text-white" />
+            <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl text-4xl">
+              🧠
             </div>
             <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent">
               About AlgoFlow
@@ -97,15 +92,15 @@ const About = () => {
                       students who want to build a solid foundation in algorithmic thinking and 
                       problem-solving skills.
                     </p>
-                    <div className="flex items-center space-x-4">
-                      <Heart className="h-6 w-6 text-red-500" />
+                    <div className="flex items-center space-x-4 text-lg">
+                      ❤️
                       <span className="text-slate-700 font-medium">Made with passion for education</span>
                     </div>
                   </div>
                   <div className="relative">
                     <div className="w-80 h-80 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full mx-auto flex items-center justify-center">
-                      <div className="w-60 h-60 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
-                        <Users className="h-24 w-24 text-white" />
+                      <div className="w-60 h-60 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl text-6xl">
+                        👥
                       </div>
                     </div>
                   </div>
@@ -140,8 +135,8 @@ const About = () => {
                 >
                   <Card className="glass-panel border-0 shadow-xl hover:shadow-2xl transition-all duration-300 h-full">
                     <CardContent className="p-8">
-                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
-                        <feature.icon className="h-8 w-8 text-white" />
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform text-2xl`}>
+                        {feature.emoji}
                       </div>
                       <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
                         {feature.title}
@@ -229,7 +224,7 @@ const About = () => {
             <Card className="glass-panel border-0 shadow-2xl">
               <CardContent className="p-12">
                 <div className="max-w-2xl mx-auto">
-                  <Star className="h-12 w-12 text-amber-500 mx-auto mb-6" />
+                  <div className="text-5xl mb-6">⭐</div>
                   <h2 className="text-3xl font-bold text-slate-900 mb-6">
                     Ready to Master Algorithms?
                   </h2>
@@ -240,15 +235,12 @@ const About = () => {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link to="/learn">
                       <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300">
-                        <BookOpen className="mr-2 h-5 w-5" />
-                        Start Learning
+                        📖 Start Learning
                       </Button>
                     </Link>
                     <Link to="/practice">
                       <Button variant="outline" className="border-2 border-slate-300 hover:border-slate-400 px-8 py-4 text-lg hover:bg-slate-50 transition-all duration-300">
-                        <Code className="mr-2 h-5 w-5" />
-                        Practice Problems
-                        <ChevronRight className="ml-2 h-5 w-5" />
+                        💻 Practice Problems ➡️
                       </Button>
                     </Link>
                   </div>

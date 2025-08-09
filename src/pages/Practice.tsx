@@ -7,8 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import FloatingElements from '@/components/FloatingElements';
 import { 
   Play, Code, ArrowLeft, CheckCircle, XCircle, Target, 
-  Brain, Clock, HelpCircle, Trophy, Lightbulb, Pause,
-  RotateCcw, ChevronRight
+  Brain, HelpCircle, Trophy, Lightbulb, ChevronRight
 } from 'lucide-react';
 
 const Practice = () => {
@@ -19,11 +18,17 @@ const Practice = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [testResults, setTestResults] = useState<Array<{passed: boolean, input: string, expected: string, actual: string}>>([]);
 
+  const sanitize = (s: string) =>
+    s
+      .replace(/([\u2190-\u21FF]|\p{Extended_Pictographic})/gu, '') // strip arrows and emoji
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+
   const algorithms = [
     {
       id: 'merge-sort',
       name: 'Merge Sort',
-      description: 'Master divide-and-conquer with these challenging problems',
+      description: 'Master divide and conquer with these challenging problems',
       problemCount: 3,
       difficulty: 'Medium',
       color: 'from-blue-400 to-cyan-400'
@@ -61,7 +66,7 @@ const Practice = () => {
         title: 'Merge Intervals',
         difficulty: 'Medium',
         description: 'Given an array of intervals, merge all overlapping intervals and return an array of non-overlapping intervals.',
-        detailedDescription: 'This problem tests your understanding of the merge process in merge sort. You\'ll need to sort intervals by start time, then merge overlapping ones - similar to how merge sort combines sorted subarrays.',
+        detailedDescription: 'This problem tests your understanding of the merge process in merge sort. You need to sort intervals by start time, then merge overlapping ones, similar to how merge sort combines sorted subarrays.',
         keyPoints: ['Sorting by start time', 'Merging overlapping intervals', 'Array manipulation'],
         hints: [
           'Sort the intervals by their start times first',
@@ -76,22 +81,22 @@ const Practice = () => {
           }
         ],
         template: `function merge(intervals) {
-    // Sort intervals by start time
-    // Merge overlapping intervals
-    // Return result
-    
-    return [];
+  // Sort intervals by start time
+  // Merge overlapping intervals
+  // Return result
+  
+  return [];
 }`
       },
       {
         id: 'sort-list',
         title: 'Sort Linked List',
         difficulty: 'Medium', 
-        description: 'Sort a linked list using merge sort algorithm with O(n log n) time complexity and O(1) space complexity.',
-        detailedDescription: 'Apply merge sort to a linked list! This challenges you to implement the divide-and-conquer approach without using extra space for arrays.',
+        description: 'Sort a linked list using merge sort with O(n log n) time and O(1) extra space.',
+        detailedDescription: 'Apply merge sort to a linked list. Implement the divide and conquer approach without using extra arrays.',
         keyPoints: ['Linked list manipulation', 'Divide and conquer', 'Space optimization'],
         hints: [
-          'Use fast and slow pointers to find the middle of the list',
+          'Use fast and slow pointers to find the middle',
           'Recursively sort the left and right halves',
           'Merge the two sorted halves together'
         ],
@@ -103,12 +108,12 @@ const Practice = () => {
           }
         ],
         template: `function sortList(head) {
-    // Implement merge sort for linked list
-    // Use fast/slow pointers to find middle
-    // Recursively sort left and right halves
-    // Merge sorted halves
-    
-    return head;
+  // Implement merge sort for linked list
+  // Use fast/slow pointers to find middle
+  // Recursively sort left and right halves
+  // Merge sorted halves
+  
+  return head;
 }`
       },
       {
@@ -116,12 +121,12 @@ const Practice = () => {
         title: 'Count Inversions',
         difficulty: 'Hard',
         description: 'Count the number of inversions in an array. An inversion is when a larger element appears before a smaller element.',
-        detailedDescription: 'This problem demonstrates how merge sort can solve more than just sorting. During the merge process, you can count how many inversions exist.',
+        detailedDescription: 'Use merge sort to count inversions during the merge step.',
         keyPoints: ['Inversion counting', 'Modified merge sort', 'Divide and conquer'],
         hints: [
-          'Use the merge sort framework but count inversions during merging',
+          'Use the merge sort framework and count during merging',
           'When taking from the right array, count inversions',
-          'The number of inversions is the number of elements remaining in the left array'
+          'The added inversions equal the number of elements remaining in the left array'
         ],
         examples: [
           {
@@ -131,11 +136,11 @@ const Practice = () => {
           }
         ],
         template: `function countInversions(arr) {
-    // Use merge sort approach
-    // Count inversions during merge process
-    // Return total count
-    
-    return 0;
+  // Use merge sort approach
+  // Count inversions during merge process
+  // Return total count
+  
+  return 0;
 }`
       }
     ],
@@ -144,35 +149,35 @@ const Practice = () => {
         id: 'kth-largest',
         title: 'Kth Largest Element',
         difficulty: 'Medium',
-        description: 'Find the kth largest element in an unsorted array using the quickselect algorithm.',
-        detailedDescription: 'This problem uses the partitioning concept from quicksort. Instead of sorting the entire array, we can find the kth largest element in O(n) average time.',
+        description: 'Find the kth largest element in an unsorted array using quickselect.',
+        detailedDescription: 'Use partitioning from quicksort to find kth largest in average O(n) time.',
         keyPoints: ['Quickselect algorithm', 'Partitioning', 'Average O(n) time'],
         hints: [
           'Use the partition function from quicksort',
           'After partitioning, check which side contains the kth largest',
-          'Recursively search only the relevant partition'
+          'Recurse only on the relevant partition'
         ],
         examples: [
           {
             input: 'nums = [3,2,1,5,6,4], k = 2',
             output: '5',
-            explanation: 'The 2nd largest element is 5.'
+            explanation: 'The second largest element is 5.'
           }
         ],
         template: `function findKthLargest(nums, k) {
-    // Use quickselect algorithm
-    // Partition and recursively search
-    
-    return 0;
+  // Use quickselect algorithm
+  // Partition and recursively search
+  
+  return 0;
 }`
       },
       {
         id: 'sort-colors',
         title: 'Sort Colors (Dutch Flag)',
         difficulty: 'Medium',
-        description: 'Sort an array with only 0s, 1s, and 2s in-place using the Dutch National Flag algorithm.',
-        detailedDescription: 'This problem demonstrates the three-way partitioning technique used in quicksort when dealing with duplicate keys.',
-        keyPoints: ['Three-way partitioning', 'In-place sorting', 'Single pass algorithm'],
+        description: 'Sort an array with only 0s, 1s, and 2s in place using the Dutch National Flag algorithm.',
+        detailedDescription: 'Use three way partitioning to group equal keys efficiently.',
+        keyPoints: ['Three way partitioning', 'In place sorting', 'Single pass algorithm'],
         hints: [
           'Use three pointers: low, mid, and high',
           'Move 0s to the beginning and 2s to the end',
@@ -186,23 +191,23 @@ const Practice = () => {
           }
         ],
         template: `function sortColors(nums) {
-    // Implement Dutch National Flag algorithm
-    // Use three pointers for partitioning
-    
-    return nums;
+  // Implement Dutch National Flag algorithm
+  // Use three pointers for partitioning
+  
+  return nums;
 }`
       },
       {
         id: 'partition-labels',
         title: 'Partition Labels',
         difficulty: 'Medium',
-        description: 'Partition a string into as many parts as possible so that each letter appears in at most one part.',
-        detailedDescription: 'This problem requires partitioning strategy similar to quicksort, where we need to determine optimal split points.',
+        description: 'Partition a string into as many parts as possible so each letter appears in at most one part.',
+        detailedDescription: 'Find optimal split points using last occurrences of characters.',
         keyPoints: ['Greedy partitioning', 'Character frequency', 'Optimal splitting'],
         hints: [
-          'First, find the last occurrence of each character',
-          'Use a greedy approach to extend partitions',
-          'A partition ends when we reach the farthest last occurrence seen so far'
+          'Find the last occurrence of each character',
+          'Extend the current partition to the farthest last occurrence seen',
+          'Cut a partition when you reach that farthest index'
         ],
         examples: [
           {
@@ -212,10 +217,10 @@ const Practice = () => {
           }
         ],
         template: `function partitionLabels(s) {
-    // Find last occurrence of each character
-    // Use greedy partitioning strategy
-    
-    return [];
+  // Find last occurrence of each character
+  // Use greedy partitioning strategy
+  
+  return [];
 }`
       }
     ],
@@ -224,13 +229,13 @@ const Practice = () => {
         id: 'search-insert',
         title: 'Search Insert Position',
         difficulty: 'Easy',
-        description: 'Given a sorted array and a target value, return the index where target should be inserted to maintain sorted order.',
-        detailedDescription: 'This problem is a perfect introduction to binary search variations. Instead of just finding an element, you need to find the correct insertion position.',
+        description: 'Given a sorted array and a target value, return the index where target should be inserted.',
+        detailedDescription: 'Binary search variant that returns insertion point when not found.',
         keyPoints: ['Binary search variant', 'Insertion position', 'Sorted array'],
         hints: [
-          'Use standard binary search template',
-          'When target is not found, left pointer gives insertion position',
-          'Handle edge cases: target smaller/larger than all elements'
+          'Use standard binary search',
+          'When target is not found, left pointer is the insertion position',
+          'Handle edges where target is smaller or larger than all elements'
         ],
         examples: [
           {
@@ -245,50 +250,50 @@ const Practice = () => {
           }
         ],
         template: `function searchInsert(nums, target) {
-    // Use binary search
-    // Find exact position or insertion point
-    
-    return 0;
+  // Use binary search
+  // Find exact position or insertion point
+  
+  return 0;
 }`
       },
       {
         id: 'find-peak',
         title: 'Find Peak Element',
         difficulty: 'Medium',
-        description: 'Find a peak element in an array. A peak element is greater than its neighbors. Array may contain multiple peaks.',
-        detailedDescription: 'This problem shows how binary search can work on unsorted data when certain properties hold. The key insight is that you can always move toward the higher neighbor.',
+        description: 'Find a peak element in an array. A peak element is greater than its neighbors.',
+        detailedDescription: 'Binary search on unsorted data by always moving toward a higher neighbor.',
         keyPoints: ['Peak finding', 'Unsorted binary search', 'Neighbor comparison'],
         hints: [
           'Compare middle element with its neighbors',
-          'Move toward the side with higher neighbor',
-          'A peak always exists due to boundary conditions'
+          'Move toward the side with the higher neighbor',
+          'A peak always exists due to boundaries'
         ],
         examples: [
           {
             input: 'nums = [1,2,3,1]',
             output: '2',
-            explanation: 'Index 2 is a peak since nums[2] = 3 > nums[1] = 2 and nums[2] = 3 > nums[3] = 1.'
+            explanation: 'Index 2 is a peak since 3 is greater than both neighbors.'
           }
         ],
         template: `function findPeakElement(nums) {
-    // Use binary search approach
-    // Compare middle with neighbors
-    // Move toward higher neighbor
-    
-    return 0;
+  // Use binary search approach
+  // Compare middle with neighbors
+  // Move toward higher neighbor
+  
+  return 0;
 }`
       },
       {
         id: 'search-rotated',
         title: 'Search in Rotated Sorted Array',
         difficulty: 'Medium',
-        description: 'Search for a target in a rotated sorted array. The array was originally sorted, then rotated at some pivot.',
-        detailedDescription: 'This advanced binary search problem tests your ability to identify which half of the array maintains sorted order, then decide which half to search.',
+        description: 'Search for a target in a rotated sorted array.',
+        detailedDescription: 'Identify which half is sorted and decide which half to search.',
         keyPoints: ['Rotated array', 'Modified binary search', 'Sorted half identification'],
         hints: [
-          'Identify which half (left or right) is sorted',
+          'Identify which half is sorted',
           'Check if target lies within the sorted half',
-          'Search the appropriate half based on target location'
+          'Search the appropriate half'
         ],
         examples: [
           {
@@ -298,11 +303,11 @@ const Practice = () => {
           }
         ],
         template: `function search(nums, target) {
-    // Modified binary search
-    // Identify which half is sorted
-    // Check if target is in sorted half
-    
-    return -1;
+  // Modified binary search
+  // Identify which half is sorted
+  // Check if target is in sorted half
+  
+  return -1;
 }`
       }
     ],
@@ -311,108 +316,108 @@ const Practice = () => {
         id: 'bubble-sort-implementation',
         title: 'Implement Bubble Sort',
         difficulty: 'Easy',
-        description: 'Implement the bubble sort algorithm to sort an array in ascending order.',
-        detailedDescription: 'Bubble sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. This is a fundamental sorting algorithm that helps understand comparison-based sorting.',
+        description: 'Implement bubble sort to sort an array in ascending order.',
+        detailedDescription: 'Bubble sort repeatedly compares adjacent elements and swaps them if needed.',
         keyPoints: ['Adjacent comparisons', 'Swapping elements', 'Multiple passes'],
         hints: [
-          'Use nested loops - outer for passes, inner for comparisons',
-          'Compare adjacent elements and swap if needed',
-          'Optimize by reducing comparisons in each pass'
+          'Use nested loops for passes and comparisons',
+          'Swap when the left element is greater',
+          'Reduce comparisons each pass'
         ],
         examples: [
           {
             input: 'arr = [64, 34, 25, 12, 22, 11, 90]',
             output: '[11, 12, 22, 25, 34, 64, 90]',
-            explanation: 'Array is sorted using bubble sort with adjacent swaps.'
+            explanation: 'Array is sorted using adjacent swaps.'
           }
         ],
         template: `function bubbleSort(arr) {
-    // Implement bubble sort
-    // Use nested loops for comparisons
-    // Swap adjacent elements if needed
-    
-    return arr;
+  // Implement bubble sort
+  // Use nested loops for comparisons
+  // Swap adjacent elements if needed
+  
+  return arr;
 }`
       },
       {
         id: 'insertion-sort-implementation',
         title: 'Implement Insertion Sort',
         difficulty: 'Easy',
-        description: 'Implement the insertion sort algorithm to sort an array by building a sorted portion one element at a time.',
-        detailedDescription: 'Insertion sort builds the final sorted array one item at a time. It takes each element and inserts it into its correct position among the previously sorted elements.',
+        description: 'Implement insertion sort to build a sorted portion one element at a time.',
+        detailedDescription: 'Insert each element into its correct position among previously sorted elements.',
         keyPoints: ['Building sorted portion', 'Element insertion', 'Shifting elements'],
         hints: [
-          'Start from the second element (index 1)',
-          'Compare with elements before it and shift them right',
-          'Insert the current element in its correct position'
+          'Start from index 1',
+          'Shift larger elements right',
+          'Insert the key at the correct position'
         ],
         examples: [
           {
             input: 'arr = [5, 2, 4, 6, 1, 3]',
             output: '[1, 2, 3, 4, 5, 6]',
-            explanation: 'Each element is inserted into its correct position in the sorted portion.'
+            explanation: 'Each element is inserted into its place.'
           }
         ],
         template: `function insertionSort(arr) {
-    // Implement insertion sort
-    // Build sorted portion gradually
-    // Insert each element in correct position
-    
-    return arr;
+  // Implement insertion sort
+  // Build sorted portion gradually
+  // Insert each element in correct position
+  
+  return arr;
 }`
       },
       {
         id: 'selection-sort-implementation',
         title: 'Implement Selection Sort',
         difficulty: 'Easy',
-        description: 'Implement the selection sort algorithm by repeatedly finding the minimum element and placing it at the beginning.',
-        detailedDescription: 'Selection sort divides the array into sorted and unsorted portions. It repeatedly selects the smallest element from the unsorted portion and moves it to the end of the sorted portion.',
-        keyPoints: ['Finding minimum element', 'Swapping with first position', 'Expanding sorted portion'],
+        description: 'Implement selection sort by repeatedly finding the minimum and placing it at the beginning.',
+        detailedDescription: 'Divide the array into sorted and unsorted zones and expand the sorted zone.',
+        keyPoints: ['Finding minimum', 'Swap with first unsorted', 'Expand sorted portion'],
         hints: [
-          'Find the minimum element in the unsorted portion',
-          'Swap it with the first element of unsorted portion',
-          'Move the boundary between sorted and unsorted portions'
+          'Track index of the minimum in the unsorted zone',
+          'Swap with the first unsorted index',
+          'Repeat for the rest of the array'
         ],
         examples: [
           {
             input: 'arr = [29, 10, 14, 37, 13]',
             output: '[10, 13, 14, 29, 37]',
-            explanation: 'Repeatedly select minimum and place at correct position.'
+            explanation: 'Repeatedly select minimum and place it.'
           }
         ],
         template: `function selectionSort(arr) {
-    // Implement selection sort
-    // Find minimum in unsorted portion
-    // Swap with first unsorted element
-    
-    return arr;
+  // Implement selection sort
+  // Find minimum in unsorted portion
+  // Swap with first unsorted element
+  
+  return arr;
 }`
       },
       {
         id: 'sort-comparison',
         title: 'Sorting Algorithm Analysis',
         difficulty: 'Easy',
-        description: 'Compare the performance of bubble sort, insertion sort, and selection sort on different types of input arrays.',
-        detailedDescription: 'This problem helps you understand the practical differences between basic sorting algorithms by implementing a comparison function that analyzes their performance characteristics.',
-        keyPoints: ['Algorithm comparison', 'Performance analysis', 'Best/worst case scenarios'],
+        description: 'Compare bubble, insertion, and selection sort on different input arrays.',
+        detailedDescription: 'Implement all three and count operations on sorted, reverse, and random inputs.',
+        keyPoints: ['Algorithm comparison', 'Performance analysis', 'Best and worst cases'],
         hints: [
-          'Implement all three sorting algorithms',
-          'Count the number of comparisons and swaps',
-          'Test on different input types: sorted, reverse sorted, random'
+          'Count comparisons and swaps',
+          'Reset counts per algorithm',
+          'Return a summary object'
         ],
         examples: [
           {
             input: 'arr = [3, 1, 4, 1, 5], algorithms = ["bubble", "insertion", "selection"]',
             output: '{"bubble": {"comparisons": 10, "swaps": 5}, "insertion": {"comparisons": 6, "swaps": 4}, "selection": {"comparisons": 10, "swaps": 3}}',
-            explanation: 'Performance metrics for each sorting algorithm on the given input.'
+            explanation: 'Example metrics for a small input.'
           }
         ],
         template: `function compareSortingAlgorithms(arr, algorithms) {
-    // Implement bubble, insertion, and selection sort
-    // Count operations for each algorithm
-    // Return performance comparison
-    
-    return {};
+  // Implement bubble, insertion, and selection sort
+  // Count operations for each
+  // Return performance comparison
+  
+  return {};
 }`
       }
     ]
@@ -420,7 +425,7 @@ const Practice = () => {
 
   const handleRunCode = async () => {
     setIsRunning(true);
-    setOutput('🚀 Running your solution...\n⚡ Executing test cases...\n📊 Analyzing results...');
+    setOutput(sanitize('Running your solution...\nExecuting test cases...\nAnalyzing results...'));
     
     setTimeout(() => {
       const mockResults = [
@@ -431,7 +436,14 @@ const Practice = () => {
       
       setTestResults(mockResults);
       const passedCount = mockResults.filter(r => r.passed).length;
-      setOutput(`✅ Execution completed!\n📊 Results: ${passedCount}/${mockResults.length} test cases passed\n${passedCount === mockResults.length ? '🎉 Perfect! All tests passed!' : '🔍 Some tests failed. Check the results below.'}`);
+      setOutput(
+        sanitize(
+          `Execution completed!\nResults: ${passedCount}/${mockResults.length} test cases passed\n` +
+          (passedCount === mockResults.length
+            ? 'Perfect! All tests passed.'
+            : 'Some tests failed. Check the results below.')
+        )
+      );
       setIsRunning(false);
     }, 2500);
   };
@@ -454,8 +466,8 @@ const Practice = () => {
                 Algorithm Practice
               </h1>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                Master computer science algorithms through hands-on coding challenges. 
-                Each problem is carefully designed to reinforce core concepts and build problem-solving intuition.
+                Master computer science algorithms through hands on coding challenges. 
+                Each problem is designed to reinforce core concepts and build problem solving intuition.
               </p>
             </motion.div>
 
@@ -756,7 +768,17 @@ const Practice = () => {
                     </CardTitle>
                     <div className="flex space-x-3">
                       <Button
-                        onClick={() => setOutput('💡 Hint: ' + (currentProblem.hints?.[0] || 'Think about the key properties of ' + currentAlgorithm?.name.toLowerCase() + ' and how they apply to this problem!'))}
+                        onClick={() =>
+                          setOutput(
+                            sanitize(
+                              'Hint: ' +
+                                (currentProblem.hints?.[0] ||
+                                  'Think about the key properties of ' +
+                                    (currentAlgorithm?.name.toLowerCase() || 'the algorithm') +
+                                    ' and how they apply to this problem.')
+                            )
+                          )
+                        }
                         variant="outline"
                         size="sm"
                         className="border-amber-200 text-amber-700 hover:bg-amber-50"
@@ -807,7 +829,7 @@ const Practice = () => {
                 <CardContent>
                   <div className="bg-slate-900 rounded-2xl p-6 font-mono text-sm min-h-[150px] border">
                     <pre className="text-emerald-400 whitespace-pre-wrap leading-relaxed">
-                      {output || '👋 Welcome to AlgoFlow Practice!\n\n🚀 Write your solution and click "Run Code"\n💡 Use "Get Hint" if you need guidance\n\n✨ Happy coding!'}
+                      {output || 'Welcome to AlgoFlow Practice.\n\nWrite your solution and click "Run Code".\nUse "Get Hint" if you need guidance.\n\nHappy coding!'}
                     </pre>
                   </div>
                 </CardContent>
