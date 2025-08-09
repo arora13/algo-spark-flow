@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import FloatingElements from '@/components/FloatingElements';
-import {
-  Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle
-} from 'lucide-react';
+import { Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle } from 'lucide-react';
+
+const container = {
+  hidden: { opacity: 1 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
+  },
+};
+
+const barItem = {
+  hidden: { y: 40, opacity: 0, scale: 0.96 },
+  show: { y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 220, damping: 20 } },
+};
 
 const Learn = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState('merge-sort');
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+
+  const controls = useAnimation();
+  const [runKey, setRunKey] = useState(0);
+  const intervalRef = useRef<number | null>(null);
 
   const algorithms = [
     {
@@ -22,11 +38,11 @@ const Learn = () => {
       timeComplexity: 'O(n log n)',
       spaceComplexity: 'O(n)',
       description:
-        "Merge Sort is a divide-and-conquer algorithm that works by recursively breaking down a problem into smaller, more manageable sub-problems. It divides the array into two halves, sorts them separately, and then merges them back together in sorted order.",
+        'Merge Sort is a divide-and-conquer algorithm that works by recursively breaking down a problem into smaller, more manageable sub-problems. It divides the array into two halves, sorts them separately, and then merges them back together in sorted order.',
       detailedExplanation:
-        "The beauty of Merge Sort lies in its guaranteed performance. Unlike some other sorting algorithms that can degrade to O(n²) in worst-case scenarios, Merge Sort consistently delivers O(n log n) performance regardless of the input data. This makes it incredibly reliable for production systems where consistent performance is crucial.",
+        'The beauty of Merge Sort lies in its guaranteed performance. Unlike some other sorting algorithms that can degrade to O(n²) in worst-case scenarios, Merge Sort consistently delivers O(n log n) performance regardless of the input data. This makes it incredibly reliable for production systems where consistent performance is crucial.',
       realWorldUse:
-        "Used extensively in database systems, external sorting (when data doesn't fit in memory), and as the foundation for many hybrid algorithms like Timsort (used in Python's sort()).",
+        "Used extensively in database systems, external sorting when data doesn't fit in memory, and as the foundation for many hybrid algorithms like Timsort used in Python's sort().",
       steps: [
         'Divide the array into two equal halves',
         'Recursively sort the left half',
@@ -46,15 +62,15 @@ const Learn = () => {
       description:
         "Quick Sort is an efficient, in-place sorting algorithm that uses a divide-and-conquer approach. It works by selecting a 'pivot' element and partitioning the array so that elements smaller than the pivot come before it, and elements greater come after.",
       detailedExplanation:
-        "What makes Quick Sort special is its in-place nature and excellent average-case performance. By cleverly choosing pivots and partitioning around them, it can sort data without needing extra memory proportional to the input size. The key insight is that after each partition step, the pivot is in its final sorted position.",
+        'Quick Sort has excellent average-case performance and low memory overhead. After each partition step, the pivot is in its final position.',
       realWorldUse:
-        "Default sorting algorithm in many programming languages and libraries due to its excellent cache performance and low memory overhead. Used in C's qsort() and many implementations of JavaScript's Array.sort().",
+        "Default sorting algorithm in many languages due to cache friendliness and low memory overhead. Used in C's qsort and many JS Array.sort implementations.",
       steps: [
-        'Choose a pivot element (commonly the last element)',
-        'Partition: rearrange array so smaller elements go left, larger go right',
-        'Recursively apply Quick Sort to the left subarray',
-        'Recursively apply Quick Sort to the right subarray',
-        'The array is now sorted (no merge step needed)',
+        'Choose a pivot element',
+        'Partition left smaller, right larger',
+        'Recursively sort the left subarray',
+        'Recursively sort the right subarray',
+        'Array is sorted after partitions converge',
       ],
     },
     {
@@ -66,17 +82,17 @@ const Learn = () => {
       timeComplexity: 'O(log n)',
       spaceComplexity: 'O(1)',
       description:
-        'Binary Search is a highly efficient algorithm for finding a specific value in a sorted array. It works by repeatedly dividing the search interval in half, eliminating half of the remaining elements with each comparison.',
+        'Binary Search finds a value in a sorted array by repeatedly halving the search interval.',
       detailedExplanation:
-        'The power of Binary Search comes from its logarithmic time complexity. While a linear search might need to check every element (n comparisons), Binary Search can find any element in at most log₂(n) comparisons. For an array of 1 million elements, this means at most 20 comparisons instead of potentially 1 million!',
+        'Logarithmic comparisons make it extremely fast even on large inputs.',
       realWorldUse:
-        'Foundation of database indexing, search engines, and countless algorithms. Used in everything from finding entries in phone books to optimizing game AI decision trees.',
+        'Core of indexing, search engines, and many algorithms.',
       steps: [
         'Start with the entire sorted array',
         'Find the middle element',
-        'Compare target with middle element',
-        'If equal, found! If target is smaller, search left half; if larger, search right half',
-        'Repeat until element is found or search space is empty',
+        'Compare target with middle',
+        'If smaller, search left; if larger, search right',
+        'Repeat until found or interval empty',
       ],
     },
     {
@@ -88,17 +104,17 @@ const Learn = () => {
       timeComplexity: 'O(n²)',
       spaceComplexity: 'O(1)',
       description:
-        "Bubble Sort is one of the simplest sorting algorithms to understand and implement. It works by repeatedly stepping through the list, comparing adjacent elements and swapping them if they're in the wrong order.",
+        'Bubble Sort repeatedly compares adjacent elements and swaps them if out of order.',
       detailedExplanation:
-        'While Bubble Sort is not efficient for large datasets, it is excellent for learning fundamental sorting concepts. The algorithm gets its name because smaller elements "bubble" to the beginning of the list. Each pass through the array guarantees that the largest unsorted element reaches its correct position.',
+        'Simple to implement and good for teaching fundamentals.',
       realWorldUse:
-        'Primarily used for educational purposes and very small datasets where simplicity is more important than efficiency. Sometimes used as a subroutine in hybrid algorithms.',
+        'Education and very small arrays.',
       steps: [
-        'Start with the first element of the array',
-        'Compare each pair of adjacent elements',
-        'Swap them if they are in wrong order (left > right)',
-        'Continue until the end of array (largest element is now in place)',
-        'Repeat for the remaining unsorted portion until no swaps are needed',
+        'Start at the beginning',
+        'Compare adjacent elements',
+        'Swap if left larger than right',
+        'Largest moves to the end each pass',
+        'Repeat until no swaps are needed',
       ],
     },
     {
@@ -110,17 +126,17 @@ const Learn = () => {
       timeComplexity: 'O(n²) worst, O(n) best',
       spaceComplexity: 'O(1)',
       description:
-        "Insertion Sort builds the final sorted array one element at a time. It's similar to how you might sort playing cards in your hands - you pick up cards one by one and insert each into its proper position among the previously sorted cards.",
+        'Insertion Sort builds the final array by inserting each element into the correct position in the already sorted portion.',
       detailedExplanation:
-        'Insertion Sort is efficient for small datasets and nearly sorted data. Its best-case O(n) occurs when the array is already sorted, making it adaptive. It is often used as a subroutine in Quicksort for small subarrays.',
+        'Adaptive and efficient on nearly sorted data.',
       realWorldUse:
-        'Used for small arrays, nearly sorted data, and as a subroutine in hybrid algorithms like Introsort.',
+        'Used for small arrays and as a subroutine inside faster sorts.',
       steps: [
-        'Start with the second element (assume first element is sorted)',
-        'Compare current element with previous elements in sorted portion',
-        'Shift larger elements one position to the right',
-        'Insert current element in its correct position',
-        'Repeat for all remaining elements',
+        'Assume first element sorted',
+        'Pick next element as key',
+        'Shift larger elements right',
+        'Insert key at correct position',
+        'Repeat for all elements',
       ],
     },
     {
@@ -132,17 +148,17 @@ const Learn = () => {
       timeComplexity: 'O(n²)',
       spaceComplexity: 'O(1)',
       description:
-        'Selection Sort works by finding the minimum element from the unsorted portion and placing it at the beginning. It maintains two subarrays: the sorted portion at the beginning and the unsorted portion at the end.',
+        'Repeatedly select the minimum from the unsorted portion and place it at the start.',
       detailedExplanation:
-        'Selection Sort makes the minimum number of swaps—at most n-1 for an array of n elements—so it can be useful when the cost of writing is high.',
+        'Performs few swaps, useful when writes are costly.',
       realWorldUse:
-        'Useful when memory writes are expensive, for sorting small arrays, or when predictability is more important than speed.',
+        'Predictable behavior on small arrays.',
       steps: [
-        'Find the minimum element in the unsorted portion of array',
-        'Swap it with the first element of unsorted portion',
-        'Move the boundary between sorted and unsorted portions one position right',
-        'Repeat until the entire array is sorted',
-        'Each iteration places one more element in its final position',
+        'Find the minimum in the unsorted portion',
+        'Swap with the first unsorted index',
+        'Move boundary one step right',
+        'Repeat until fully sorted',
+        'Each pass fixes one element',
       ],
     },
   ];
@@ -150,25 +166,60 @@ const Learn = () => {
   const currentAlgorithm =
     algorithms.find((algo) => algo.id === selectedAlgorithm) || algorithms[0];
 
-  const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
-    if (!isPlaying && currentStep < currentAlgorithm.steps.length - 1) {
-      const interval = setInterval(() => {
-        setCurrentStep((prev) => {
-          if (prev >= currentAlgorithm.steps.length - 1) {
-            setIsPlaying(false);
-            clearInterval(interval);
-            return prev;
-          }
-          return prev + 1;
-        });
-      }, 2500);
+  useEffect(() => {
+    // cleanup any running interval if algorithm changes or component unmounts
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [selectedAlgorithm]);
+
+  const handlePlayPause = async () => {
+    if (isPlaying) {
+      setIsPlaying(false);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      return;
     }
+
+    // restart animation tree
+    setRunKey((k) => k + 1);
+    setIsPlaying(true);
+
+    // kick off stagger-in
+    requestAnimationFrame(async () => {
+      await controls.start('show');
+    });
+
+    // drive the step text
+    intervalRef.current = window.setInterval(() => {
+      setCurrentStep((prev) => {
+        if (prev >= currentAlgorithm.steps.length - 1) {
+          setIsPlaying(false);
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          return prev;
+        }
+        return prev + 1;
+      });
+    }, 2500);
   };
 
   const handleReset = () => {
     setIsPlaying(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
     setCurrentStep(0);
+    setRunKey((k) => k + 1);
+    controls.set('hidden');
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -205,14 +256,12 @@ const Learn = () => {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8">
-            {/* Algorithm Sidebar */}
+            {/* Sidebar */}
             <div className="lg:col-span-3">
               <Card className="glass-panel border-0 shadow-xl">
                 <CardHeader>
                   <CardTitle className="font-dm-sans text-xl text-slate-900 flex items-center">
-                    <span className="mr-3 h-6 w-6 flex items-center justify-center text-lg">
-                      🧠
-                    </span>
+                    <span className="mr-3 h-6 w-6 flex items-center justify-center text-lg">🧠</span>
                     Algorithms
                   </CardTitle>
                 </CardHeader>
@@ -220,14 +269,13 @@ const Learn = () => {
                   <div className="space-y-2 p-6">
                     {algorithms.map((algo) => {
                       const isSelected = selectedAlgorithm === algo.id;
-
                       return (
                         <button
                           key={algo.id}
                           onClick={() => {
                             setSelectedAlgorithm(algo.id);
                             setCurrentStep(0);
-                            setIsPlaying(false);
+                            handleReset();
                           }}
                           className={`w-full text-left p-4 rounded-xl transition-all duration-300 group ${
                             isSelected
@@ -278,9 +326,9 @@ const Learn = () => {
               </Card>
             </div>
 
-            {/* Main Content */}
+            {/* Main */}
             <div className="lg:col-span-9 space-y-8">
-              {/* Algorithm Overview */}
+              {/* Overview */}
               <Card className="glass-panel border-0 shadow-xl">
                 <CardHeader>
                   <div className="flex items-center space-x-4 mb-4">
@@ -369,65 +417,91 @@ const Learn = () => {
                     </div>
                   </div>
                 </CardHeader>
+
                 <CardContent>
-                  {/* Visualization Area */}
-                  <div className="h-80 glass-panel rounded-xl flex items-center justify-center mb-6 relative overflow-hidden">
+                  {/* Bars or Tiles */}
+                  <div className="glass-panel rounded-xl p-8 relative overflow-hidden">
                     <div className="bg-pattern" />
 
-                    {/* Algorithm Visualization */}
+                    {/* Sorting bars */}
                     {selectedAlgorithm.includes('sort') && (
-                      <div className="flex items-end space-x-3 z-10">
-                        {[64, 34, 25, 12, 22, 11, 90, 48].map((value, index) => (
-                          <div
-                            key={index}
-                            className={`w-12 rounded-t-lg transition-all duration-700 flex flex-col items-center justify-end ${
-                              index <= currentStep
-                                ? 'bg-gradient-primary shadow-lg transform scale-110'
-                                : 'bg-gradient-to-t from-slate-400 to-slate-300'
-                            }`}
-                            style={{ height: `${value * 2}px` }}
-                          >
-                            <div className="text-xs text-white font-bold mb-2 bg-slate-900/70 px-2 py-1 rounded">
-                              {value}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                      <motion.div
+                        key={runKey}
+                        className="flex items-end gap-4 z-10 justify-center"
+                        variants={container}
+                        initial="hidden"
+                        animate={controls}
+                      >
+                        {[64, 34, 25, 12, 22, 11, 90, 48].map((value, index) => {
+                          const active = index <= currentStep;
+                          return (
+                            <motion.div
+                              key={index}
+                              variants={barItem}
+                              className="relative flex items-end justify-center rounded-xl"
+                              style={{ width: 48, height: 280 }}
+                            >
+                              <div
+                                className={`w-full rounded-xl transition-all duration-500 ${
+                                  active
+                                    ? 'bg-gradient-primary shadow-lg scale-105'
+                                    : 'bg-gradient-to-t from-slate-400 to-slate-300'
+                                }`}
+                                style={{ height: Math.max(24, (value / 100) * 240) }}
+                              />
+                              <span className="absolute -bottom-7 text-xs font-semibold bg-slate-800 text-white px-2 py-1 rounded-md">
+                                {value}
+                              </span>
+                            </motion.div>
+                          );
+                        })}
+                      </motion.div>
                     )}
 
+                    {/* Binary search tiles */}
                     {selectedAlgorithm === 'binary-search' && (
-                      <div className="flex items-center space-x-3 z-10">
-                        {[1, 3, 5, 7, 9, 11, 13, 15, 17, 19].map((value, index) => (
-                          <div
-                            key={index}
-                            className={`w-14 h-14 flex items-center justify-center rounded-xl transition-all duration-700 font-bold ${
-                              index === Math.floor(10 / 2) && currentStep >= 1
-                                ? 'bg-gradient-primary text-white shadow-lg transform scale-110'
-                                : index <= currentStep
-                                ? 'bg-blue-100 text-blue-700 border-2 border-blue-300'
-                                : 'bg-slate-100 text-slate-500 border border-slate-300'
-                            }`}
-                          >
-                            {value}
-                          </div>
-                        ))}
-                      </div>
+                      <motion.div
+                        key={runKey}
+                        className="flex items-center gap-3 z-10 justify-center"
+                        variants={container}
+                        initial="hidden"
+                        animate={controls}
+                      >
+                        {[1, 3, 5, 7, 9, 11, 13, 15, 17, 19].map((value, index) => {
+                          const mid = Math.floor(10 / 2);
+                          const active = index <= currentStep;
+                          const isMid = index === mid && currentStep >= 1;
+                          return (
+                            <motion.div
+                              key={index}
+                              variants={barItem}
+                              className={`w-14 h-14 flex items-center justify-center rounded-xl font-bold transition-all duration-500
+                                ${isMid ? 'bg-gradient-primary text-white shadow-lg scale-110'
+                                  : active ? 'bg-blue-100 text-blue-700 border-2 border-blue-300'
+                                  : 'bg-slate-100 text-slate-500 border border-slate-300'}`}
+                            >
+                              {value}
+                            </motion.div>
+                          );
+                        })}
+                      </motion.div>
                     )}
+                  </div>
 
-                    <div className="absolute bottom-4 left-4 glass-panel p-4 rounded-xl max-w-md">
-                      <p className="text-sm font-medium text-slate-900 mb-1">
-                        <span className="text-primary">
-                          Step {currentStep + 1} of {currentAlgorithm.steps.length}
-                        </span>
-                      </p>
-                      <p className="text-slate-700 text-sm leading-relaxed">
-                        {currentAlgorithm.steps[currentStep]}
-                      </p>
-                    </div>
+                  {/* Caption moved below to avoid overlap */}
+                  <div className="mt-4 glass-panel p-4 rounded-xl">
+                    <p className="text-sm font-medium text-slate-900 mb-1">
+                      <span className="text-primary">
+                        Step {currentStep + 1} of {currentAlgorithm.steps.length}
+                      </span>
+                    </p>
+                    <p className="text-slate-700 text-sm leading-relaxed">
+                      {currentAlgorithm.steps[currentStep]}
+                    </p>
                   </div>
 
                   {/* Tabs */}
-                  <Tabs defaultValue="steps" className="w-full">
+                  <Tabs defaultValue="steps" className="w-full mt-6">
                     <TabsList className="grid w-full grid-cols-2 glass-panel">
                       <TabsTrigger
                         value="steps"
@@ -476,91 +550,72 @@ const Learn = () => {
 {selectedAlgorithm === 'merge-sort' && `MERGE_SORT(array, left, right):
     IF left < right:
         middle = (left + right) / 2
-        
         MERGE_SORT(array, left, middle)
         MERGE_SORT(array, middle + 1, right)
-        
         MERGE(array, left, middle, right)
 
 MERGE(array, left, middle, right):
-    Create temporary arrays for left and right subarrays
-    Copy data to temporary arrays
-    
-    WHILE both temporary arrays have elements:
+    Create temp arrays for left and right
+    Copy data to temps
+    WHILE both have elements:
         IF left_element <= right_element:
-            Place left_element in main array
+            Place left_element
         ELSE:
-            Place right_element in main array
-    
-    Copy remaining elements from both temporary arrays`}
+            Place right_element
+    Copy remaining elements`}
 {selectedAlgorithm === 'quick-sort' && `QUICK_SORT(array, low, high):
     IF low < high:
         pivot_index = PARTITION(array, low, high)
-        
         QUICK_SORT(array, low, pivot_index - 1)
         QUICK_SORT(array, pivot_index + 1, high)
 
 PARTITION(array, low, high):
     pivot = array[high]
     i = low - 1
-    
     FOR j = low TO high - 1:
         IF array[j] <= pivot:
             i = i + 1
-            SWAP array[i] and array[j]
-    
-    SWAP array[i + 1] and array[high]
+            SWAP array[i], array[j]
+    SWAP array[i + 1], array[high]
     RETURN i + 1`}
 {selectedAlgorithm === 'binary-search' && `BINARY_SEARCH(array, target):
     left = 0
-    right = length of array - 1
-    
+    right = n - 1
     WHILE left <= right:
-        middle = (left + right) / 2
-        
-        IF array[middle] = target:
-            RETURN middle
-        ELSE IF array[middle] < target:
-            left = middle + 1
+        mid = (left + right) / 2
+        IF array[mid] = target:
+            RETURN mid
+        ELSE IF array[mid] < target:
+            left = mid + 1
         ELSE:
-            right = middle - 1
-    
-    RETURN -1 (not found)`}
+            right = mid - 1
+    RETURN -1`}
 {selectedAlgorithm === 'bubble-sort' && `BUBBLE_SORT(array):
-    n = length of array
-    
+    n = length
     FOR i = 0 TO n - 2:
         swapped = false
-        
         FOR j = 0 TO n - 2 - i:
             IF array[j] > array[j + 1]:
-                SWAP array[j] and array[j + 1]
+                SWAP array[j], array[j + 1]
                 swapped = true
-        
-        IF swapped = false:
-            BREAK (array is sorted)`}
+        IF swapped = false: BREAK`}
 {selectedAlgorithm === 'insertion-sort' && `INSERTION_SORT(array):
-    FOR i = 1 TO length of array - 1:
+    FOR i = 1 TO n - 1:
         key = array[i]
         j = i - 1
-        
         WHILE j >= 0 AND array[j] > key:
             array[j + 1] = array[j]
             j = j - 1
-        
         array[j + 1] = key`}
 {selectedAlgorithm === 'selection-sort' && `SELECTION_SORT(array):
-    n = length of array
-    
+    n = length
     FOR i = 0 TO n - 2:
         min_index = i
-        
         FOR j = i + 1 TO n - 1:
             IF array[j] < array[min_index]:
                 min_index = j
-        
         IF min_index ≠ i:
-            SWAP array[i] and array[min_index]`}
+            SWAP array[i], array[min_index]`}
                         </pre>
                       </div>
                     </TabsContent>
