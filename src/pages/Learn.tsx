@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle } from 'lucide-react';
-
+import { generateAlgorithmSteps } from '@/lib/algorithms';
 const container = {
   hidden: { opacity: 1 },
   show: {
@@ -97,77 +97,14 @@ const Learn = () => {
 
   const currentAlgorithm = algorithms.find((algo) => algo.id === selectedAlgorithm) || algorithms[0];
 
-  // Sorting simulation functions
-  const simulateMergeSort = (arr) => {
-    const steps = [];
-    const tempArr = [...arr];
-    
-    // Simple merge sort simulation - just show progressive sorting
-    steps.push([...tempArr]); // Initial state
-    
-    // Step 1: Divide (visually show halves)
-    steps.push([...tempArr]);
-    
-    // Step 2: Sort left half
-    const leftHalf = tempArr.slice(0, 4).sort((a, b) => a - b);
-    const rightHalf = tempArr.slice(4);
-    steps.push([...leftHalf, ...rightHalf]);
-    
-    // Step 3: Sort right half
-    const sortedRight = rightHalf.sort((a, b) => a - b);
-    steps.push([...leftHalf, ...sortedRight]);
-    
-    // Step 4 & 5: Merge everything
-    const fullySorted = [...tempArr].sort((a, b) => a - b);
-    steps.push([...fullySorted]);
-    
-    return steps;
-  };
-
-  const simulateQuickSort = (arr) => {
-    const steps = [];
-    const tempArr = [...arr];
-    steps.push([...tempArr]); // Initial
-    
-    // Quick sort simulation
-    const pivot = tempArr[tempArr.length - 1];
-    steps.push([...tempArr]); // Choose pivot
-    
-    // Partition step
-    const smaller = tempArr.filter(x => x < pivot && x !== pivot);
-    const larger = tempArr.filter(x => x > pivot);
-    steps.push([...smaller, pivot, ...larger]);
-    
-    // Recursively sort (simplified)
-    const sortedSmaller = smaller.sort((a, b) => a - b);
-    steps.push([...sortedSmaller, pivot, ...larger]);
-    
-    const sortedLarger = larger.sort((a, b) => a - b);
-    steps.push([...sortedSmaller, pivot, ...sortedLarger]);
-    
-    return steps;
-  };
-
-  const simulateBinarySearch = (arr, target = 9) => {
-    const steps = [];
-    let left = 0;
-    let right = arr.length - 1;
-    
-    while (left <= right && steps.length < 5) {
-      const mid = Math.floor((left + right) / 2);
-      steps.push({ array: [...arr], left, right, mid, found: -1 });
-      
-      if (arr[mid] === target) {
-        steps.push({ array: [...arr], left, right, mid, found: mid });
-        break;
-      } else if (arr[mid] < target) {
-        left = mid + 1;
-      } else {
-        right = mid - 1;
-      }
+  // Build steps using shared generators
+  const buildSteps = (algoId: string) => {
+    const initialArray = [64, 34, 25, 12, 22, 11, 90, 48];
+    if (algoId === 'binary-search') {
+      const sorted = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+      return generateAlgorithmSteps(algoId, sorted, 9);
     }
-    
-    return steps;
+    return generateAlgorithmSteps(algoId, initialArray);
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import {
   Play, Code, ArrowLeft, CheckCircle, XCircle, Target, 
   Brain, HelpCircle, Trophy, Lightbulb, ChevronRight
 } from 'lucide-react';
+import { problemSpecs } from '@/lib/tests';
 
 const Practice = () => {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(null);
@@ -17,6 +18,32 @@ const Practice = () => {
   const [output, setOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
   const [testResults, setTestResults] = useState<Array<{passed: boolean, input: string, expected: string, actual: string}>>([]);
+
+  const workerRef = useRef<Worker | null>(null);
+
+  useEffect(() => {
+    const w = new Worker(new URL('../workers/codeRunner.ts', import.meta.url), { type: 'module' });
+    workerRef.current = w;
+    w.onmessage = (e: MessageEvent) => {
+      if (e.data?.error) {
+        setOutput(sanitize(`Error: ${e.data.error}`));
+        setTestResults([]);
+        setIsRunning(false);
+        return;
+      }
+      const results = (e.data?.results || []).map((r: any) => ({
+        passed: !!r.passed,
+        input: String(r.input),
+        expected: String(r.expected),
+        actual: String(r.actual),
+      }));
+      const passedCount = results.filter((r: any) => r.passed).length;
+      setTestResults(results);
+      setOutput(sanitize(`Execution completed!\nResults: ${passedCount}/${results.length} test cases passed`));
+      setIsRunning(false);
+    };
+    return () => { w.terminate(); workerRef.current = null; };
+  }, []);
 
   const sanitize = (s: string) =>
     s
@@ -423,30 +450,26 @@ const Practice = () => {
     ]
   };
 
-  const handleRunCode = async () => {
-    setIsRunning(true);
-    setOutput(sanitize('Running your solution...\nExecuting test cases...\nAnalyzing results...'));
-    
-    setTimeout(() => {
-      const mockResults = [
-        { passed: true, input: 'Test case 1', expected: '[1,2,3,4]', actual: '[1,2,3,4]' },
-        { passed: true, input: 'Test case 2', expected: '[0,1,2]', actual: '[0,1,2]' },
-        { passed: Math.random() > 0.3, input: 'Test case 3', expected: '[5,6,7]', actual: '[6,5,7]' }
-      ];
-      
-      setTestResults(mockResults);
-      const passedCount = mockResults.filter(r => r.passed).length;
-      setOutput(
-        sanitize(
-          `Execution completed!\nResults: ${passedCount}/${mockResults.length} test cases passed\n` +
-          (passedCount === mockResults.length
-            ? 'Perfect! All tests passed.'
-            : 'Some tests failed. Check the results below.')
-        )
-      );
-      setIsRunning(false);
-    }, 2500);
-  };
+const handleRunCode = async () => {
+  if (!selectedProblem) return;
+  setIsRunning(true);
+  setOutput(sanitize('Running your solution...\nExecuting test cases...'));
+
+  const spec = problemSpecs[selectedProblem];
+  if (!spec) {
+    setOutput(sanitize('No tests available for this problem yet.'));
+    setIsRunning(false);
+    return;
+  }
+
+  const codeToRun = code || currentProblem?.template || '';
+  if (!workerRef.current) {
+    setOutput(sanitize('Runner not ready. Please try again.'));
+    setIsRunning(false);
+    return;
+  }
+  workerRef.current.postMessage({ code: codeToRun, functionName: spec.functionName, tests: spec.tests, timeoutMs: 2000 });
+};
 
   if (!selectedAlgorithm) {
     // Algorithm Selection View
