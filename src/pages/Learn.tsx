@@ -93,7 +93,8 @@ const Learn = () => {
   const [sortedArray, setSortedArray] = useState([64, 34, 25, 12, 22, 11, 90, 48]);
   const [searchArray] = useState([1, 3, 5, 7, 9, 11, 13, 15, 17, 19]);
   const [targetFound, setTargetFound] = useState(-1);
-  const intervalRef = useRef(null);
+  const [searchMid, setSearchMid] = useState(-1);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const currentAlgorithm = algorithms.find((algo) => algo.id === selectedAlgorithm) || algorithms[0];
 
@@ -139,21 +140,18 @@ const Learn = () => {
     setAnimationState('show');
     setCurrentStep(0);
 
-    // Get the sorting steps based on algorithm
-    let steps = [];
     const initialArray = [64, 34, 25, 12, 22, 11, 90, 48];
-    
-    if (selectedAlgorithm === 'merge-sort') {
-      steps = simulateMergeSort(initialArray);
-    } else if (selectedAlgorithm === 'quick-sort') {
-      steps = simulateQuickSort(initialArray);
-    } else if (selectedAlgorithm === 'binary-search') {
-      const searchSteps = simulateBinarySearch(searchArray);
-      // Handle binary search separately
+
+    if (selectedAlgorithm === 'binary-search') {
+      const searchSteps = generateAlgorithmSteps('binary-search', searchArray, 9) as any[];
       let stepIndex = 0;
+      setSearchMid(searchSteps[0]?.mid ?? -1);
+      setTargetFound(-1);
+
       intervalRef.current = setInterval(() => {
         if (stepIndex < searchSteps.length) {
           setCurrentStep(stepIndex);
+          setSearchMid(searchSteps[stepIndex].mid);
           if (searchSteps[stepIndex].found !== -1) {
             setTargetFound(searchSteps[stepIndex].found);
           }
@@ -165,18 +163,19 @@ const Learn = () => {
             intervalRef.current = null;
           }
         }
-      }, 2000);
+      }, 800);
       return;
     }
 
-    // For sorting algorithms
+    // Sorting algorithms
+    const sortSteps = generateAlgorithmSteps(selectedAlgorithm, initialArray) as any[];
     let stepIndex = 0;
-    setSortedArray(steps[0]);
+    setSortedArray(sortSteps[0]?.array ?? initialArray);
 
     intervalRef.current = setInterval(() => {
       stepIndex++;
-      if (stepIndex < steps.length) {
-        setSortedArray(steps[stepIndex]);
+      if (stepIndex < sortSteps.length) {
+        setSortedArray(sortSteps[stepIndex].array);
         setCurrentStep(stepIndex);
       } else {
         setIsPlaying(false);
@@ -185,7 +184,7 @@ const Learn = () => {
           intervalRef.current = null;
         }
       }
-    }, 2000);
+    }, 500);
   };
 
   const handleReset = () => {
@@ -461,8 +460,7 @@ const Learn = () => {
                       {searchArray.map((value, index) => {
                         const isTarget = value === 9; // Looking for 9
                         const isFound = targetFound === index;
-                        const mid = Math.floor(searchArray.length / 2);
-                        const isMid = index === mid && currentStep >= 1;
+                        const isMid = index === searchMid;
                         
                         return (
                           <motion.div
@@ -514,11 +512,11 @@ const Learn = () => {
               >
                 <p className="text-sm font-medium text-slate-900 mb-1">
                   <span className="text-blue-600">
-                    Step {currentStep + 1} of {currentAlgorithm.steps.length}
+                    Step {Math.min(currentStep + 1, currentAlgorithm.steps.length)} of {currentAlgorithm.steps.length}
                   </span>
                 </p>
                 <p className="text-slate-700 text-sm leading-relaxed">
-                  {currentAlgorithm.steps[currentStep]}
+                  {currentAlgorithm.steps[Math.min(currentStep, currentAlgorithm.steps.length - 1)]}
                 </p>
               </motion.div>
 
