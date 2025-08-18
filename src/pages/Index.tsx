@@ -214,7 +214,8 @@ const Index = () => {
               with our interactive learning platform designed specifically for visual learners.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/signup">
+              {/* FIXED: Route changed from /signup (causing 404) to /practice which exists */}
+              <Link to="/practice">
                 <Button className="btn-primary group text-lg px-10 py-5">
                   🧠 Get Started Free
                 </Button>
