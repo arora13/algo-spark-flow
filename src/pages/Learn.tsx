@@ -164,7 +164,7 @@ const Learn = () => {
             intervalRef.current = null;
           }
         }
-      }, 800);
+      }, 1500);
       return;
     }
 
@@ -185,7 +185,7 @@ const Learn = () => {
           intervalRef.current = null;
         }
       }
-    }, 500);
+    }, 1500);
   };
 
   const handleReset = () => {
