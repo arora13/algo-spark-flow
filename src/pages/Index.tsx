@@ -1,10 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import FloatingElements from '@/components/FloatingElements';
+import { trackPageView } from '@/lib/analytics';
 
 const Index = () => {
+  const navigate = useNavigate();
+  
+  // Track page view when component mounts
+  useEffect(() => {
+    trackPageView('/');
+  }, []);
+
+  const handleContactClick = () => {
+    console.log('Contact button clicked!');
+    navigate('/contact');
+  };
+
   const algorithms = [
     {
       name: 'Merge Sort',
@@ -214,15 +227,14 @@ const Index = () => {
               with our interactive learning platform designed specifically for visual learners.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              {/* FIXED: Route changed from /signup (causing 404) to /practice which exists */}
-              <Link to="/practice">
-                <Button className="btn-primary group text-lg px-10 py-5">
-                  🧠 Get Started Free
+              <Link to="/contact" className="block" onClick={() => console.log('Contact Us clicked!')}>
+                <Button className="btn-secondary group text-lg px-10 py-5 relative z-20 hover:bg-white/20">
+                  💬 Contact Us
                 </Button>
               </Link>
-              <Link to="/learn">
-                <Button className="btn-secondary group text-lg px-10 py-5">
-                  ▶️ Watch Demo
+              <Link to="/login" className="block">
+                <Button className="btn-primary group text-lg px-10 py-5 relative z-20">
+                  🔐 Login
                 </Button>
               </Link>
             </div>

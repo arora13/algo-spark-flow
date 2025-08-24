@@ -55,9 +55,9 @@ const Navbar = () => {
                 Login
               </Button>
             </Link>
-            <Link to="/signup">
+            <Link to="/contact">
               <Button className="btn-primary">
-                Get Started
+                Contact Us
               </Button>
             </Link>
           </div>

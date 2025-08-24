@@ -1,73 +1,184 @@
-# Welcome to your Lovable project
+# Algo Spark Flow
 
-## Project info
+A modern, interactive platform for learning algorithms through visual animations and hands-on practice. Designed specifically for High School and Early College students.
 
-**URL**: https://lovable.dev/projects/6e872667-a531-4679-9569-18b0d0855cbe
+## ✨ Features
 
-## How can I edit this code?
+- **Visual Learning**: Step-by-step algorithm animations
+- **Interactive Practice**: Hands-on coding challenges
+- **AP CS Focused**: Curriculum-aligned content
+- **Beautiful UI**: Modern, responsive design with dark theme
+- **Contact System**: Easy way for users to reach out
+- **Analytics Dashboard**: Track user engagement and website performance
+- **Real-time Tracking**: Monitor page views and user interactions
 
-There are several ways of editing your application.
+## 🚀 Quick Start
 
-**Use Lovable**
+### Frontend (React + Vite)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6e872667-a531-4679-9569-18b0d0855cbe) and start prompting.
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Changes made via Lovable will be committed automatically to this repo.
+2. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-**Use your preferred IDE**
+3. **Open in browser**
+   ```
+   http://localhost:5173
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Backend (Analytics Server)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. **Navigate to server directory**
+   ```bash
+   cd server
+   ```
 
-Follow these steps:
+2. **Run setup script**
+   ```bash
+   ./setup.sh
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. **Start the server**
+   ```bash
+   npm run dev
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. **Verify it's running**
+   ```
+   http://localhost:3001/api/health
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 📊 Analytics Features
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+The platform includes a comprehensive analytics system:
+
+- **User Tracking**: Unique visitor identification
+- **Page View Analytics**: Monitor popular pages
+- **Contact Form Tracking**: Track user inquiries
+- **Real-time Dashboard**: Live analytics at `/analytics`
+- **Activity Feed**: Recent user interactions
+
+## 🎨 Design System
+
+- **Dark Theme**: Beautiful emerald/teal color scheme
+- **Glass Morphism**: Modern glass panel effects
+- **Smooth Animations**: Enhanced user experience
+- **Responsive Design**: Works on all devices
+- **Accessibility**: WCAG compliant components
+
+## 📁 Project Structure
+
+```
+algo-spark-flow/
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/         # Page components
+│   ├── lib/           # Utilities and services
+│   ├── contexts/      # React contexts
+│   └── hooks/         # Custom React hooks
+├── server/            # Backend analytics server
+│   ├── server.js      # Express server
+│   ├── package.json   # Backend dependencies
+│   └── README.md      # Backend documentation
+└── public/            # Static assets
 ```
 
-**Edit a file directly in GitHub**
+## 🔧 Available Scripts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Frontend
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-**Use GitHub Codespaces**
+### Backend
+- `npm run dev` - Start development server with auto-restart
+- `npm start` - Start production server
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🌐 Pages
 
-## What technologies are used for this project?
+- **Home** (`/`) - Landing page with algorithm overview
+- **Learn** (`/learn`) - Interactive algorithm tutorials
+- **Practice** (`/practice`) - Coding challenges
+- **Contact** (`/contact`) - Contact form and information
+- **Analytics** (`/analytics`) - Analytics dashboard
+- **About** (`/about`) - About the platform
+- **Login** (`/login`) - User authentication
+- **Dashboard** (`/dashboard`) - User dashboard
 
-This project is built with:
+## 🛠 Tech Stack
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Frontend
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **Shadcn/ui** - Component library
+- **React Router** - Navigation
+- **Framer Motion** - Animations
 
-## How can I deploy this project?
+### Backend
+- **Node.js** - Runtime
+- **Express.js** - Web framework
+- **CORS** - Cross-origin requests
+- **Helmet** - Security headers
+- **Morgan** - HTTP logging
 
-Simply open [Lovable](https://lovable.dev/projects/6e872667-a531-4679-9569-18b0d0855cbe) and click on Share -> Publish.
+## 📈 Analytics API
 
-## Can I connect a custom domain to my Lovable project?
+The backend provides RESTful endpoints for tracking:
 
-Yes, you can!
+- `POST /api/track/pageview` - Track page views
+- `POST /api/contact` - Track contact submissions
+- `GET /api/analytics` - Get dashboard data
+- `GET /api/analytics/users` - Get user data
+- `GET /api/health` - Health check
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## �� Getting Started
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd algo-spark-flow
+   ```
+
+2. **Start both servers**
+   ```bash
+   # Terminal 1 - Frontend
+   npm install
+   npm run dev
+   
+   # Terminal 2 - Backend
+   cd server
+   npm install
+   npm run dev
+   ```
+
+3. **Visit the application**
+   - Frontend: http://localhost:5173
+   - Analytics: http://localhost:3001/api/analytics
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support, please contact us through the contact form at `/contact` or email hello@algo-spark.com.
+
+---
+
+**Built with ❤️ for the next generation of algorithm learners**
