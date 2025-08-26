@@ -16,14 +16,13 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b">
       <div className="container-width">
         <div className="flex items-center justify-between h-16">
-          {/* Emoji Logo */}
-          <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center text-white text-lg">
-              🚀
-            </div>
-            <span className="text-xl font-bold text-foreground font-inter">
-              AlgoFlow
-            </span>
+          {/* AlgoFlow Logo */}
+          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
+            <img 
+              src="/lovable-uploads/faa2e8bb-699f-4b26-b4eb-f12be9d2e028.png" 
+              alt="AlgoFlow Logo" 
+              className="h-8 w-auto"
+            />
           </Link>
 
           {/* Navigation Links */}
