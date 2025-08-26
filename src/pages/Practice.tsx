@@ -376,8 +376,8 @@ const Practice = () => {
       return;
     }
 
-    const algorithmProblems = problems[selectedAlgorithm as keyof typeof problems] || [];
-    const currentProblem = algorithmProblems.find((p) => p.id === selectedProblem);
+    const algorithmProblems = problems[selectedAlgorithm as keyof typeof problems] as unknown as any[] || [];
+    const currentProblem = algorithmProblems.find((p: any) => p.id === selectedProblem);
     const codeToRun = code || currentProblem?.template || "";
 
     // Prefer Worker; fall back to in-page runner if worker isn't ready
@@ -577,8 +577,8 @@ const Practice = () => {
   }
 
   // Problem detail
-  const algorithmProblems = problems[selectedAlgorithm as keyof typeof problems] || [];
-  const currentProblem = algorithmProblems.find((p) => p.id === selectedProblem);
+  const algorithmProblems = problems[selectedAlgorithm as keyof typeof problems] as unknown as any[] || [];
+  const currentProblem = algorithmProblems.find((p: any) => p.id === selectedProblem);
   const currentAlgorithm = algorithms.find((a) => a.id === selectedAlgorithm);
   if (!currentProblem) return null;
 

@@ -15,6 +15,7 @@ import Analytics from "./pages/Analytics";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import AbstractGradientBackground from "./components/AbstractGradientBackground";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
     <TooltipProvider>
       <AuthProvider>
         <div className="min-h-screen font-inter relative">
+          <AbstractGradientBackground />
           <Toaster />
           <Sonner />
           <BrowserRouter>

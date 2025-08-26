@@ -38,11 +38,7 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
-    background:
-      radial-gradient(1200px 800px at -15% -15%, rgba(52,211,153,0.12) 0%, rgba(52,211,153,0.00) 70%),
-      radial-gradient(1000px 800px at 115% 15%, rgba(45,212,191,0.08) 0%, rgba(45,212,191,0.00) 70%),
-      radial-gradient(800px 600px at 50% 80%, rgba(34,197,94,0.05) 0%, rgba(34,197,94,0.00) 60%),
-      linear-gradient(135deg, #081212 0%, #0c1a1a 30%, #0f2424 70%, #0d2a2a 100%);
+    background: #0a0a0a;
   }
 }
 
@@ -99,6 +95,94 @@
 }
 
 /* Enhanced animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(-1deg); }
+}
+
+@keyframes pulse-gentle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 4s ease-in-out infinite;
+}
+
+/* Abstract gradient backgrounds */
+.bg-gradient-abstract {
+  background: linear-gradient(135deg, 
+    #ff6b35 0%,    /* warm orange */
+    #f7931e 15%,   /* golden yellow */
+    #c7365f 35%,   /* warm red */
+    #9c27b0 55%,   /* purple */
+    #3f51b5 75%,   /* blue */
+    #2196f3 90%,   /* light blue */
+    #ffc107 100%   /* yellow accent */
+  );
+}
+
+.bg-gradient-blob-1 {
+  background: radial-gradient(ellipse at center, 
+    rgba(255, 107, 53, 0.6) 0%, 
+    rgba(247, 147, 30, 0.4) 40%, 
+    transparent 70%
+  );
+}
+
+.bg-gradient-blob-2 {
+  background: radial-gradient(ellipse at center, 
+    rgba(156, 39, 176, 0.5) 0%, 
+    rgba(63, 81, 181, 0.3) 40%, 
+    transparent 70%
+  );
+}
+
+.bg-gradient-blob-3 {
+  background: radial-gradient(ellipse at center, 
+    rgba(33, 150, 243, 0.6) 0%, 
+    rgba(199, 54, 95, 0.4) 40%, 
+    transparent 70%
+  );
+}
+
+.bg-gradient-blob-4 {
+  background: radial-gradient(ellipse at center, 
+    rgba(255, 193, 7, 0.5) 0%, 
+    rgba(255, 107, 53, 0.3) 40%, 
+    transparent 70%
+  );
+}
+
+.bg-gradient-flare-1 {
+  background: radial-gradient(circle at center, 
+    rgba(247, 147, 30, 0.4) 0%, 
+    rgba(255, 193, 7, 0.2) 50%, 
+    transparent 80%
+  );
+}
+
+.bg-gradient-flare-2 {
+  background: radial-gradient(circle at center, 
+    rgba(199, 54, 95, 0.3) 0%, 
+    rgba(156, 39, 176, 0.2) 50%, 
+    transparent 80%
+  );
+}
+
 @keyframes slide-up {
   0% {
     opacity: 0;
