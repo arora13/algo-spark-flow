@@ -21,7 +21,7 @@ const Navbar = () => {
             <img 
               src="/lovable-uploads/faa2e8bb-699f-4b26-b4eb-f12be9d2e028.png" 
               alt="AlgoFlow Logo" 
-              className="h-12 w-auto md:h-16"
+              className="h-16 w-auto md:h-20"
             />
           </Link>
 
