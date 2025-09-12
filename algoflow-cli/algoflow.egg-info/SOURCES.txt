@@ -1,0 +1,6 @@
+algoflow.py
+setup.py
+algoflow.egg-info/PKG-INFO
+algoflow.egg-info/SOURCES.txt
+algoflow.egg-info/dependency_links.txt
+algoflow.egg-info/top_level.txt

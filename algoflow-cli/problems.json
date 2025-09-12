@@ -1,0 +1,24 @@
+{
+  "bubble_sort": [
+    {
+      "id": 1,
+      "title": "Bubble Sort Basic Algorithm",
+      "description": "Given an array of unsorted numbers, implement a basic bubble sorting algorithm which takes that input and orders the numbers from lowest to highest using that implementation",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "A new array of strings sorted from lowest to highest using bubble sort",
+      "examples": [
+        {
+          "input": [6, 3, 2, 5, 9],
+          "output": [2, 3, 5, 6, 9]
+        },
+        {
+          "input": [75, 89, 35, 12, 9, 100],
+          "output": [9, 12, 35, 75, 89, 100]
+        }
+      ],
+      "constraints": [
+        "The sorting must be done using bubble sort. Other sorting implementation will not suffice"
+      ]
+    }
+  ]
+}
