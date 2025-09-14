@@ -1,4 +1,4 @@
-### AlgoFlow Quicktime Demo Use CLI-tool
+# AlgoFlow Quicktime Demo Use CLI-tool
 
 AlgoFlow provides an interactive CLI-tool for helping users gather a visual understanding of algorithms in use for any given list-input
 
