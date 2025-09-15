@@ -500,7 +500,7 @@ const Learn = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <h2 className="text-lg font-bold mb-4 flex items-center">
-                <span className="mr-2">🧠</span>
+                <span className="mr-2">🍎</span>
                 Algorithms
               </h2>
               <div className="space-y-2">
@@ -544,11 +544,7 @@ const Learn = () => {
                           {algo.apTags?.map((tag, tagIndex) => (
                             <motion.span
                               key={tagIndex}
-                              className={`text-xs px-2.5 py-1 rounded-full font-semibold shadow-md border transition-all duration-300 ${
-                                tag === 'AP CSA' 
-                                  ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white border-blue-400/30 shadow-blue-500/25' 
-                                  : 'bg-gradient-to-r from-emerald-500 to-teal-400 text-white border-emerald-400/30 shadow-emerald-500/25'
-                              }`}
+                              className="text-xs px-2 py-1 rounded-full font-medium bg-white/10 text-white/80 border border-white/20 transition-all duration-300"
                               whileHover={{ scale: 1.05, y: -1 }}
                               whileTap={{ scale: 0.95 }}
                               initial={{ opacity: 0, scale: 0.8 }}
@@ -611,7 +607,7 @@ const Learn = () => {
                   <div className="bg-yellow-500/10 border border-yellow-400/20 rounded-xl p-6 mb-4">
                     <div className="flex items-start space-x-3">
                       <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-yellow-300 text-lg">🤔</span>
+                        <span className="text-yellow-300 text-lg">🍎</span>
                       </div>
                       <div>
                         <h4 className="text-yellow-200 font-semibold mb-2">Simple Explanation (Like You're 14!)</h4>
@@ -885,7 +881,7 @@ const Learn = () => {
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold flex items-center">
-                  <Brain className="mr-3 h-6 w-6 text-purple-300" />
+                  <span className="mr-3 text-purple-300">🍎</span>
                   Feynman Technique
                 </h3>
                 <motion.button
@@ -908,10 +904,10 @@ const Learn = () => {
                     </p>
                     <div className="grid md:grid-cols-4 gap-4">
                       {[
-                        { step: 1, title: "Choose Concept", desc: "Pick the algorithm you want to master", icon: "🎯" },
-                        { step: 2, title: "Explain Simply", desc: "Write it down in plain language", icon: "✍️" },
-                        { step: 3, title: "Identify Gaps", desc: "Find what you don't understand", icon: "🔍" },
-                        { step: 4, title: "Review & Simplify", desc: "Go back and fill the gaps", icon: "🔄" }
+                        { step: 1, title: "Choose Concept", desc: "Pick the algorithm you want to master", icon: "🍎" },
+                        { step: 2, title: "Explain Simply", desc: "Write it down in plain language", icon: "🍎" },
+                        { step: 3, title: "Identify Gaps", desc: "Find what you don't understand", icon: "🍎" },
+                        { step: 4, title: "Review & Simplify", desc: "Go back and fill the gaps", icon: "🍎" }
                       ].map((item, index) => (
                         <motion.div
                           key={index}
@@ -977,7 +973,7 @@ const Learn = () => {
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold flex items-center">
-                  <CheckCircle className="mr-3 h-6 w-6 text-emerald-300" />
+                  <span className="mr-3 text-emerald-300">🍎</span>
                   Quick Quiz
                 </h3>
                 <motion.button
