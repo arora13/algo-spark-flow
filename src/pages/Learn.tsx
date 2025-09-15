@@ -4,6 +4,381 @@ import { Play, Pause, RotateCcw, ChevronRight, ChevronLeft, Clock, HardDrive, Za
 import { generateAlgorithmSteps } from '@/lib/algorithms';
 import StudyTools from '@/components/StudyTools';
 
+// Algorithm implementations
+const generateRandomArray = (size = 15) => Array.from({ length: size }, () => Math.floor(Math.random() * 99) + 1);
+
+const bubbleSort = (array) => {
+  let steps = [];
+  let arr = [...array];
+  let stepCount = 0;
+  steps.push({ array: [...arr], highlights: [], description: "Starting Bubble Sort" });
+  stepCount++;
+  
+  for (let i = 0; i < arr.length && stepCount < 15; i++) {
+    for (let j = 0; j < arr.length - i - 1 && stepCount < 15; j++) {
+      steps.push({ 
+        array: [...arr], 
+        highlights: [j, j + 1], 
+        description: `Comparing elements at positions ${j} and ${j + 1}` 
+      });
+      stepCount++;
+      
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        if (stepCount < 15) {
+          steps.push({ 
+            array: [...arr], 
+            highlights: [j, j + 1], 
+            swapped: true, 
+            description: `Swapped ${arr[j + 1]} and ${arr[j]}` 
+          });
+          stepCount++;
+        }
+      }
+    }
+  }
+  
+  if (stepCount < 15) {
+    steps.push({ array: [...arr], highlights: [], description: "Bubble Sort Complete!" });
+  }
+  return steps;
+};
+
+const selectionSort = (array) => {
+  let steps = [];
+  let arr = [...array];
+  let stepCount = 0;
+  steps.push({ array: [...arr], highlights: [], description: "Starting Selection Sort" });
+  stepCount++;
+  
+  for (let i = 0; i < arr.length - 1 && stepCount < 15; i++) {
+    let minIndex = i;
+    steps.push({ 
+      array: [...arr], 
+      highlights: [i], 
+      description: `Looking for minimum starting from position ${i}` 
+    });
+    stepCount++;
+    
+    for (let j = i + 1; j < arr.length && stepCount < 15; j++) {
+      steps.push({ 
+        array: [...arr], 
+        highlights: [j, minIndex], 
+        description: `Comparing position ${j} with current minimum at ${minIndex}` 
+      });
+      stepCount++;
+      
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+        if (stepCount < 15) {
+          steps.push({ 
+            array: [...arr], 
+            highlights: [j, minIndex], 
+            description: `New minimum found at position ${j}` 
+          });
+          stepCount++;
+        }
+      }
+    }
+    
+    if (minIndex !== i && stepCount < 15) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+      steps.push({ 
+        array: [...arr], 
+        highlights: [i, minIndex], 
+        swapped: true, 
+        description: `Swapped elements at positions ${i} and ${minIndex}` 
+      });
+      stepCount++;
+    }
+  }
+  
+  if (stepCount < 15) {
+    steps.push({ array: [...arr], highlights: [], description: "Selection Sort Complete!" });
+  }
+  return steps;
+};
+
+const insertionSort = (array) => {
+  let steps = [];
+  let arr = [...array];
+  let stepCount = 0;
+  steps.push({ array: [...arr], highlights: [], description: "Starting Insertion Sort" });
+  stepCount++;
+  
+  for (let i = 1; i < arr.length && stepCount < 15; i++) {
+    let current = arr[i];
+    let j = i - 1;
+    
+    steps.push({ 
+      array: [...arr], 
+      highlights: [i], 
+      description: `Inserting element ${current} into sorted portion` 
+    });
+    stepCount++;
+    
+    while (j >= 0 && arr[j] > current && stepCount < 15) {
+      arr[j + 1] = arr[j];
+      steps.push({ 
+        array: [...arr], 
+        highlights: [j, j + 1], 
+        shifted: true, 
+        description: `Shifting ${arr[j + 1]} to the right` 
+      });
+      stepCount++;
+      j--;
+    }
+    
+    if (stepCount < 15) {
+      arr[j + 1] = current;
+      steps.push({ 
+        array: [...arr], 
+        highlights: [j + 1], 
+        inserted: true, 
+        description: `Inserted ${current} at position ${j + 1}` 
+      });
+      stepCount++;
+    }
+  }
+  
+  if (stepCount < 15) {
+    steps.push({ array: [...arr], highlights: [], description: "Insertion Sort Complete!" });
+  }
+  return steps;
+};
+
+const mergeSort = (array) => {
+  let steps = [];
+  let stepCount = 0;
+  steps.push({ array: [...array], highlights: [], description: "Starting Merge Sort" });
+  stepCount++;
+  
+  const merge = (arr, left, mid, right) => {
+    if (stepCount >= 15) return;
+    
+    let temp = [];
+    let i = left, j = mid + 1, k = 0;
+    
+    while (i <= mid && j <= right && stepCount < 15) {
+      steps.push({ 
+        array: [...arr], 
+        highlights: [i, j], 
+        description: `Comparing elements at positions ${i} and ${j}` 
+      });
+      stepCount++;
+      
+      if (arr[i] <= arr[j]) {
+        temp[k++] = arr[i++];
+      } else {
+        temp[k++] = arr[j++];
+      }
+    }
+    
+    while (i <= mid && stepCount < 15) temp[k++] = arr[i++];
+    while (j <= right && stepCount < 15) temp[k++] = arr[j++];
+    
+    for (let m = 0; m < temp.length && stepCount < 15; m++) {
+      arr[left + m] = temp[m];
+    }
+    
+    if (stepCount < 15) {
+      steps.push({ 
+        array: [...arr], 
+        merged: [left, right], 
+        description: `Merged subarray from ${left} to ${right}` 
+      });
+      stepCount++;
+    }
+  };
+  
+  const sort = (arr, left, right) => {
+    if (left >= right || stepCount >= 15) return;
+    const mid = Math.floor((left + right) / 2);
+    sort(arr, left, mid);
+    sort(arr, mid + 1, right);
+    merge(arr, left, mid, right);
+  };
+  
+  let arr = [...array];
+  sort(arr, 0, arr.length - 1);
+  
+  if (stepCount < 15) {
+    steps.push({ array: [...arr], highlights: [], description: "Merge Sort Complete!" });
+  }
+  return steps;
+};
+
+const quickSort = (array) => {
+  let steps = [];
+  let stepCount = 0;
+  steps.push({ array: [...array], highlights: [], description: "Starting Quick Sort" });
+  stepCount++;
+  
+  const partition = (arr, low, high) => {
+    if (stepCount >= 15) return high;
+    
+    let pivot = arr[high];
+    let i = (low - 1);
+    
+    steps.push({ 
+      array: [...arr], 
+      highlights: [high], 
+      pivot: high, 
+      subarray: [low, high],
+      description: `Choosing pivot: ${pivot} at position ${high}` 
+    });
+    stepCount++;
+
+    for (let j = low; j < high && stepCount < 15; j++) {
+      steps.push({ 
+        array: [...arr], 
+        highlights: [j, high], 
+        pivot: high, 
+        subarray: [low, high],
+        description: `Comparing ${arr[j]} with pivot ${pivot}` 
+      });
+      stepCount++;
+      
+      if (arr[j] < pivot) {
+        i++;
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+        if (stepCount < 15) {
+          steps.push({ 
+            array: [...arr], 
+            highlights: [i, j], 
+            swapped: true, 
+            pivot: high, 
+            subarray: [low, high],
+            description: `Swapped ${arr[j]} and ${arr[i]}` 
+          });
+          stepCount++;
+        }
+      }
+    }
+    
+    if (stepCount < 15) {
+      [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+      steps.push({ 
+        array: [...arr], 
+        highlights: [i + 1, high], 
+        swapped: true, 
+        pivot: i + 1, 
+        subarray: [low, high],
+        description: `Placed pivot in correct position: ${i + 1}` 
+      });
+      stepCount++;
+    }
+    
+    return i + 1;
+  };
+  
+  const sort = (arr, low, high) => {
+    if (low < high && stepCount < 15) {
+      let pi = partition(arr, low, high);
+      sort(arr, low, pi - 1);
+      sort(arr, pi + 1, high);
+    }
+  };
+  
+  let arr = [...array];
+  sort(arr, 0, arr.length - 1);
+  
+  if (stepCount < 15) {
+    steps.push({ array: [...arr], highlights: [], description: "Quick Sort Complete!" });
+  }
+  return steps;
+};
+
+const linearSearch = (array, target) => {
+  let steps = [];
+  let arr = [...array];
+  let stepCount = 0;
+  steps.push({ array: [...arr], current: [], description: `Starting Linear Search for ${target}` });
+  stepCount++;
+  
+  for (let i = 0; i < arr.length && stepCount < 15; i++) {
+    const found = arr[i] === target;
+    steps.push({ 
+      array: [...arr], 
+      current: [i], 
+      found: found,
+      description: found ? `Found ${target} at position ${i}!` : `Checking position ${i}: ${arr[i]}` 
+    });
+    stepCount++;
+    
+    if (found) {
+      return steps;
+    }
+  }
+  
+  if (stepCount < 15) {
+    steps.push({ array: [...arr], current: [], description: `${target} not found in array` });
+  }
+  return steps;
+};
+
+const binarySearch = (array, target) => {
+  let steps = [];
+  let arr = [...array].sort((a, b) => a - b);
+  let left = 0, right = arr.length - 1;
+  let stepCount = 0;
+  
+  steps.push({ 
+    array: [...arr], 
+    highlights: [left, right], 
+    description: `Starting Binary Search for ${target} (array sorted)` 
+  });
+  stepCount++;
+  
+  while (left <= right && stepCount < 15) {
+    let mid = Math.floor((left + right) / 2);
+    steps.push({ 
+      array: [...arr], 
+      highlights: [left, right], 
+      current: [mid],
+      description: `Checking middle element at position ${mid}: ${arr[mid]}` 
+    });
+    stepCount++;
+    
+    if (arr[mid] === target) {
+      steps.push({ 
+        array: [...arr], 
+        current: [mid], 
+        found: true,
+        description: `Found ${target} at position ${mid}!` 
+      });
+      return steps;
+    }
+    
+    if (arr[mid] < target) {
+      left = mid + 1;
+      if (stepCount < 15) {
+        steps.push({ 
+          array: [...arr], 
+          highlights: [left, right],
+          description: `${arr[mid]} < ${target}, searching right half` 
+        });
+        stepCount++;
+      }
+    } else {
+      right = mid - 1;
+      if (stepCount < 15) {
+        steps.push({ 
+          array: [...arr], 
+          highlights: [left, right],
+          description: `${arr[mid]} > ${target}, searching left half` 
+        });
+        stepCount++;
+      }
+    }
+  }
+  
+  if (stepCount < 15) {
+    steps.push({ array: [...arr], current: [], description: `${target} not found in array` });
+  }
+  return steps;
+};
+
 const container = {
   hidden: { opacity: 1 },
   show: {
@@ -182,24 +557,23 @@ const algorithms = [
   {
     id: 'two-pointers',
     name: 'Two Pointers Technique',
-    emoji: '👆👆',
+    emoji: '🚧',
     category: 'Algorithm Pattern',
     difficulty: 'Medium',
     timeComplexity: 'O(n)',
     spaceComplexity: 'O(1)',
     apTags: ['AP CSA', 'AP CSP'],
     description:
-      'Two Pointers is a technique where you use two pointers to traverse an array or list, often from opposite ends or at different speeds.',
+      'Two Pointers visualization is coming soon! This technique uses two pointers to traverse arrays efficiently.',
     detailedExplanation:
-      'This technique is particularly useful for problems involving sorted arrays, palindromes, or finding pairs that meet certain criteria.',
+      'Coming soon - we are working on an interactive visualization for the Two Pointers technique.',
     realWorldUse:
       'Used in problems like finding pairs that sum to a target, checking palindromes, removing duplicates, and many array manipulation problems.',
     steps: [
-      'Initialize two pointers (usually start and end)',
-      'Move pointers based on problem conditions',
-      'Process elements at pointer positions',
-      'Continue until pointers meet or condition satisfied',
-      'Return result based on pointer positions',
+      '🚧 Coming Soon!',
+      '🚧 Coming Soon!',
+      '🚧 Coming Soon!',
+      '🚧 Coming Soon!',
     ],
   },
 ];
@@ -1165,10 +1539,9 @@ const Learn = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [animationState, setAnimationState] = useState('hidden');
   const [runKey, setRunKey] = useState(0);
-  const [sortedArray, setSortedArray] = useState([64, 34, 25, 12, 22, 11, 90, 48]);
-  const [searchArray] = useState([1, 3, 5, 7, 9, 11, 13, 15, 17, 19]);
-  const [targetFound, setTargetFound] = useState(-1);
-  const [searchMid, setSearchMid] = useState(-1);
+  const [array, setArray] = useState(generateRandomArray());
+  const [steps, setSteps] = useState([]);
+  const [searchTarget, setSearchTarget] = useState(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   
   // AP CSP state
@@ -1214,11 +1587,47 @@ const Learn = () => {
   };
 
   useEffect(() => {
-    // Reset array when algorithm changes
-    setSortedArray([64, 34, 25, 12, 22, 11, 90, 48]);
-    setTargetFound(-1);
+    // Generate new steps when algorithm or array changes
+    let newSteps = [];
+    let target;
+    
+    switch (selectedAlgorithm) {
+      case 'quick-sort':
+        newSteps = quickSort(array);
+        break;
+      case 'merge-sort':
+        newSteps = mergeSort(array);
+        break;
+      case 'bubble-sort':
+        newSteps = bubbleSort(array);
+        break;
+      case 'insertion-sort':
+        newSteps = insertionSort(array);
+        break;
+      case 'selection-sort':
+        newSteps = selectionSort(array);
+        break;
+      case 'linear-search':
+        target = array[Math.floor(Math.random() * array.length)];
+        setSearchTarget(target);
+        newSteps = linearSearch(array, target);
+        break;
+      case 'binary-search':
+        target = array[Math.floor(Math.random() * array.length)];
+        setSearchTarget(target);
+        newSteps = binarySearch(array, target);
+        break;
+      case 'two-pointers':
+        // Coming soon - no steps
+        newSteps = [];
+        break;
+      default:
+        break;
+    }
+    console.log('Generated steps for', selectedAlgorithm, ':', newSteps.length, 'steps');
+    setSteps(newSteps);
     setCurrentStep(0);
-  }, [selectedAlgorithm]);
+  }, [selectedAlgorithm, array]);
 
   useEffect(() => {
     return () => {
@@ -1232,6 +1641,18 @@ const Learn = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    let interval;
+    if (isPlaying && currentStep < steps.length - 1) {
+      interval = setInterval(() => {
+        setCurrentStep(prevStep => prevStep + 1);
+      }, 800); // Slower speed for better visibility
+    } else if (currentStep >= steps.length - 1) {
+      setIsPlaying(false);
+    }
+    return () => clearInterval(interval);
+  }, [isPlaying, currentStep, steps.length]);
 
   // Pomodoro Timer Functions
   const startPomodoro = () => {
@@ -1282,89 +1703,29 @@ const Learn = () => {
   };
 
   const handlePlayPause = () => {
-    if (isPlaying) {
-      setIsPlaying(false);
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      return;
+    if (currentStep >= steps.length - 1) {
+      setCurrentStep(0);
     }
-
-    // Reset and start animation
-    setRunKey((k) => k + 1);
-    setIsPlaying(true);
-    setAnimationState('show');
-    setCurrentStep(0);
-
-    const initialArray = [64, 34, 25, 12, 22, 11, 90, 48];
-
-    if (selectedAlgorithm === 'binary-search') {
-      const searchSteps = generateAlgorithmSteps('binary-search', searchArray, 9) as any[];
-      let stepIndex = 0;
-      setSearchMid(searchSteps[0]?.mid ?? -1);
-      setTargetFound(-1);
-
-      intervalRef.current = setInterval(() => {
-        if (stepIndex < searchSteps.length) {
-          setCurrentStep(stepIndex);
-          setSearchMid(searchSteps[stepIndex].mid);
-          if (searchSteps[stepIndex].found !== -1) {
-            setTargetFound(searchSteps[stepIndex].found);
-          }
-          stepIndex++;
-        } else {
-          setIsPlaying(false);
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
-        }
-      }, 1500);
-      return;
-    }
-
-    // Sorting algorithms
-    const sortSteps = generateAlgorithmSteps(selectedAlgorithm, initialArray) as any[];
-    let stepIndex = 0;
-    setSortedArray(sortSteps[0]?.array ?? initialArray);
-
-    intervalRef.current = setInterval(() => {
-      stepIndex++;
-      if (stepIndex < sortSteps.length) {
-        setSortedArray(sortSteps[stepIndex].array);
-        setCurrentStep(stepIndex);
-      } else {
-        setIsPlaying(false);
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
-        }
-      }
-    }, 1500);
+    setIsPlaying(!isPlaying);
   };
 
   const handleReset = () => {
     setIsPlaying(false);
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+    setArray(generateRandomArray());
+    setRunKey(prev => prev + 1);
     setCurrentStep(0);
-    setRunKey((k) => k + 1);
-    setAnimationState('hidden');
-    setSortedArray([64, 34, 25, 12, 22, 11, 90, 48]);
-    setTargetFound(-1);
   };
 
   const handlePreviousStep = () => {
+    setIsPlaying(false);
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
   };
 
   const handleNextStep = () => {
-    if (currentStep < currentAlgorithm.steps.length - 1) {
+    setIsPlaying(false);
+    if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -1666,7 +2027,7 @@ const Learn = () => {
                           {currentAlgorithm.id === 'linear-search' && 
                             "Linear search is like looking for your friend in a crowd by checking each person one by one from left to right. You keep looking until you find them or reach the end. It's simple but works every time!"}
                           {currentAlgorithm.id === 'two-pointers' && 
-                            "Two pointers is like having two friends help you find something! One starts from the beginning and one from the end, and they move toward each other until they find what you're looking for. It's like two people searching a room from opposite ends!"}
+                            "🚧 Two Pointers visualization is coming soon! This technique is like having two friends help you find something - one starts from the beginning and one from the end, moving toward each other until they find what you're looking for!"}
                         </p>
                       </div>
                     </div>
@@ -1754,16 +2115,16 @@ const Learn = () => {
                     whileHover={{ scale: currentStep > 0 ? 1.05 : 1 }}
                     whileTap={{ scale: currentStep > 0 ? 0.95 : 1 }}
                   >
-                    ⬅️
+                    <ChevronLeft className="h-4 w-4" />
                   </motion.button>
                   <motion.button
                     onClick={handleNextStep}
-                    disabled={currentStep >= currentAlgorithm.steps.length - 1}
+                    disabled={currentStep >= steps.length - 1}
                     className="px-4 py-2 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition-all duration-200 border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                    whileHover={{ scale: currentStep < currentAlgorithm.steps.length - 1 ? 1.05 : 1 }}
-                    whileTap={{ scale: currentStep < currentAlgorithm.steps.length - 1 ? 0.95 : 1 }}
+                    whileHover={{ scale: currentStep < steps.length - 1 ? 1.05 : 1 }}
+                    whileTap={{ scale: currentStep < steps.length - 1 ? 0.95 : 1 }}
                   >
-                    ➡️
+                    <ChevronRight className="h-4 w-4" />
                   </motion.button>
                   <motion.button
                     onClick={handleReset}
@@ -1776,96 +2137,137 @@ const Learn = () => {
                 </div>
               </div>
 
-              {/* Visualization Area */}
-              <div className="bg-[#0c121b] rounded-xl p-8 relative overflow-hidden min-h-[300px] flex items-center justify-center border border-white/10">
-                <AnimatePresence>
-                  {/* Sorting bars */}
-                  {selectedAlgorithm.includes('sort') && (
-                    <motion.div
-                      key={`sort-${runKey}`}
-                      className="flex items-end gap-4"
-                      variants={container}
-                      initial="hidden"
-                      animate={animationState}
-                    >
-                      {sortedArray.map((value, index) => {
-                        return (
-                          <motion.div
-                            key={`${value}-${index}-${runKey}`}
-                            variants={barItem}
-                            className="relative flex items-end justify-center"
-                            layout
-                            transition={{ duration: 0.8, ease: "easeInOut" }}
-                          >
-                            <motion.div
-                              className="w-12 rounded-t-lg bg-gradient-to-t from-blue-600 to-purple-600 shadow-lg"
-                              style={{ height: Math.max(24, (value / 100) * 200) }}
-                              animate={{ 
-                                scale: [1, 1.05, 1],
-                              }}
-                              transition={{ duration: 0.6, repeat: 0 }}
-                            />
-                            <span className="absolute -bottom-8 text-xs font-semibold bg-black/60 text-white px-2 py-1 rounded-md">
-                              {value}
-                            </span>
-                          </motion.div>
-                        );
-                      })}
-                    </motion.div>
+              {/* Step Info */}
+              <div className="mb-4 p-4 bg-gray-900/50 rounded-lg border border-gray-600">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm text-gray-400">Step {currentStep + 1} of {steps.length}</span>
+                  {searchTarget && (
+                    <span className="text-sm text-blue-400">Target: {searchTarget}</span>
                   )}
+                </div>
+                <p className="text-gray-300">{steps[currentStep]?.description || 'No steps available'}</p>
+                <p className="text-xs text-gray-500">Debug: {steps.length} total steps, current: {currentStep}</p>
+              </div>
 
-                  {/* Binary search visualization */}
-                  {selectedAlgorithm === 'binary-search' && (
-                    <motion.div
-                      key={`search-${runKey}`}
-                      className="flex items-center gap-3"
-                      variants={container}
-                      initial="hidden"
-                      animate={animationState}
-                    >
-                      {searchArray.map((value, index) => {
-                        const isTarget = value === 9; // Looking for 9
-                        const isFound = targetFound === index;
-                        const isMid = index === searchMid;
-                        
-                        return (
-                          <motion.div
-                            key={index}
-                            variants={barItem}
-                            className={`w-14 h-14 flex items-center justify-center rounded-xl font-bold transition-all duration-500 ${
-                              isFound
-                                ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg'
-                                : isMid
-                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
-                                : isTarget
-                                ? 'bg-yellow-400/20 text-yellow-200 border border-yellow-400/30'
-                                : 'bg-white/5 text-white/70 border border-white/10'
-                            }`}
-                            animate={
-                              isFound 
-                                ? { scale: [1, 1.3, 1], rotate: [0, 5, -5, 0] } 
-                                : isMid 
-                                ? { scale: [1, 1.2, 1] } 
-                                : { scale: 1 }
-                            }
-                            transition={{ duration: 0.6 }}
-                          >
+              {/* Visualization Area */}
+              <div className="bg-gray-900/50 rounded-xl p-8 relative overflow-hidden min-h-[300px] flex items-center justify-center border border-gray-600">
+                {/* Sorting bars */}
+                {(selectedAlgorithm === 'merge-sort' || selectedAlgorithm === 'quick-sort' || selectedAlgorithm === 'bubble-sort' || selectedAlgorithm === 'insertion-sort' || selectedAlgorithm === 'selection-sort') && (
+                  <div className="flex items-end gap-2 sm:gap-4">
+                    {(steps[currentStep]?.array || array).map((value, index) => {
+                      const isHighlight = steps[currentStep]?.highlights?.includes(index);
+                      const isSwapped = steps[currentStep]?.swapped && isHighlight;
+                      const isPivot = steps[currentStep]?.pivot === index;
+                      const isMerged = steps[currentStep]?.merged && index >= steps[currentStep].merged[0] && index <= steps[currentStep].merged[1];
+                      const isCorrectlySorted = steps.length > 0 && currentStep === steps.length - 1;
+
+                      let barColor = 'from-blue-600 to-purple-600';
+                      if (isSwapped) barColor = 'from-red-600 to-rose-600';
+                      else if (isPivot) barColor = 'from-yellow-400 to-orange-500';
+                      else if (isMerged) barColor = 'from-green-600 to-emerald-600';
+                      else if (isCorrectlySorted) barColor = 'from-green-600 to-emerald-600';
+                      else if (isHighlight) barColor = 'from-purple-600 to-pink-600';
+
+                      return (
+                        <div
+                          key={`${value}-${index}-${runKey}`}
+                          className="relative flex items-end justify-center transition-all duration-500 ease-in-out"
+                          style={{
+                            transform: isHighlight ? 'scale(1.05)' : 'scale(1)',
+                          }}
+                        >
+                          <div
+                            className={`w-4 sm:w-6 md:w-8 rounded-t-lg shadow-lg bg-gradient-to-t transition-all duration-500 ease-in-out ${barColor}`}
+                            style={{ 
+                              height: `${(value / 100) * 200 + 24}px`,
+                              transform: isSwapped ? 'rotateX(10deg)' : 'rotateX(0deg)'
+                            }}
+                          />
+                          <span className="absolute -bottom-8 text-xs font-semibold bg-black/60 text-white px-2 py-1 rounded-md">
                             {value}
-                          </motion.div>
-                        );
-                      })}
-                    </motion.div>
-                  )}
-                  
-                  {/* Target indicator for binary search */}
-                  {selectedAlgorithm === 'binary-search' && (
-                    <div className="absolute top-4 left-4 bg-yellow-400/15 border border-yellow-400/30 rounded-lg px-3 py-2">
-                      <span className="text-sm font-medium text-yellow-200">
-                        🎯 Target: 9
-                      </span>
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Searching/Two Pointers Visualization */}
+                {(selectedAlgorithm === 'binary-search' || selectedAlgorithm === 'linear-search') && (
+                  <div className="flex items-center gap-4 flex-wrap justify-center">
+                    {(steps[currentStep]?.array || array).map((value, index) => {
+                      const isCurrent = steps[currentStep]?.current?.includes(index);
+                      const isFound = steps[currentStep]?.found && isCurrent;
+                      const isHighlighted = steps[currentStep]?.highlights?.includes(index);
+                      const isLeftPointer = selectedAlgorithm === 'Two Pointers' && index === steps[currentStep]?.left;
+                      const isRightPointer = selectedAlgorithm === 'Two Pointers' && index === steps[currentStep]?.right;
+                      
+                      let bgColor = 'bg-gray-700';
+                      let borderColor = 'border-gray-600';
+                      
+                      if (isFound) {
+                        bgColor = 'bg-green-600';
+                        borderColor = 'border-green-400';
+                      } else if (isCurrent) {
+                        bgColor = 'bg-purple-600';
+                        borderColor = 'border-purple-400';
+                      } else if (isLeftPointer || isRightPointer) {
+                        bgColor = 'bg-blue-600';
+                        borderColor = 'border-blue-400';
+                      } else if (isHighlighted) {
+                        bgColor = 'bg-yellow-600';
+                        borderColor = 'border-yellow-400';
+                      }
+
+                      return (
+                        <div
+                          key={`${value}-${index}-${runKey}`}
+                          className={`w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg border-2 transition-all duration-500 relative transform ${bgColor} ${borderColor}`}
+                          style={{
+                            scale: (isCurrent || isFound || isLeftPointer || isRightPointer) ? '1.1' : '1'
+                          }}
+                        >
+                          {isLeftPointer && (
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-xl animate-bounce">
+                              👈
+                            </div>
+                          )}
+                          {isRightPointer && (
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-xl animate-bounce">
+                              👉
+                            </div>
+                          )}
+                          {value}
+                        </div>
+                      );
+                    })}
+                    
+                    {selectedAlgorithm === 'Two Pointers' && steps[currentStep]?.sum !== undefined && (
+                      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
+                        <p className="text-2xl font-bold mb-2">Sum: {steps[currentStep].sum}</p>
+                        {steps[currentStep].found && (
+                          <p className="text-2xl font-bold text-green-400 animate-pulse">
+                            Target Found! 🎉
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Two Pointers - Coming Soon */}
+                {selectedAlgorithm === 'two-pointers' && (
+                  <div className="flex flex-col items-center justify-center w-full h-full">
+                    <div className="text-6xl mb-4 animate-spin">
+                      🚧
                     </div>
-                  )}
-                </AnimatePresence>
+                    <h3 className="text-2xl font-bold text-white mb-2">Coming Soon!</h3>
+                    <p className="text-white/70 text-center max-w-md">
+                      We're working on an interactive visualization for the Two Pointers technique. 
+                      Check back soon for this exciting feature!
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Step Description */}
