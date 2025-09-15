@@ -404,45 +404,45 @@ const Learn = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b1f24] text-white p-4">
+    <div className="min-h-screen bg-[#0b1f24] text-white p-4 pt-20">
       <div className="max-w-7xl mx-auto">
         {/* Pomodoro Timer */}
         <motion.div 
-          className="mb-6"
+          className="mb-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="bg-white/[0.08] backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-white/10 max-w-sm mx-auto">
+          <div className="bg-white/[0.08] backdrop-blur-sm rounded-xl p-3 shadow-xl border border-white/10 max-w-xs mx-auto">
             <div className="text-center">
-              <div className="flex items-center justify-center mb-4">
-                <Timer className="h-6 w-6 text-blue-300 mr-2" />
-                <h3 className="text-lg font-semibold">Study Timer</h3>
+              <div className="flex items-center justify-center mb-3">
+                <Timer className="h-4 w-4 text-blue-300 mr-2" />
+                <h3 className="text-sm font-semibold">Study Timer</h3>
               </div>
               
-              <div className={`text-4xl font-mono font-bold mb-4 ${
+              <div className={`text-2xl font-mono font-bold mb-3 ${
                 pomodoroMode === 'work' ? 'text-blue-300' : 'text-green-300'
               }`}>
                 {formatTime(pomodoroTime)}
               </div>
               
-              <div className="flex items-center justify-center space-x-4 mb-4">
-                <div className={`px-3 py-1 rounded-full text-sm font-medium ${
+              <div className="flex items-center justify-center space-x-3 mb-3">
+                <div className={`px-2 py-1 rounded-full text-xs font-medium ${
                   pomodoroMode === 'work' 
                     ? 'bg-blue-500/20 text-blue-200' 
                     : 'bg-green-500/20 text-green-200'
                 }`}>
-                  {pomodoroMode === 'work' ? '🍅 Work Time' : '☕ Break Time'}
+                  {pomodoroMode === 'work' ? '🍅 Work' : '☕ Break'}
                 </div>
-                <div className="text-white/60 text-sm">
+                <div className="text-white/60 text-xs">
                   Cycles: {pomodoroCycles}
                 </div>
               </div>
               
-              <div className="flex space-x-3 justify-center">
+              <div className="flex space-x-2 justify-center">
                 <motion.button
                   onClick={isPomodoroRunning ? pausePomodoro : startPomodoro}
-                  className={`px-4 py-2 rounded-lg font-medium flex items-center space-x-2 ${
+                  className={`px-3 py-1.5 rounded-lg font-medium flex items-center space-x-1 text-xs ${
                     isPomodoroRunning 
                       ? 'bg-red-500/20 text-red-200 hover:bg-red-500/30' 
                       : 'bg-blue-500/20 text-blue-200 hover:bg-blue-500/30'
@@ -450,16 +450,16 @@ const Learn = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {isPomodoroRunning ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                  {isPomodoroRunning ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
                   <span>{isPomodoroRunning ? 'Pause' : 'Start'}</span>
                 </motion.button>
                 <motion.button
                   onClick={resetPomodoro}
-                  className="px-4 py-2 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20"
+                  className="px-3 py-1.5 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 text-xs"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <RotateCcw className="h-4 w-4" />
+                  <RotateCcw className="h-3 w-3" />
                 </motion.button>
               </div>
             </div>
@@ -555,10 +555,7 @@ const Learn = () => {
                               animate={{ opacity: 1, scale: 1 }}
                               transition={{ delay: tagIndex * 0.1 }}
                             >
-                              <span className="flex items-center space-x-1">
-                                <span className="text-xs">🎓</span>
-                                <span className="text-xs">{tag}</span>
-                              </span>
+                              {tag}
                             </motion.span>
                           ))}
                           <span
