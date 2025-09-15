@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle, Timer, Coffee, Brain, BookOpen, HelpCircle } from 'lucide-react';
+import { Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle, Timer, Coffee, Brain, BookOpen, HelpCircle, Code, Database, Network, Shield } from 'lucide-react';
 import { generateAlgorithmSteps } from '@/lib/algorithms';
 
 const container = {
@@ -203,7 +203,505 @@ const algorithms = [
   },
 ];
 
+// AP CSP Topics - Comprehensive Curriculum
+const apCspTopics = [
+  {
+    id: 'creative-development',
+    name: 'Creative Development',
+    emoji: '🎨',
+    category: 'Big Idea 1',
+    difficulty: 'Easy',
+    examWeight: '10-13%',
+    description: 'How programs are designed and developed through collaboration, iteration, and user-centered design principles.',
+    detailedExplanation: 'Creative development emphasizes the human aspect of programming - how developers work together, iterate on designs, and create user-friendly interfaces. This includes understanding the development process, importance of collaboration, and designing effective user interfaces.',
+    realWorldUse: 'Used in all software development teams, from startups to large tech companies, to create user-friendly applications and systems.',
+    keyConcepts: [
+      'Program design and development process',
+      'Collaboration in software development',
+      'Iterative development and testing',
+      'User interface design principles',
+      'Error correction and debugging',
+      'Documentation and code comments',
+      'Version control and collaboration tools'
+    ],
+    examples: [
+      'Designing a mobile app interface',
+      'Collaborative coding on GitHub',
+      'User testing and feedback loops',
+      'Agile development methodologies',
+      'Creating accessible web applications',
+      'Design thinking in software development'
+    ],
+    studyTips: [
+      'Practice pair programming with classmates',
+      'Learn about user experience (UX) design principles',
+      'Understand the software development lifecycle',
+      'Practice writing clear, commented code'
+    ],
+    practiceProblems: [
+      'Design a user interface for a school management system',
+      'Create a collaborative coding project with version control',
+      'Develop a mobile app prototype with user feedback'
+    ]
+  },
+  {
+    id: 'data',
+    name: 'Data',
+    emoji: '📊',
+    category: 'Big Idea 2',
+    difficulty: 'Medium',
+    examWeight: '17-22%',
+    description: 'How data are represented, collected, analyzed, and used to extract meaningful information and insights.',
+    detailedExplanation: 'Data is the foundation of modern computing. This topic covers how computers represent different types of data (numbers, text, images, sound), how data is collected and stored, and how we can analyze data to gain insights and make decisions.',
+    realWorldUse: 'Essential for data science, business analytics, scientific research, and any field that relies on data-driven decision making.',
+    keyConcepts: [
+      'Binary representation of data',
+      'ASCII and Unicode text encoding',
+      'Image representation (pixels, RGB, compression)',
+      'Sound representation (sampling, digital audio)',
+      'Data collection and storage methods',
+      'Data analysis and visualization',
+      'Data compression techniques',
+      'Metadata and data organization'
+    ],
+    examples: [
+      'Converting decimal numbers to binary',
+      'Understanding how digital cameras work',
+      'MP3 audio compression algorithms',
+      'Social media data analysis',
+      'Scientific data visualization',
+      'Database design and management'
+    ],
+    studyTips: [
+      'Practice binary and hexadecimal conversions',
+      'Learn about different file formats and their uses',
+      'Understand data compression principles',
+      'Practice with data visualization tools'
+    ],
+    practiceProblems: [
+      'Convert between different number systems',
+      'Analyze a dataset and create visualizations',
+      'Design a data collection system for a research project'
+    ]
+  },
+  {
+    id: 'algorithms-programming',
+    name: 'Algorithms & Programming',
+    emoji: '⚙️',
+    category: 'Big Idea 3',
+    difficulty: 'Medium',
+    examWeight: '30-35%',
+    description: 'Writing algorithms, using abstraction, and implementing programming constructs to solve computational problems.',
+    detailedExplanation: 'This is the core of computer science - learning to think algorithmically and translate that thinking into working programs. It covers algorithm design, abstraction techniques, and fundamental programming constructs.',
+    realWorldUse: 'Used in all software development, from simple scripts to complex applications, and in problem-solving across all industries.',
+    keyConcepts: [
+      'Algorithm design and analysis',
+      'Abstraction and modularity',
+      'Programming constructs (variables, conditionals, loops)',
+      'Lists and data structures',
+      'Function and procedure design',
+      'Algorithm efficiency and optimization',
+      'Simulation and modeling',
+      'Testing and debugging strategies'
+    ],
+    examples: [
+      'Designing a search algorithm',
+      'Creating a sorting program',
+      'Building a simulation model',
+      'Implementing a game logic',
+      'Developing a data processing pipeline',
+      'Creating reusable code modules'
+    ],
+    studyTips: [
+      'Practice breaking down complex problems into steps',
+      'Learn multiple programming languages',
+      'Understand algorithm efficiency (Big O notation)',
+      'Practice writing and testing algorithms'
+    ],
+    practiceProblems: [
+      'Design an algorithm to find the shortest path',
+      'Create a program to analyze text data',
+      'Build a simulation of a real-world system'
+    ]
+  },
+  {
+    id: 'computer-systems',
+    name: 'Computer Systems & Networks',
+    emoji: '🖥️',
+    category: 'Big Idea 4',
+    difficulty: 'Medium',
+    examWeight: '11-15%',
+    description: 'How computer systems work, including hardware, software, networks, and distributed computing.',
+    detailedExplanation: 'Understanding the underlying systems that make computing possible - from individual computers to vast networks. This includes hardware components, operating systems, network protocols, and distributed systems.',
+    realWorldUse: 'Essential for system administration, network engineering, cybersecurity, and understanding how modern technology infrastructure works.',
+    keyConcepts: [
+      'Computer hardware components (CPU, memory, storage)',
+      'Operating systems and system software',
+      'Internet protocols (TCP/IP, HTTP, HTTPS)',
+      'Network architecture and routing',
+      'Parallel and distributed computing',
+      'Fault tolerance and reliability',
+      'Cybersecurity fundamentals',
+      'Cloud computing concepts'
+    ],
+    examples: [
+      'How web pages are delivered to browsers',
+      'Email delivery across the internet',
+      'Distributed computing in cloud services',
+      'Network security and encryption',
+      'Operating system process management',
+      'Database server architecture'
+    ],
+    studyTips: [
+      'Learn about computer hardware components',
+      'Understand network protocols and how they work',
+      'Study cybersecurity best practices',
+      'Explore cloud computing platforms'
+    ],
+    practiceProblems: [
+      'Design a network topology for a school',
+      'Analyze the performance of a distributed system',
+      'Create a security plan for a web application'
+    ]
+  },
+  {
+    id: 'impact-computing',
+    name: 'Impact of Computing',
+    emoji: '🌍',
+    category: 'Big Idea 5',
+    difficulty: 'Easy',
+    examWeight: '21-26%',
+    description: 'The societal, cultural, economic, and ethical effects of computing innovations on individuals and society.',
+    detailedExplanation: 'Computing has transformed every aspect of modern life. This topic examines both the positive and negative impacts of technology, including ethical considerations, privacy concerns, and the digital divide.',
+    realWorldUse: 'Important for making informed decisions about technology use, understanding policy implications, and considering ethical aspects of computing careers.',
+    keyConcepts: [
+      'Societal and cultural impacts of computing',
+      'Economic effects of digital transformation',
+      'Ethical issues in computing',
+      'Computing bias and fairness',
+      'Digital divide and access issues',
+      'Privacy and data protection',
+      'Intellectual property and copyright',
+      'Environmental impact of computing',
+      'Legal and policy considerations'
+    ],
+    examples: [
+      'Social media and mental health',
+      'AI bias in hiring systems',
+      'Remote work and education',
+      'Data privacy regulations (GDPR)',
+      'Renewable energy in data centers',
+      'Digital voting systems and security'
+    ],
+    studyTips: [
+      'Stay informed about current technology issues',
+      'Read about ethical AI and machine learning',
+      'Understand privacy laws and regulations',
+      'Consider multiple perspectives on technology impacts'
+    ],
+    practiceProblems: [
+      'Analyze the ethical implications of facial recognition',
+      'Design a plan to address digital divide in education',
+      'Evaluate the environmental impact of a tech company'
+    ]
+  }
+];
+
+// AP CSA Topics - Comprehensive Curriculum
+const apCsaTopics = [
+  {
+    id: 'using-objects',
+    name: 'Using Objects and Methods',
+    emoji: '☕',
+    category: 'Unit 1',
+    difficulty: 'Easy',
+    examWeight: '15-25%',
+    description: 'Introduction to algorithms and programming using objects, methods, and APIs in Java.',
+    detailedExplanation: 'This unit introduces the fundamental concepts of Java programming, including how to use existing classes and methods, work with primitive data types, and understand the basics of object-oriented programming.',
+    realWorldUse: 'Essential foundation for all Java programming, used in enterprise applications, Android development, and web services.',
+    keyConcepts: [
+      'Introduction to algorithms and programming',
+      'Variables and primitive data types (int, double, boolean, char)',
+      'Expressions and input/output operations',
+      'Assignment, casting, and range issues',
+      'Using APIs and libraries',
+      'Method signatures and calling methods',
+      'Class methods vs instance methods',
+      'String manipulation and methods',
+      'Object creation and instantiation',
+      'Commenting and documentation'
+    ],
+    examples: [
+      'Hello World program with user input',
+      'Calculator using Math class methods',
+      'String processing and manipulation',
+      'Temperature conversion program',
+      'Grade calculation system',
+      'Simple text-based games'
+    ],
+    studyTips: [
+      'Practice with Java documentation (JavaDocs)',
+      'Learn common String methods',
+      'Understand primitive vs reference types',
+      'Practice method calling and parameter passing'
+    ],
+    practiceProblems: [
+      'Create a program that processes user names and emails',
+      'Build a simple calculator using Math class',
+      'Develop a text processing utility'
+    ]
+  },
+  {
+    id: 'selection-iteration',
+    name: 'Selection & Iteration',
+    emoji: '🔄',
+    category: 'Unit 2',
+    difficulty: 'Easy',
+    examWeight: '25-35%',
+    description: 'Boolean expressions, conditional statements, and loops for program control flow.',
+    detailedExplanation: 'This unit covers how to make programs make decisions and repeat actions. Students learn about boolean logic, conditional statements, and different types of loops to create interactive and dynamic programs.',
+    realWorldUse: 'Fundamental to all programming, used in user interfaces, data validation, game logic, and business applications.',
+    keyConcepts: [
+      'Boolean expressions and logical operators',
+      'if, else if, and nested if statements',
+      'Compound Boolean logic (&&, ||, !)',
+      'while loops and for loops',
+      'Nested loops and loop control',
+      'String algorithms and processing',
+      'Informal runtime and performance analysis',
+      'Iteration over collections and arrays',
+      'Loop patterns and common algorithms'
+    ],
+    examples: [
+      'Menu-driven programs with user choices',
+      'Data validation with input loops',
+      'Pattern printing programs',
+      'Game logic with conditional statements',
+      'Data processing with loops',
+      'User authentication systems'
+    ],
+    studyTips: [
+      'Practice writing nested loops',
+      'Understand boolean logic thoroughly',
+      'Learn common loop patterns',
+      'Practice tracing through code execution'
+    ],
+    practiceProblems: [
+      'Create a number guessing game',
+      'Build a student grade management system',
+      'Develop a text analysis program'
+    ]
+  },
+  {
+    id: 'class-creation',
+    name: 'Class Creation',
+    emoji: '🏗️',
+    category: 'Unit 3',
+    difficulty: 'Medium',
+    examWeight: '10-18%',
+    description: 'Writing classes with constructors, instance variables, and methods to model real-world entities.',
+    detailedExplanation: 'Students learn to design and implement their own classes, understanding encapsulation, constructors, and the relationship between classes and objects. This is the foundation of object-oriented programming.',
+    realWorldUse: 'Core of object-oriented programming, used in all modern software development for modeling real-world entities and organizing code.',
+    keyConcepts: [
+      'Abstraction and program design principles',
+      'Writing classes with constructors',
+      'Instance variables and static variables',
+      'Instance methods and static methods',
+      'Scope and access modifiers (public, private)',
+      'Encapsulation and data hiding',
+      'this keyword and object references',
+      'Passing and returning object references',
+      'Use of classes and objects in program design'
+    ],
+    examples: [
+      'Student class with grades and GPA calculation',
+      'Bank account with deposit/withdrawal methods',
+      'Car class with speed and fuel management',
+      'Library book management system',
+      'Game character with health and abilities',
+      'Employee payroll system'
+    ],
+    studyTips: [
+      'Practice designing classes before coding',
+      'Understand the difference between static and instance',
+      'Learn proper encapsulation techniques',
+      'Practice with constructors and method overloading'
+    ],
+    practiceProblems: [
+      'Design a Rectangle class with area and perimeter',
+      'Create a BankAccount class with transactions',
+      'Build a Student class with course management'
+    ]
+  },
+  {
+    id: 'data-collections',
+    name: 'Data Collections',
+    emoji: '📋',
+    category: 'Unit 4',
+    difficulty: 'Medium',
+    examWeight: '30-40%',
+    description: 'Working with arrays, ArrayLists, and implementing searching and sorting algorithms.',
+    detailedExplanation: 'This is the largest unit, covering how to work with collections of data. Students learn about arrays, ArrayLists, and implement fundamental algorithms for searching and sorting data.',
+    realWorldUse: 'Essential for data processing, database operations, and any application that works with collections of information.',
+    keyConcepts: [
+      'Working with arrays and two-dimensional arrays',
+      'ArrayList usage and common methods',
+      'Traversal, searching, and sorting algorithms',
+      'Linear search and binary search',
+      'Selection sort, insertion sort, and merge sort',
+      'Recursive search and sort algorithms',
+      'Use of datasets and text files',
+      'Wrapper classes and autoboxing',
+      'Ethical and social issues around data collection',
+      'Efficiency considerations and runtime analysis'
+    ],
+    examples: [
+      'Student grade management with arrays',
+      'Shopping cart system with ArrayList',
+      'Game score tracking and leaderboards',
+      'Data analysis programs',
+      'Image processing with 2D arrays',
+      'Database-like operations'
+    ],
+    studyTips: [
+      'Master array indexing and bounds checking',
+      'Practice implementing sorting algorithms',
+      'Understand ArrayList vs array differences',
+      'Learn to trace through algorithm execution'
+    ],
+    practiceProblems: [
+      'Implement a contact management system',
+      'Create a grade book with statistical analysis',
+      'Build a simple database with search functionality'
+    ]
+  },
+  {
+    id: 'inheritance-polymorphism',
+    name: 'Inheritance & Polymorphism',
+    emoji: '🧬',
+    category: 'Advanced OOP',
+    difficulty: 'Hard',
+    examWeight: '5-10%',
+    description: 'Advanced object-oriented concepts including inheritance, method overriding, and polymorphism.',
+    detailedExplanation: 'Students learn advanced OOP concepts that enable code reuse and extensibility. This includes creating class hierarchies, overriding methods, and understanding polymorphism.',
+    realWorldUse: 'Essential for building large software systems, frameworks, and libraries where code reuse and extensibility are critical.',
+    keyConcepts: [
+      'Class inheritance and the extends keyword',
+      'Method overriding vs method overloading',
+      'Super keyword and constructor chaining',
+      'Polymorphism and dynamic method binding',
+      'Abstract classes and abstract methods',
+      'Interface implementation',
+      'Object-oriented design principles',
+      'Code reuse and extensibility'
+    ],
+    examples: [
+      'Vehicle hierarchy (Car, Truck, Motorcycle)',
+      'Animal classes with different behaviors',
+      'Shape classes with area calculations',
+      'Employee types with different pay rates',
+      'Game entities with shared properties',
+      'GUI component inheritance'
+    ],
+    studyTips: [
+      'Practice designing class hierarchies',
+      'Understand the difference between overriding and overloading',
+      'Learn when to use abstract classes vs interfaces',
+      'Practice with polymorphism examples'
+    ],
+    practiceProblems: [
+      'Design a media player with different file types',
+      'Create a game with different character types',
+      'Build a drawing application with various shapes'
+    ]
+  },
+  {
+    id: 'recursion',
+    name: 'Recursion',
+    emoji: '🔄',
+    category: 'Algorithms',
+    difficulty: 'Hard',
+    examWeight: '5-10%',
+    description: 'Solving problems using recursive method calls and understanding the call stack.',
+    detailedExplanation: 'Recursion is a powerful problem-solving technique where a method calls itself to solve smaller instances of the same problem. Students learn to think recursively and implement recursive algorithms.',
+    realWorldUse: 'Used in algorithms for tree traversal, mathematical calculations, and problems with recursive structure like file systems and parsing.',
+    keyConcepts: [
+      'Base case and recursive case identification',
+      'Method call stack and stack frames',
+      'Recursive thinking and problem decomposition',
+      'Common recursive algorithms (factorial, Fibonacci)',
+      'Recursive search and sort algorithms',
+      'Tail recursion and optimization',
+      'Debugging recursive methods',
+      'When to use recursion vs iteration'
+    ],
+    examples: [
+      'Factorial calculation using recursion',
+      'Fibonacci sequence generation',
+      'Binary search (recursive implementation)',
+      'Tree traversal algorithms',
+      'Tower of Hanoi puzzle solution',
+      'Directory tree processing'
+    ],
+    studyTips: [
+      'Always identify the base case first',
+      'Practice tracing through recursive calls',
+      'Understand the call stack mechanism',
+      'Learn when recursion is appropriate'
+    ],
+    practiceProblems: [
+      'Implement recursive binary search',
+      'Create a recursive file system navigator',
+      'Build a recursive maze solver'
+    ]
+  },
+  {
+    id: 'algorithm-analysis',
+    name: 'Algorithm Analysis',
+    emoji: '📈',
+    category: 'Algorithms',
+    difficulty: 'Medium',
+    examWeight: '5-10%',
+    description: 'Analyzing algorithm efficiency using Big O notation and understanding time/space complexity.',
+    detailedExplanation: 'Students learn to analyze and compare algorithms based on their efficiency. This includes understanding Big O notation, time complexity, space complexity, and making informed decisions about algorithm choice.',
+    realWorldUse: 'Essential for software engineers to write efficient code and make informed decisions about algorithm selection in real-world applications.',
+    keyConcepts: [
+      'Big O notation and complexity analysis',
+      'Time complexity (best, average, worst case)',
+      'Space complexity and memory usage',
+      'Comparing algorithm efficiency',
+      'Common complexity classes (O(1), O(n), O(log n), O(n²))',
+      'Algorithm optimization techniques',
+      'Trade-offs between time and space',
+      'Practical considerations in algorithm choice'
+    ],
+    examples: [
+      'Comparing sorting algorithm performance',
+      'Analyzing search algorithm efficiency',
+      'Optimizing nested loop algorithms',
+      'Memory usage analysis',
+      'Real-world performance considerations',
+      'Algorithm selection for different data sizes'
+    ],
+    studyTips: [
+      'Practice analyzing code for complexity',
+      'Learn to recognize common complexity patterns',
+      'Understand the practical implications of Big O',
+      'Practice comparing different algorithm approaches'
+    ],
+    practiceProblems: [
+      'Analyze the complexity of different sorting algorithms',
+      'Compare iterative vs recursive solutions',
+      'Optimize an inefficient algorithm'
+    ]
+  }
+];
+
 const Learn = () => {
+  // Navigation state
+  const [activeSection, setActiveSection] = useState<'algorithms' | 'ap-csp' | 'ap-csa'>('algorithms');
+  
+  // Algorithm state
   const [selectedAlgorithm, setSelectedAlgorithm] = useState('merge-sort');
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -214,6 +712,12 @@ const Learn = () => {
   const [targetFound, setTargetFound] = useState(-1);
   const [searchMid, setSearchMid] = useState(-1);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  
+  // AP CSP state
+  const [selectedCspTopic, setSelectedCspTopic] = useState('creative-development');
+  
+  // AP CSA state
+  const [selectedCsaTopic, setSelectedCsaTopic] = useState('using-objects');
 
   // Pomodoro Timer State
   const [pomodoroTime, setPomodoroTime] = useState(25 * 60); // 25 minutes in seconds
@@ -235,6 +739,28 @@ const Learn = () => {
   const [showSimpleExplanation, setShowSimpleExplanation] = useState(false);
 
   const currentAlgorithm = algorithms.find((algo) => algo.id === selectedAlgorithm) || algorithms[0];
+  const currentCspTopic = apCspTopics.find((topic) => topic.id === selectedCspTopic) || apCspTopics[0];
+  const currentCsaTopic = apCsaTopics.find((topic) => topic.id === selectedCsaTopic) || apCsaTopics[0];
+
+  // Debug: Check if arrays are properly loaded
+  console.log('Debug Info:');
+  console.log('- Active section:', activeSection);
+  console.log('- Selected CSP topic:', selectedCspTopic);
+  console.log('- Selected CSA topic:', selectedCsaTopic);
+  console.log('- CSP topics array length:', apCspTopics.length);
+  console.log('- CSA topics array length:', apCsaTopics.length);
+  console.log('- CSP topics IDs:', apCspTopics.map(t => t.id));
+  console.log('- CSA topics IDs:', apCsaTopics.map(t => t.id));
+  console.log('- Current CSP topic:', currentCspTopic);
+  console.log('- Current CSA topic:', currentCsaTopic);
+  
+  if (activeSection === 'ap-csp' && !currentCspTopic) {
+    console.error('CSP topic not found:', selectedCspTopic, 'Available topics:', apCspTopics.map(t => t.id));
+  }
+  if (activeSection === 'ap-csa' && !currentCsaTopic) {
+    console.error('CSA topic not found:', selectedCsaTopic, 'Available topics:', apCsaTopics.map(t => t.id));
+  }
+
 
   // Build steps using shared generators
   const buildSteps = (algoId: string) => {
@@ -476,7 +1002,7 @@ const Learn = () => {
           >
             Interactive{' '}
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Algorithm Learning
+              Computer Science Learning
             </span>
           </motion.h1>
           <motion.p 
@@ -485,10 +1011,43 @@ const Learn = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Master algorithms through step-by-step visualizations and comprehensive explanations
-            designed specifically for AP Computer Science students.
+            Master algorithms, AP CSP principles, and AP CSA Java programming through interactive 
+            visualizations and comprehensive explanations designed specifically for computer science students.
           </motion.p>
         </div>
+
+        {/* Navigation Tabs */}
+        <motion.div 
+          className="flex justify-center mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <div className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-2 shadow-xl border border-white/10">
+            <div className="flex space-x-2">
+              {[
+                { id: 'algorithms', label: 'Algorithms', icon: '⚙️' },
+                { id: 'ap-csp', label: 'AP CSP', icon: '🧠' },
+                { id: 'ap-csa', label: 'AP CSA', icon: '☕' }
+              ].map((section) => (
+                <motion.button
+                  key={section.id}
+                  onClick={() => setActiveSection(section.id as any)}
+                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center space-x-2 ${
+                    activeSection === section.id
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      : 'text-white/70 hover:text-white hover:bg-white/[0.08]'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-lg">{section.icon}</span>
+                  <span>{section.label}</span>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
         <div className="grid lg:grid-cols-12 gap-6">
           {/* Sidebar */}
@@ -501,10 +1060,13 @@ const Learn = () => {
             >
               <h2 className="text-lg font-bold mb-4 flex items-center">
                 <span className="mr-2">🍎</span>
-                Algorithms
+                {activeSection === 'algorithms' && 'Algorithms'}
+                {activeSection === 'ap-csp' && 'AP CSP Topics'}
+                {activeSection === 'ap-csa' && 'AP CSA Topics'}
               </h2>
               <div className="space-y-2">
-                {algorithms.map((algo, index) => {
+                {/* Algorithms Section */}
+                {activeSection === 'algorithms' && algorithms.map((algo, index) => {
                   const isSelected = selectedAlgorithm === algo.id;
                   return (
                     <motion.button
@@ -568,39 +1130,136 @@ const Learn = () => {
                     </motion.button>
                   );
                 })}
+
+                {/* AP CSP Section */}
+                {activeSection === 'ap-csp' && apCspTopics.map((topic, index) => {
+                  const isSelected = selectedCspTopic === topic.id;
+                  return (
+                    <motion.button
+                      key={topic.id}
+                      onClick={() => setSelectedCspTopic(topic.id)}
+                      className={`w-full text-left p-4 rounded-xl transition-all duration-300 group ${
+                        isSelected
+                          ? 'bg-gradient-to-r from-green-600 to-teal-600 text-white shadow-lg scale-105'
+                          : 'hover:bg-white/[0.08] text-white/85 bg-white/[0.04] border border-white/10'
+                      }`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-3">
+                          <span className="text-lg">{topic.emoji}</span>
+                          <h3 className="font-semibold">{topic.name}</h3>
+                        </div>
+                        <ChevronRight
+                          className={`h-4 w-4 transition-transform ${
+                            isSelected ? 'rotate-90 text-white' : 'group-hover:translate-x-1 text-white/50'
+                          }`}
+                        />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className={`${isSelected ? 'text-white/80' : 'text-white/60'} text-sm`}>
+                          {topic.category}
+                        </span>
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full font-medium ${
+                            isSelected
+                              ? 'bg-white/20 text-white'
+                              : 'bg-white/10 text-white/80 border border-white/20'
+                          }`}
+                        >
+                          {topic.difficulty}
+                        </span>
+                      </div>
+                    </motion.button>
+                  );
+                })}
+
+                {/* AP CSA Section */}
+                {activeSection === 'ap-csa' && apCsaTopics.map((topic, index) => {
+                  const isSelected = selectedCsaTopic === topic.id;
+                  return (
+                    <motion.button
+                      key={topic.id}
+                      onClick={() => setSelectedCsaTopic(topic.id)}
+                      className={`w-full text-left p-4 rounded-xl transition-all duration-300 group ${
+                        isSelected
+                          ? 'bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-lg scale-105'
+                          : 'hover:bg-white/[0.08] text-white/85 bg-white/[0.04] border border-white/10'
+                      }`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-3">
+                          <span className="text-lg">{topic.emoji}</span>
+                          <h3 className="font-semibold">{topic.name}</h3>
+                        </div>
+                        <ChevronRight
+                          className={`h-4 w-4 transition-transform ${
+                            isSelected ? 'rotate-90 text-white' : 'group-hover:translate-x-1 text-white/50'
+                          }`}
+                        />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className={`${isSelected ? 'text-white/80' : 'text-white/60'} text-sm`}>
+                          {topic.category}
+                        </span>
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full font-medium ${
+                            isSelected
+                              ? 'bg-white/20 text-white'
+                              : 'bg-white/10 text-white/80 border border-white/20'
+                          }`}
+                        >
+                          {topic.difficulty}
+                        </span>
+                      </div>
+                    </motion.button>
+                  );
+                })}
               </div>
             </motion.div>
           </div>
 
           {/* Main Content */}
           <div className="lg:col-span-9 space-y-6">
-            {/* Algorithm Overview */}
-            <motion.div 
-              className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-xl">
-                    {currentAlgorithm.emoji}
-                  </div>
-                  <div>
-                    <h2 className="text-3xl font-bold">{currentAlgorithm.name}</h2>
-                    <p className="text-white/70 mt-1">{currentAlgorithm.category} Algorithm</p>
-                  </div>
-                </div>
-                <motion.button
-                  onClick={() => setShowSimpleExplanation(!showSimpleExplanation)}
-                  className="px-4 py-2 bg-yellow-500/20 text-yellow-200 rounded-lg font-medium hover:bg-yellow-500/30 flex items-center space-x-2"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+            {/* Content based on active section */}
+            {activeSection === 'algorithms' && (
+              <>
+                {/* Algorithm Overview */}
+                <motion.div 
+                  className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <HelpCircle className="h-4 w-4" />
-                  <span>I'm Confused</span>
-                </motion.button>
-              </div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-xl">
+                        {currentAlgorithm.emoji}
+                      </div>
+                      <div>
+                        <h2 className="text-3xl font-bold">{currentAlgorithm.name}</h2>
+                        <p className="text-white/70 mt-1">{currentAlgorithm.category} Algorithm</p>
+                      </div>
+                    </div>
+                    <motion.button
+                      onClick={() => setShowSimpleExplanation(!showSimpleExplanation)}
+                      className="px-4 py-2 bg-yellow-500/20 text-yellow-200 rounded-lg font-medium hover:bg-yellow-500/30 flex items-center space-x-2"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <HelpCircle className="h-4 w-4" />
+                      <span>I'm Confused</span>
+                    </motion.button>
+                  </div>
 
               <div className="mb-6">
                 {showSimpleExplanation ? (
@@ -1058,6 +1717,288 @@ const Learn = () => {
                 </div>
               )}
             </motion.div>
+              </>
+            )}
+
+            {/* AP CSP Content */}
+            {activeSection === 'ap-csp' && (
+              <>
+                {currentCspTopic ? (
+                  /* AP CSP Topic Overview */
+                  <motion.div 
+                    className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-teal-600 rounded-xl flex items-center justify-center text-xl">
+                          {currentCspTopic.emoji}
+                        </div>
+                        <div>
+                          <h2 className="text-3xl font-bold">{currentCspTopic.name}</h2>
+                          <p className="text-white/70 mt-1">{currentCspTopic.category} • AP CSP</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="px-3 py-1 bg-green-500/20 text-green-200 rounded-full text-sm font-medium">
+                          {currentCspTopic.difficulty}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-6">
+                      <p className="text-lg text-white/85 leading-relaxed mb-4">
+                        {currentCspTopic.description}
+                      </p>
+                      <div className="bg-green-500/10 border border-green-400/20 rounded-xl p-4 mb-4">
+                        <p className="text-white/90 text-sm leading-relaxed">
+                          <strong className="text-green-200">Deep Dive:</strong>{' '}
+                          {currentCspTopic.detailedExplanation}
+                        </p>
+                      </div>
+                      <div className="bg-emerald-500/10 border border-emerald-400/20 rounded-xl p-4">
+                        <p className="text-white/90 text-sm">
+                          <strong className="text-emerald-200">Real-World Applications:</strong>{' '}
+                          {currentCspTopic.realWorldUse}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Exam Weight */}
+                    {currentCspTopic.examWeight && (
+                      <div className="mb-6">
+                        <div className="bg-green-500/10 border border-green-400/20 rounded-xl p-4">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-green-300 font-semibold">📊 Exam Weight:</span>
+                            <span className="text-green-200 font-bold text-lg">{currentCspTopic.examWeight}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Key Concepts and Examples */}
+                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <Brain className="h-5 w-5 text-green-300 mr-2" />
+                          Key Concepts
+                        </h4>
+                        <ul className="space-y-2">
+                          {currentCspTopic.keyConcepts.map((concept, index) => (
+                            <li key={index} className="text-sm text-white/80 flex items-start">
+                              <span className="text-green-300 mr-2">•</span>
+                              {concept}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <Code className="h-5 w-5 text-blue-300 mr-2" />
+                          Examples
+                        </h4>
+                        <ul className="space-y-2">
+                          {currentCspTopic.examples.map((example, index) => (
+                            <li key={index} className="text-sm text-white/80 flex items-start">
+                              <span className="text-blue-300 mr-2">•</span>
+                              {example}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Study Tips and Practice Problems */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <BookOpen className="h-5 w-5 text-purple-300 mr-2" />
+                          Study Tips
+                        </h4>
+                        <ul className="space-y-2">
+                          {currentCspTopic.studyTips?.map((tip, index) => (
+                            <li key={index} className="text-sm text-white/80 flex items-start">
+                              <span className="text-purple-300 mr-2">💡</span>
+                              {tip}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <Target className="h-5 w-5 text-orange-300 mr-2" />
+                          Practice Problems
+                        </h4>
+                        <ul className="space-y-2">
+                          {currentCspTopic.practiceProblems?.map((problem, index) => (
+                            <li key={index} className="text-sm text-white/80 flex items-start">
+                              <span className="text-orange-300 mr-2">🎯</span>
+                              {problem}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  /* Fallback content */
+                  <motion.div 
+                    className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    <div className="text-center">
+                      <h2 className="text-3xl font-bold text-white mb-4">AP CSP Topics</h2>
+                      <p className="text-white/70">Loading AP Computer Science Principles content...</p>
+                      <p className="text-white/50 text-sm mt-2">Debug: Selected topic: {selectedCspTopic}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </>
+            )}
+
+            {/* AP CSA Content */}
+            {activeSection === 'ap-csa' && (
+              <>
+                {currentCsaTopic ? (
+                  /* AP CSA Topic Overview */
+                  <motion.div 
+                    className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl flex items-center justify-center text-xl">
+                          {currentCsaTopic.emoji}
+                        </div>
+                        <div>
+                          <h2 className="text-3xl font-bold">{currentCsaTopic.name}</h2>
+                          <p className="text-white/70 mt-1">{currentCsaTopic.category} • AP CSA</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="px-3 py-1 bg-orange-500/20 text-orange-200 rounded-full text-sm font-medium">
+                          {currentCsaTopic.difficulty}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-6">
+                      <p className="text-lg text-white/85 leading-relaxed mb-4">
+                        {currentCsaTopic.description}
+                      </p>
+                      <div className="bg-orange-500/10 border border-orange-400/20 rounded-xl p-4 mb-4">
+                        <p className="text-white/90 text-sm leading-relaxed">
+                          <strong className="text-orange-200">Deep Dive:</strong>{' '}
+                          {currentCsaTopic.detailedExplanation}
+                        </p>
+                      </div>
+                      <div className="bg-emerald-500/10 border border-emerald-400/20 rounded-xl p-4">
+                        <p className="text-white/90 text-sm">
+                          <strong className="text-emerald-200">Real-World Applications:</strong>{' '}
+                          {currentCsaTopic.realWorldUse}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Exam Weight */}
+                    {currentCsaTopic.examWeight && (
+                      <div className="mb-6">
+                        <div className="bg-orange-500/10 border border-orange-400/20 rounded-xl p-4">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-orange-300 font-semibold">📊 Exam Weight:</span>
+                            <span className="text-orange-200 font-bold text-lg">{currentCsaTopic.examWeight}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Key Concepts and Examples */}
+                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <Brain className="h-5 w-5 text-orange-300 mr-2" />
+                          Key Concepts
+                        </h4>
+                        <ul className="space-y-2">
+                          {currentCsaTopic.keyConcepts.map((concept, index) => (
+                            <li key={index} className="text-sm text-white/80 flex items-start">
+                              <span className="text-orange-300 mr-2">•</span>
+                              {concept}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <Code className="h-5 w-5 text-blue-300 mr-2" />
+                          Examples
+                        </h4>
+                        <ul className="space-y-2">
+                          {currentCsaTopic.examples.map((example, index) => (
+                            <li key={index} className="text-sm text-white/80 flex items-start">
+                              <span className="text-blue-300 mr-2">•</span>
+                              {example}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Study Tips and Practice Problems */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <BookOpen className="h-5 w-5 text-purple-300 mr-2" />
+                          Study Tips
+                        </h4>
+                        <ul className="space-y-2">
+                          {currentCsaTopic.studyTips?.map((tip, index) => (
+                            <li key={index} className="text-sm text-white/80 flex items-start">
+                              <span className="text-purple-300 mr-2">💡</span>
+                              {tip}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
+                        <h4 className="font-semibold mb-3 flex items-center">
+                          <Target className="h-5 w-5 text-orange-300 mr-2" />
+                          Practice Problems
+                        </h4>
+                        <ul className="space-y-2">
+                          {currentCsaTopic.practiceProblems?.map((problem, index) => (
+                            <li key={index} className="text-sm text-white/80 flex items-start">
+                              <span className="text-orange-300 mr-2">🎯</span>
+                              {problem}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  /* Fallback content */
+                  <motion.div 
+                    className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                  >
+                    <div className="text-center">
+                      <h2 className="text-3xl font-bold text-white mb-4">AP CSA Topics</h2>
+                      <p className="text-white/70">Loading AP Computer Science A content...</p>
+                      <p className="text-white/50 text-sm mt-2">Debug: Selected topic: {selectedCsaTopic}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

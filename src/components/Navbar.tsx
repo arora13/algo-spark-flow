@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Brain, Code, BookOpen, User, GraduationCap } from 'lucide-react';
+import { Brain, Code, BookOpen, User } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -9,7 +9,6 @@ const Navbar = () => {
   const navItems = [
     { name: 'Learn', path: '/learn', icon: Brain },
     { name: 'Practice', path: '/practice', icon: Code },
-    { name: 'AP Topics', path: '/ap-topics', icon: GraduationCap },
     { name: 'About', path: '/about', icon: BookOpen },
   ];
 
