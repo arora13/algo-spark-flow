@@ -558,7 +558,7 @@ const Learn = () => {
                             className={`text-xs px-2 py-1 rounded-full font-medium ${
                               isSelected
                                 ? 'bg-white/20 text-white'
-                                : `bg-gradient-to-r ${getDifficultyColor(algo.difficulty)} text-white`
+                                : 'bg-white/10 text-white/80 border border-white/20'
                             }`}
                           >
                             {algo.difficulty}
