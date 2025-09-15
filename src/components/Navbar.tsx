@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Brain, Code, BookOpen, User } from 'lucide-react';
+import { Brain, Code, BookOpen, User, GraduationCap } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -9,6 +9,7 @@ const Navbar = () => {
   const navItems = [
     { name: 'Learn', path: '/learn', icon: Brain },
     { name: 'Practice', path: '/practice', icon: Code },
+    { name: 'AP Topics', path: '/ap-topics', icon: GraduationCap },
     { name: 'About', path: '/about', icon: BookOpen },
   ];
 
@@ -19,7 +20,7 @@ const Navbar = () => {
           {/* AlgoFlow Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
             <img 
-              src="/lovable-uploads/faa2e8bb-699f-4b26-b4eb-f12be9d2e028.png" 
+              src="/assets/algoflow-logo.png" 
               alt="AlgoFlow Logo" 
               className="h-32 w-auto md:h-34"
             />

@@ -131,6 +131,31 @@ function binarySearchSteps(arr: number[], target: number): SearchStep[] {
   return steps;
 }
 
+function linearSearchSteps(arr: number[], target: number): SearchStep[] {
+  const a = clone(arr);
+  const steps: SearchStep[] = [];
+  for (let i = 0; i < a.length; i++) {
+    steps.push({ array: clone(a), left: i, right: i, mid: i, found: a[i] === target ? i : -1 });
+    if (a[i] === target) break;
+  }
+  return steps;
+}
+
+function twoPointersSteps(arr: number[], target: number): SearchStep[] {
+  const a = clone(arr).sort((x, y) => x - y);
+  const steps: SearchStep[] = [];
+  let left = 0, right = a.length - 1;
+  
+  while (left < right) {
+    const sum = a[left] + a[right];
+    steps.push({ array: clone(a), left, right, mid: -1, found: sum === target ? left : -1 });
+    if (sum === target) break;
+    if (sum < target) left++;
+    else right--;
+  }
+  return steps;
+}
+
 export function generateAlgorithmSteps(algorithmId: string, arr: number[], target = 9) {
   switch (algorithmId) {
     case 'merge-sort':
@@ -145,6 +170,10 @@ export function generateAlgorithmSteps(algorithmId: string, arr: number[], targe
       return selectionSortSteps(arr);
     case 'binary-search':
       return binarySearchSteps(arr, target);
+    case 'linear-search':
+      return linearSearchSteps(arr, target);
+    case 'two-pointers':
+      return twoPointersSteps(arr, target);
     default:
       return [{ array: clone(arr) }];
   }

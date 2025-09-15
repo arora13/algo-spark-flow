@@ -86,6 +86,12 @@ const Index = () => {
                   Try Practice Mode
                 </Button>
               </Link>
+              <Link to="/ap-topics">
+                <Button className="btn-secondary group">
+                  <span className="mr-2 group-hover:scale-110 transition-transform">🎓</span>
+                  AP Topics
+                </Button>
+              </Link>
             </div>
 
             {/* Stats */}
