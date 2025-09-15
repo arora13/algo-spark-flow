@@ -8,6 +8,8 @@ import { useToast } from '@/hooks/use-toast';
 import FloatingElements from '@/components/FloatingElements';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import { trackPageView, trackContact } from '@/lib/analytics';
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from '@/config/emailjs';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -28,23 +30,55 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    // Track contact form submission
     try {
-      await trackContact(formData);
+      // Initialize EmailJS with your public key
+      emailjs.init(EMAILJS_CONFIG.publicKey);
+
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        EMAILJS_CONFIG.serviceId,
+        'template_ephwkbw', // Your EmailJS template ID
+        {
+          to_email: 'algoflowteam@gmail.com',
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }
+      );
+      
+      console.log('Email sent successfully:', result);
+
+      // Track contact form submission
+      try {
+        await trackContact(formData);
+      } catch (error) {
+        console.log('Contact tracking failed:', error);
+      }
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. We'll get back to you soon!",
+      });
+
+      // Reset form
+      setFormData({ name: '', email: '', subject: '', message: '' });
+
     } catch (error) {
-      console.log('Contact tracking failed:', error);
+      console.error('Failed to send email:', error);
+      console.error('Error details:', {
+        serviceId: EMAILJS_CONFIG.serviceId,
+        publicKey: EMAILJS_CONFIG.publicKey,
+        error: error
+      });
+      toast({
+        title: "Error",
+        description: `Failed to send message: ${error.message || 'Unknown error'}. Please try again or contact us directly.`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon!",
-    });
-
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -58,7 +92,7 @@ const Contact = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: 'Visit Us',
-      content: 'San Francisco, CA',
+      content: 'San Jose, CA',
       link: '#'
     }
   ];
@@ -259,7 +293,7 @@ const Contact = () => {
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-white mb-3">Do you offer support for teachers?</h3>
                 <p className="text-slate-300">
-                  Absolutely! We provide special resources and support for educators who want to use our platform in their classrooms.
+                  Coming soon! We're working on special resources and support for educators who want to use our platform in their classrooms.
                 </p>
               </CardContent>
             </Card>

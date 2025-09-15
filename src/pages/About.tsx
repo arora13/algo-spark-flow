@@ -87,10 +87,14 @@ const About = () => {
                       struggling through abstract concepts. AlgoFlow transforms the way students learn 
                       by combining visual storytelling with hands-on practice.
                     </p>
-                    <p className="text-lg text-slate-700 leading-relaxed mb-8">
+                    <p className="text-lg text-slate-700 leading-relaxed mb-6">
                       Our platform is designed specifically for High School and Early College 
                       students who want to build a solid foundation in algorithmic thinking and 
                       problem-solving skills.
+                    </p>
+                    <p className="text-lg text-slate-700 leading-relaxed mb-8">
+                      We're a <span className="font-semibold text-slate-900">centralized website</span> built for students by students, 
+                      with <span className="font-semibold text-slate-900">AI features coming soon</span> to enhance your learning experience.
                     </p>
                     <div className="flex items-center space-x-4 text-lg">
                       ❤️
@@ -228,19 +232,16 @@ const About = () => {
                   <h2 className="text-3xl font-bold text-slate-900 mb-6">
                     Ready to Master Algorithms?
                   </h2>
-                  <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                    Join our community of students who hope to transform their understanding 
-                    of computer science through visual learning and hands-on practice.
+                  <p className="text-lg text-slate-600 mb-6 leading-relaxed">
+                    We're looking for feedback and bugs - if you catch any, please reach out to us via contact!
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link to="/learn">
+                  <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                    We want to eventually get high school ambassadors, so if you're interested, please reach out to us via contact and we'll send you an application.
+                  </p>
+                  <div className="flex justify-center">
+                    <Link to="/contact">
                       <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300">
-                        📖 Start Learning
-                      </Button>
-                    </Link>
-                    <Link to="/practice">
-                      <Button variant="outline" className="border-2 border-slate-300 hover:border-slate-400 px-8 py-4 text-lg hover:bg-slate-50 transition-all duration-300">
-                        💻 Practice Problems ➡️
+                        💬 Contact Us
                       </Button>
                     </Link>
                   </div>

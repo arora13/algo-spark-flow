@@ -448,3 +448,26 @@ input, textarea, select {
 *:hover {
   color: #ffffff !important;
 }
+
+/* Global CSS to hide Spline attribution */
+.spline-watermark,
+[data-spline-watermark],
+.spline-attribution,
+iframe[src*="spline.design"] + div,
+canvas + div[style*="position: absolute"],
+div[style*="position: fixed"][style*="bottom"],
+div[style*="position: fixed"][style*="right"],
+div[style*="z-index: 9999"],
+div[style*="z-index: 10000"],
+div[style*="background: rgb(139, 69, 19)"],
+div[style*="background: #8B4513"],
+div[style*="Built with Spline"],
+a[href*="spline.design"],
+a[href*="spline.design"] + div,
+[class*="spline"],
+[id*="spline"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

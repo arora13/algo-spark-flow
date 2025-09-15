@@ -1485,30 +1485,15 @@ const Learn = () => {
                         <span className={`${isSelected ? 'text-white/80' : 'text-white/60'} text-sm`}>
                           {algo.category}
                         </span>
-                        <div className="flex items-center space-x-1.5 flex-wrap">
-                          {algo.apTags?.map((tag, tagIndex) => (
-                            <motion.span
-                              key={tagIndex}
-                              className="text-xs px-2 py-1 rounded-full font-medium bg-white/10 text-white/80 border border-white/20 transition-all duration-300"
-                              whileHover={{ scale: 1.05, y: -1 }}
-                              whileTap={{ scale: 0.95 }}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ delay: tagIndex * 0.1 }}
-                            >
-                              {tag}
-                            </motion.span>
-                          ))}
-                          <span
-                            className={`text-xs px-2 py-1 rounded-full font-medium ${
-                              isSelected
-                                ? 'bg-white/20 text-white'
-                                : 'bg-white/10 text-white/80 border border-white/20'
-                            }`}
-                          >
-                            {algo.difficulty}
-                          </span>
-                        </div>
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full font-medium ${
+                            isSelected
+                              ? 'bg-white/20 text-white'
+                              : 'bg-white/10 text-white/80 border border-white/20'
+                          }`}
+                        >
+                          {algo.difficulty}
+                        </span>
                       </div>
                     </motion.button>
                   );

@@ -19,26 +19,33 @@ const Index = () => {
   };
 
   const algorithms = [
-    { name: 'Merge Sort', description: 'Divide and conquer sorting with guaranteed O(n log n) performance', emoji: '📊', color: 'from-blue-500 to-cyan-400', difficulty: 'Medium' },
-    { name: 'Quick Sort', description: 'Efficient in-place sorting with excellent average-case performance', emoji: '⚡', color: 'from-purple-500 to-pink-400', difficulty: 'Medium' },
-    { name: 'Binary Search', description: 'Lightning-fast search through sorted data structures', emoji: '🎯', color: 'from-emerald-500 to-teal-400', difficulty: 'Easy' },
-    { name: 'Bubble Sort', description: 'Simple comparison-based sorting perfect for learning fundamentals', emoji: '💻', color: 'from-orange-500 to-red-400', difficulty: 'Easy' },
-    { name: 'Insertion Sort', description: 'Intuitive sorting that builds the final array one element at a time', emoji: '📖', color: 'from-indigo-500 to-blue-400', difficulty: 'Easy' },
-    { name: 'Selection Sort', description: 'Straightforward algorithm that finds minimums and builds sorted portion', emoji: '✅', color: 'from-green-500 to-emerald-400', difficulty: 'Easy' }
+    { name: 'Merge Sort', description: 'Divide and conquer sorting with guaranteed O(n log n) performance', emoji: '📊', color: 'from-blue-500 to-cyan-400', difficulty: 'Medium', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center' },
+    { name: 'Quick Sort', description: 'Efficient in-place sorting with excellent average-case performance', emoji: '⚡', color: 'from-purple-500 to-pink-400', difficulty: 'Medium', image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&crop=center' },
+    { name: 'Binary Search', description: 'Lightning-fast search through sorted data structures', emoji: '🎯', color: 'from-emerald-500 to-teal-400', difficulty: 'Easy', image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop&crop=center' },
+    { name: 'Bubble Sort', description: 'Simple comparison-based sorting perfect for learning fundamentals', emoji: '💻', color: 'from-orange-500 to-red-400', difficulty: 'Easy', image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop&crop=center' },
+    { name: 'Insertion Sort', description: 'Intuitive sorting that builds the final array one element at a time', emoji: '📖', color: 'from-indigo-500 to-blue-400', difficulty: 'Easy', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop&crop=center' },
+    { name: 'Selection Sort', description: 'Straightforward algorithm that finds minimums and builds sorted portion', emoji: '✅', color: 'from-green-500 to-emerald-400', difficulty: 'Easy', image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&crop=center' },
+    { name: 'Heap Sort', description: 'Efficient sorting using binary heap data structure', emoji: '🏗️', color: 'from-yellow-500 to-orange-400', difficulty: 'Hard', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center' },
+    { name: 'Depth-First Search', description: 'Graph traversal algorithm that explores as far as possible', emoji: '🔍', color: 'from-teal-500 to-cyan-400', difficulty: 'Medium', image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop&crop=center' }
+  ];
+
+  const apTopics = [
+    { name: 'AP Computer Science A', description: 'Master Java programming, object-oriented design, and data structures', emoji: '☕', color: 'from-orange-500 to-red-400', difficulty: 'Advanced', topics: ['Java Fundamentals', 'OOP Concepts', 'Data Structures', 'Algorithms'], image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=500&h=300&fit=crop&crop=center' },
+    { name: 'AP Computer Science Principles', description: 'Explore computational thinking, data analysis, and the impact of computing', emoji: '🎯', color: 'from-green-500 to-emerald-400', difficulty: 'Intermediate', topics: ['Creative Development', 'Data & Information', 'Algorithms & Programming', 'Computer Systems', 'Impact of Computing'], image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop&crop=center' }
   ];
 
   const features = [
-    { emoji: '🧠', title: 'Visual Learning', description: 'Watch algorithms come to life with step-by-step animations that make complex concepts intuitive and memorable.' },
-    { emoji: '💻', title: 'Hands-On Practice', description: 'Apply your knowledge with carefully crafted coding challenges that reinforce algorithmic thinking.' },
-    { emoji: '🎯', title: 'AP CS Focused', description: 'Curriculum-aligned content designed specifically for High School and Early College students.' },
-    { emoji: '💡', title: 'Progressive Learning', description: 'Start with fundamentals and build complexity gradually with our structured learning paths.' }
+    { emoji: '🎯', title: 'All-in-One Platform', description: 'Everything you need in one place - algorithms, AP CSP, AP CSA, practice questions, and study tools. No more switching between multiple tabs and websites.' },
+    { emoji: '⏱️', title: 'Built-in Study Tools', description: 'Integrated Pomodoro timer and focus music player right in your learning environment. Stay focused without leaving the page.' },
+    { emoji: '📝', title: 'Interactive Practice', description: 'Take quizzes, download FRQ materials, and get instant feedback - all seamlessly integrated into your learning flow.' },
+    { emoji: '🎨', title: 'Visual + Hands-On', description: 'Watch algorithms animate step-by-step, then practice with coding challenges. The perfect combination for deep understanding.' }
   ];
 
   const stats = [
     { number: '6', label: 'Core Algorithms', emoji: '🧠' },
-    { number: '15+', label: 'Practice Problems', emoji: '💻' },
-    { number: 'Unlimited', label: 'User Interaction', emoji: '👥' },
-    { number: '95%', label: 'Success Rate', emoji: '⭐' }
+    { number: '2', label: 'AP Courses', emoji: '🎓' },
+    { number: '20+', label: 'Practice Questions', emoji: '💻' },
+    { number: 'All-in-One', label: 'Platform', emoji: '⭐' }
   ];
 
   return (
@@ -110,7 +117,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Algorithms Section */}
+      {/* What You'll Master Section */}
       <section className="section-padding py-16">
         <div className="container-width">
           <div className="text-center mb-12">
@@ -118,28 +125,80 @@ const Index = () => {
               What <span className="bg-gradient-primary bg-clip-text text-transparent">You'll Master</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Six fundamental algorithms that form the foundation of computer science, 
-              taught through interactive visualizations and comprehensive explanations.
+              From fundamental sorting algorithms to advanced search techniques, we cover the essential algorithms every CS student should master.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Algorithms Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {algorithms.map((algorithm, index) => (
               <div key={index} className="algorithm-card group hover-lift" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className={`w-10 h-10 bg-gradient-to-r ${algorithm.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform text-lg`}>
-                  {algorithm.emoji}
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className={`w-12 h-12 bg-gradient-to-r ${algorithm.color} rounded-xl flex items-center justify-center text-xl mr-4`}>
+                      {algorithm.emoji}
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900">{algorithm.name}</h3>
+                  </div>
+                  <p className="text-slate-600 mb-4 leading-relaxed text-sm">{algorithm.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      algorithm.difficulty === 'Easy'
+                        ? 'bg-emerald-100 text-emerald-700'
+                        : 'bg-amber-100 text-amber-700'
+                    }`}>
+                      {algorithm.difficulty}
+                    </span>
+                    <span className="text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all">➡️</span>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{algorithm.name}</h3>
-                <p className="text-slate-600 mb-3 leading-relaxed text-sm">{algorithm.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    algorithm.difficulty === 'Easy'
-                      ? 'bg-emerald-100 text-emerald-700'
-                      : 'bg-amber-100 text-amber-700'
-                  }`}>
-                    {algorithm.difficulty}
-                  </span>
-                  <span className="text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all">➡️</span>
+              </div>
+            ))}
+          </div>
+
+          {/* AP Topics Section */}
+          <div className="text-center mb-8">
+            <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 font-dm-sans">
+              <span className="bg-gradient-primary bg-clip-text text-transparent">AP Computer Science</span> Topics
+            </h3>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Comprehensive curriculum coverage for both AP Computer Science A and AP Computer Science Principles
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {apTopics.map((topic, index) => (
+              <div key={index} className="algorithm-card group hover-lift" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className={`w-12 h-12 bg-gradient-to-r ${topic.color} rounded-xl flex items-center justify-center text-xl mr-4`}>
+                      {topic.emoji}
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900">{topic.name}</h3>
+                  </div>
+                  <p className="text-slate-600 mb-4 leading-relaxed text-sm">{topic.description}</p>
+                  
+                  <div className="mb-4">
+                    <h4 className="text-sm font-semibold text-slate-700 mb-2">Key Topics:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {topic.topics.map((subtopic, subIndex) => (
+                        <span key={subIndex} className="px-2 py-1 bg-slate-100 text-slate-600 rounded-full text-xs">
+                          {subtopic}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      topic.difficulty === 'Intermediate'
+                        ? 'bg-blue-100 text-blue-700'
+                        : 'bg-purple-100 text-purple-700'
+                    }`}>
+                      {topic.difficulty}
+                    </span>
+                    <span className="text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all">➡️</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -147,16 +206,17 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Visual Learning Works */}
+
+      {/* Why AlgoFlow Works Better */}
       <section className="section-padding py-16 bg-gradient-to-br from-slate-50 to-blue-50/50">
         <div className="container-width">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
-              Why <span className="bg-gradient-primary bg-clip-text text-transparent">Visual Learning</span> Works
+              Why <span className="bg-gradient-primary bg-clip-text text-transparent">AlgoFlow</span> Works Better
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Research shows that combining visual learning with hands-on practice creates 
-              the most effective educational experience for complex subjects like algorithms.
+              Unlike other platforms that scatter content across multiple sites, we've centralized everything 
+              so you can focus on learning instead of managing tabs and bookmarks.
             </p>
           </div>
 
