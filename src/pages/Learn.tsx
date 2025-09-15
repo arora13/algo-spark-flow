@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle, Timer, Coffee, Brain, BookOpen, HelpCircle, Code, Database, Network, Shield } from 'lucide-react';
 import { generateAlgorithmSteps } from '@/lib/algorithms';
+import StudyTools from '@/components/StudyTools';
 
 const container = {
   hidden: { opacity: 1 },
@@ -213,8 +214,35 @@ const apCspTopics = [
     difficulty: 'Easy',
     examWeight: '10-13%',
     description: 'How programs are designed and developed through collaboration, iteration, and user-centered design principles.',
-    detailedExplanation: 'Creative development emphasizes the human aspect of programming - how developers work together, iterate on designs, and create user-friendly interfaces. This includes understanding the development process, importance of collaboration, and designing effective user interfaces.',
+    detailedExplanation: 'Creative development emphasizes the human aspect of programming - how developers work together, iterate on designs, and create user-friendly interfaces.',
     realWorldUse: 'Used in all software development teams, from startups to large tech companies, to create user-friendly applications and systems.',
+    subsections: [
+      {
+        id: '1.0',
+        title: 'Big Idea 1 Overview: Creative Development',
+        content: 'Understanding the creative nature of programming and how it involves problem-solving, design thinking, and iterative development. The role of creativity in algorithm design, user interface creation, and innovative solutions to computational problems. How programming combines logical thinking with creative expression and artistic vision.'
+      },
+      {
+        id: '1.1',
+        title: 'Collaboration',
+        content: 'Working effectively in programming teams through pair programming, code reviews, and collaborative development. Understanding roles in development teams, communication strategies, and tools for collaboration like version control systems (Git), project management platforms, and real-time collaboration tools. The importance of clear communication and shared understanding in team projects.'
+      },
+      {
+        id: '1.2',
+        title: 'Program Function and Purpose',
+        content: 'Defining clear program objectives, understanding user needs, and ensuring programs serve their intended purpose. Requirements gathering, specification writing, and aligning program functionality with user expectations. The importance of clear documentation and user-centered design principles. Understanding the difference between what a program can do and what it should do.'
+      },
+      {
+        id: '1.3',
+        title: 'Program Design and Development',
+        content: 'The iterative development process: planning, designing, implementing, testing, and refining programs. Design methodologies like top-down design, modular programming, and user-centered design. Prototyping, wireframing, and the importance of planning before coding. Understanding the software development lifecycle and agile development practices.'
+      },
+      {
+        id: '1.4',
+        title: 'Identifying and Correcting Errors',
+        content: 'Systematic debugging approaches: understanding different types of errors (syntax, logic, runtime), using debugging tools and techniques, and developing strategies for finding and fixing bugs. The debugging mindset and how to approach problem-solving methodically. Common debugging techniques and tools used in modern development environments.'
+      }
+    ],
     keyConcepts: [
       'Program design and development process',
       'Collaboration in software development',
@@ -254,6 +282,33 @@ const apCspTopics = [
     description: 'How data are represented, collected, analyzed, and used to extract meaningful information and insights.',
     detailedExplanation: 'Data is the foundation of modern computing. This topic covers how computers represent different types of data (numbers, text, images, sound), how data is collected and stored, and how we can analyze data to gain insights and make decisions.',
     realWorldUse: 'Essential for data science, business analytics, scientific research, and any field that relies on data-driven decision making.',
+    subsections: [
+      {
+        id: '2.0',
+        title: 'Big Idea 2 Overview: Data',
+        content: 'Understanding data as the foundation of computing and how it drives decision-making in modern society. The role of data in scientific discovery, business intelligence, and personal technology. How data representation affects what computers can process and how efficiently they can work with information.'
+      },
+      {
+        id: '2.1',
+        title: 'Binary Numbers',
+        content: 'The binary number system (base-2) and how computers represent all data using only 0s and 1s. Converting between decimal, binary, and hexadecimal number systems. Understanding bits, bytes, and how binary representation affects data storage and processing. The relationship between binary and digital electronics.'
+      },
+      {
+        id: '2.2',
+        title: 'Data Compression',
+        content: 'Techniques for reducing the size of data files while maintaining information integrity. Lossless compression (ZIP, PNG) vs lossy compression (JPEG, MP3). How compression algorithms work and when to use different compression methods. The trade-offs between file size and quality in compressed data.'
+      },
+      {
+        id: '2.3',
+        title: 'Extracting Information from Data',
+        content: 'Methods for analyzing data to discover patterns, trends, and insights. Data visualization techniques, statistical analysis, and machine learning approaches. How to ask meaningful questions of data and interpret results. The importance of data quality and cleaning in analysis.'
+      },
+      {
+        id: '2.4',
+        title: 'Using Programs with Data',
+        content: 'How programs process, manipulate, and analyze data. Database systems, data processing pipelines, and programmatic data analysis. Understanding how software applications work with different types of data and the role of programming in data science and analytics.'
+      }
+    ],
     keyConcepts: [
       'Binary representation of data',
       'ASCII and Unicode text encoding',
@@ -294,6 +349,103 @@ const apCspTopics = [
     description: 'Writing algorithms, using abstraction, and implementing programming constructs to solve computational problems.',
     detailedExplanation: 'This is the core of computer science - learning to think algorithmically and translate that thinking into working programs. It covers algorithm design, abstraction techniques, and fundamental programming constructs.',
     realWorldUse: 'Used in all software development, from simple scripts to complex applications, and in problem-solving across all industries.',
+    subsections: [
+      {
+        id: '3.0',
+        title: 'Big Idea 3: Algorithms and Programming',
+        content: 'Understanding algorithms as step-by-step procedures for solving problems and programming as the process of implementing algorithms in code. The relationship between computational thinking, algorithm design, and programming implementation. How algorithms and programming enable automation and problem-solving across all domains.'
+      },
+      {
+        id: '3.1',
+        title: 'Variables and Assignments',
+        content: 'Understanding variables as containers for storing data values and assignment as the process of giving variables values. Variable naming conventions, data types, and the concept of memory storage. How variables enable programs to store and manipulate information dynamically.'
+      },
+      {
+        id: '3.2',
+        title: 'Data Abstraction',
+        content: 'Using abstraction to manage complexity by hiding implementation details and focusing on essential features. Abstract data types, encapsulation, and how abstraction makes programs more manageable and reusable. The role of abstraction in software design and maintenance.'
+      },
+      {
+        id: '3.3',
+        title: 'Mathematical Expressions',
+        content: 'Using mathematical operations and expressions in programming to perform calculations and solve problems. Arithmetic operators, operator precedence, and how to translate mathematical formulas into code. The importance of understanding mathematical concepts in algorithmic problem-solving.'
+      },
+      {
+        id: '3.4',
+        title: 'Strings',
+        content: 'Working with text data in programs, including string manipulation, concatenation, and processing. String methods, character encoding, and how to handle text input and output. The role of strings in user interfaces and data processing applications.'
+      },
+      {
+        id: '3.5',
+        title: 'Boolean Expressions',
+        content: 'Using boolean logic to make decisions in programs, including comparison operators and logical operators. Understanding true/false values and how boolean expressions control program flow. The foundation of conditional logic and decision-making in algorithms.'
+      },
+      {
+        id: '3.6',
+        title: 'Conditionals',
+        content: 'Using if/else statements to create branching logic in programs. Understanding how conditionals enable programs to make decisions and respond differently to different inputs. The role of conditionals in creating interactive and adaptive programs.'
+      },
+      {
+        id: '3.7',
+        title: 'Nested Conditionals',
+        content: 'Creating complex decision-making logic by nesting conditional statements within other conditionals. Understanding how to structure nested logic for clarity and correctness. Common patterns in nested conditional programming and best practices for readability.'
+      },
+      {
+        id: '3.8',
+        title: 'Iteration',
+        content: 'Using loops to repeat actions and process collections of data efficiently. Different types of loops (for, while, do-while) and when to use each. Understanding loop control, termination conditions, and how iteration enables programs to handle large amounts of data.'
+      },
+      {
+        id: '3.9',
+        title: 'Developing Algorithms',
+        content: 'The process of designing algorithms to solve specific problems, including problem analysis, solution design, and implementation. Algorithm design patterns, step-by-step problem solving, and how to break complex problems into manageable parts.'
+      },
+      {
+        id: '3.10',
+        title: 'Lists',
+        content: 'Working with collections of data using lists and arrays. List operations, indexing, and how to process multiple data items efficiently. The role of lists in storing and manipulating datasets in programs.'
+      },
+      {
+        id: '3.11',
+        title: 'Binary Search',
+        content: 'Understanding the binary search algorithm as an efficient method for finding items in sorted data. How binary search works, its time complexity, and when to use it. The relationship between data organization and algorithm efficiency.'
+      },
+      {
+        id: '3.12',
+        title: 'Calling Procedures',
+        content: 'Using functions and procedures to organize code and enable code reuse. How to call existing functions, pass parameters, and use return values. The benefits of procedural programming and modular code design.'
+      },
+      {
+        id: '3.13',
+        title: 'Developing Procedures',
+        content: 'Creating custom functions and procedures to solve specific problems. Function design, parameter passing, and return values. How to decompose problems into smaller, manageable functions and build complex programs from simple components.'
+      },
+      {
+        id: '3.14',
+        title: 'Libraries',
+        content: 'Using pre-written code libraries to extend program functionality and avoid reinventing common solutions. Understanding APIs, library documentation, and how to integrate external code into programs. The role of libraries in modern software development.'
+      },
+      {
+        id: '3.15',
+        title: 'Random Values',
+        content: 'Generating and using random numbers in programs for simulations, games, and statistical analysis. Random number generation, seeding, and how randomness adds unpredictability to programs. Applications of randomness in computational problem-solving.'
+      },
+      {
+        id: '3.16',
+        title: 'Simulations',
+        content: 'Creating computer simulations to model real-world systems and processes. How simulations work, their limitations, and their applications in science, engineering, and decision-making. The role of programming in creating accurate and useful simulations.'
+      },
+      {
+        id: '3.17',
+        title: 'Algorithmic Efficiency',
+        content: 'Understanding how to measure and improve algorithm performance. Time complexity, space complexity, and the trade-offs between different algorithmic approaches. How to choose appropriate algorithms for different problem sizes and constraints.'
+      },
+      {
+        id: '3.18',
+        title: 'Undecidable Problems',
+        content: 'Understanding that some computational problems cannot be solved by any algorithm. The concept of undecidability, the halting problem, and the limits of computation. How understanding these limits helps in algorithm design and problem analysis.'
+      }
+    ],
     keyConcepts: [
       'Algorithm design and analysis',
       'Abstraction and modularity',
@@ -334,6 +486,28 @@ const apCspTopics = [
     description: 'How computer systems work, including hardware, software, networks, and distributed computing.',
     detailedExplanation: 'Understanding the underlying systems that make computing possible - from individual computers to vast networks. This includes hardware components, operating systems, network protocols, and distributed systems.',
     realWorldUse: 'Essential for system administration, network engineering, cybersecurity, and understanding how modern technology infrastructure works.',
+    subsections: [
+      {
+        id: '4.0',
+        title: 'Big Idea 4 Overview: Computer Systems and Networks',
+        content: 'Understanding how computer systems and networks enable modern computing. The relationship between hardware, software, and network infrastructure. How these systems work together to provide the foundation for all digital technologies and internet-based services.'
+      },
+      {
+        id: '4.1',
+        title: 'The Internet',
+        content: 'Understanding how the internet works as a global network of interconnected computers. Internet protocols (TCP/IP), packet switching, routing, and how data travels across the internet. The role of ISPs, DNS, and internet infrastructure in enabling global connectivity.'
+      },
+      {
+        id: '4.2',
+        title: 'Fault Tolerance',
+        content: 'Designing systems that continue to function even when individual components fail. Redundancy, error detection and correction, backup systems, and disaster recovery. How fault tolerance ensures reliability in critical systems like banking, healthcare, and transportation.'
+      },
+      {
+        id: '4.3',
+        title: 'Parallel and Distributed Computing',
+        content: 'Using multiple processors or computers working together to solve problems more efficiently. Parallel processing, distributed systems, cloud computing, and how these approaches enable handling of large-scale computational tasks. The benefits and challenges of distributed computing architectures.'
+      }
+    ],
     keyConcepts: [
       'Computer hardware components (CPU, memory, storage)',
       'Operating systems and system software',
@@ -374,6 +548,38 @@ const apCspTopics = [
     description: 'The societal, cultural, economic, and ethical effects of computing innovations on individuals and society.',
     detailedExplanation: 'Computing has transformed every aspect of modern life. This topic examines both the positive and negative impacts of technology, including ethical considerations, privacy concerns, and the digital divide.',
     realWorldUse: 'Important for making informed decisions about technology use, understanding policy implications, and considering ethical aspects of computing careers.',
+    subsections: [
+      {
+        id: '5.0',
+        title: 'Big Idea 5 Overview: Impact of Computing',
+        content: 'Understanding the broad societal, cultural, economic, and ethical effects of computing innovations. How technology has transformed communication, work, education, healthcare, and entertainment. The dual nature of technological progress - benefits and challenges - and the responsibility of computing professionals.'
+      },
+      {
+        id: '5.1',
+        title: 'Beneficial and Harmful Effects',
+        content: 'Analyzing both positive and negative impacts of computing technologies. Benefits include improved communication, access to information, automation, and innovation. Harmful effects include privacy violations, addiction, misinformation, and job displacement. Understanding how to maximize benefits while minimizing harm.'
+      },
+      {
+        id: '5.2',
+        title: 'Digital Divide',
+        content: 'Understanding the gap between those who have access to digital technologies and those who do not. Factors contributing to the digital divide: economic, geographic, educational, and generational. The impact on education, employment, and social participation. Strategies for bridging the digital divide and promoting digital inclusion.'
+      },
+      {
+        id: '5.3',
+        title: 'Computing Bias',
+        content: 'Understanding how bias can be introduced into computing systems and algorithms. Types of bias: data bias, algorithmic bias, and societal bias. The impact of biased systems on different groups and communities. Strategies for identifying, measuring, and reducing bias in computing systems.'
+      },
+      {
+        id: '5.4',
+        title: 'Crowdsourcing',
+        content: 'Understanding how large groups of people can contribute to solving problems or creating content through digital platforms. Benefits of crowdsourcing: distributed problem-solving, diverse perspectives, and cost-effectiveness. Challenges: quality control, coordination, and fair compensation. Examples in science, business, and social causes.'
+      },
+      {
+        id: '5.5',
+        title: 'Legal and Ethical Concerns',
+        content: 'Understanding the legal and ethical frameworks that govern computing and technology use. Key areas: privacy laws, intellectual property, cybersecurity regulations, and professional ethics. The role of government, industry, and individuals in establishing and maintaining ethical computing practices.'
+      }
+    ],
     keyConcepts: [
       'Societal and cultural impacts of computing',
       'Economic effects of digital transformation',
@@ -407,7 +613,7 @@ const apCspTopics = [
   }
 ];
 
-// AP CSA Topics - Comprehensive Curriculum
+// AP CSA Topics - Comprehensive Curriculum with Subsections
 const apCsaTopics = [
   {
     id: 'using-objects',
@@ -417,38 +623,105 @@ const apCsaTopics = [
     difficulty: 'Easy',
     examWeight: '15-25%',
     description: 'Introduction to algorithms and programming using objects, methods, and APIs in Java.',
-    detailedExplanation: 'This unit introduces the fundamental concepts of Java programming, including how to use existing classes and methods, work with primitive data types, and understand the basics of object-oriented programming.',
+    detailedExplanation: 'This unit covers the foundational concepts of Java programming including primitive types, variables, expressions, method calling, and object creation.',
     realWorldUse: 'Essential foundation for all Java programming, used in enterprise applications, Android development, and web services.',
+    subsections: [
+      {
+        id: '1.1',
+        title: 'Why Programming? Why Java?',
+        content: 'Understanding the purpose of programming and why Java is chosen for AP Computer Science A. Java\'s platform independence (Write Once, Run Anywhere), object-oriented nature, strong typing, automatic memory management, and widespread use in industry. Java\'s role in enterprise applications, Android development, web services, and educational settings. The importance of learning programming for problem-solving, logical thinking, and computational skills.'
+      },
+      {
+        id: '1.2',
+        title: 'Variables and Primitive Data Types',
+        content: 'Master primitive types: int (32-bit, range -2,147,483,648 to 2,147,483,647), double (64-bit floating-point), boolean (true/false), char (16-bit Unicode). Learn their ranges, literals (int: 42, double: 3.14, boolean: true/false, char: \'A\'), and memory usage. Understand variable declaration (int age;), initialization (int age = 18;), and naming conventions (camelCase). Variable scope and lifetime concepts.'
+      },
+      {
+        id: '1.3',
+        title: 'Expressions and Assignment Statements',
+        content: 'Arithmetic expressions with operators: +, -, *, /, %. Operator precedence: parentheses, unary operators, multiplicative (*, /, %), additive (+, -), assignment (=). Assignment statements: variable = expression. Understanding order of operations and how to evaluate complex expressions step by step. Common pitfalls with integer division vs floating-point division.'
+      },
+      {
+        id: '1.5',
+        title: 'Casting and Ranges of Variables',
+        content: 'Type casting between primitive types: widening (automatic) int to double, narrowing (explicit) double to int. Syntax: (int) 3.14 = 3. Understanding variable ranges to prevent overflow (int max + 1 = int min) and underflow errors. Loss of precision in narrowing conversions. Safe casting practices and when to use explicit casting.'
+      },
+      {
+        id: '1.6',
+        title: 'Compound Assignment Operators',
+        content: 'Operators like +=, -=, *=, /=, %=, ++, --. Examples: x += 5 (same as x = x + 5), count++ (post-increment), ++count (pre-increment). Learn when and how to use compound assignment operators effectively in Java programs. Understanding the difference between post-increment and pre-increment operators.'
+      },
+      {
+        id: '1.7',
+        title: 'Application Program Interface (API) and Libraries',
+        content: 'Understanding APIs, Java libraries, and how to use existing classes and methods. Introduction to Java documentation (JavaDocs) and method signatures. Common Java packages: java.lang (String, Math), java.util (Scanner, ArrayList). How to read method documentation, understand parameters, return types, and method behavior. Import statements and package usage.'
+      },
+      {
+        id: '1.8',
+        title: 'Documentation With Comments',
+        content: 'Writing clear comments in Java code. Single-line comments (//) and multi-line comments (/* */). Best practices for code documentation: explaining complex logic, documenting method purposes, avoiding obvious comments. Javadoc comments (/** */) for formal documentation. The importance of readable, well-documented code for collaboration and maintenance.'
+      },
+      {
+        id: '1.9',
+        title: 'Calling a Void Method With Parameters',
+        content: 'How to call methods that don\'t return values but accept parameters. Understanding method signatures: methodName(parameterType parameterName). Examples: System.out.println("Hello"), Math.random(). Parameter passing: actual arguments vs formal parameters. Understanding that Java passes copies of primitive values to methods.'
+      },
+      {
+        id: '1.10',
+        title: 'Calling a Non-Void Method',
+        content: 'Calling methods that return values. Understanding return types and how to use returned values in expressions and assignments. Examples: int length = str.length(), double result = Math.sqrt(16). Method chaining and using return values as arguments to other methods. Understanding the difference between void and non-void methods.'
+      },
+      {
+        id: '1.11',
+        title: 'Using the Math Class',
+        content: 'Common Math class methods: Math.sqrt(x), Math.pow(base, exponent), Math.abs(x), Math.max(a, b), Math.min(a, b), Math.random() (returns 0.0 to 0.999...), Math.round(x), Math.ceil(x), Math.floor(x). Static method calling (no object creation needed). Understanding method parameters and return types. Practical applications in calculations and simulations.'
+      },
+      {
+        id: '1.13',
+        title: 'Creating and Storing Objects',
+        content: 'Object creation with the new keyword: String name = new String("Hello"). Understanding reference types vs primitive types. Object instantiation and memory allocation. The difference between object references and primitive variables. Null references and NullPointerException. Object lifecycle and garbage collection basics.'
+      },
+      {
+        id: '1.14',
+        title: 'Calling a Void Method',
+        content: 'Calling methods that perform actions but don\'t return values. Understanding void methods and their purpose in program design. Examples: System.out.println(), System.out.print(). When to use void methods vs methods that return values. Side effects of void methods and their role in program flow.'
+      },
+      {
+        id: '1.15',
+        title: 'String Methods',
+        content: 'Essential String methods: length() (returns int), substring(start, end), indexOf(char/string), equals(otherString), compareTo(otherString), toUpperCase(), toLowerCase(), charAt(index), trim(). String manipulation and comparison. Understanding that Strings are immutable. String concatenation with + operator. Common String processing patterns and algorithms.'
+      }
+    ],
     keyConcepts: [
-      'Introduction to algorithms and programming',
-      'Variables and primitive data types (int, double, boolean, char)',
-      'Expressions and input/output operations',
-      'Assignment, casting, and range issues',
-      'Using APIs and libraries',
-      'Method signatures and calling methods',
-      'Class methods vs instance methods',
-      'String manipulation and methods',
-      'Object creation and instantiation',
-      'Commenting and documentation'
+      'Primitive types: int, double, boolean, char (range, literals, casting, overflow)',
+      'Variables and assignment, evaluation of arithmetic expressions, operator precedence',
+      'Integer division vs floating point division',
+      'Reference types and null; object creation with new',
+      'Method calling: static vs instance methods, parameter passing',
+      'String methods: length(), substring(), indexOf(), equals(), compareTo()',
+      'Math methods from Math class',
+      'API and libraries usage',
+      'Documentation with comments'
     ],
     examples: [
-      'Hello World program with user input',
-      'Calculator using Math class methods',
-      'String processing and manipulation',
-      'Temperature conversion program',
-      'Grade calculation system',
-      'Simple text-based games'
+      'Integer division vs double: int a = 5, b = 2; double x = a / b; // result = 2.0',
+      'String equality: String s1 = new String("hi"); String s2 = "hi"; s1.equals(s2) // true',
+      'Math class usage: Math.sqrt(), Math.pow(), Math.random()',
+      'String manipulation: substring(), indexOf(), toUpperCase(), toLowerCase()'
     ],
     studyTips: [
-      'Practice with Java documentation (JavaDocs)',
-      'Learn common String methods',
-      'Understand primitive vs reference types',
-      'Practice method calling and parameter passing'
+      'Always use .equals() to compare String contents, never ==',
+      'Remember integer division truncates: 5/2 = 2, not 2.5',
+      'Cast explicitly when needed: (double)a / b for floating-point division',
+      'Practice with Java documentation (JavaDocs) for method signatures',
+      'Learn common String methods and their return types',
+      'Master operator precedence and expression evaluation'
     ],
     practiceProblems: [
-      'Create a program that processes user names and emails',
-      'Build a simple calculator using Math class',
-      'Develop a text processing utility'
+      'Write a program that demonstrates integer vs floating-point division',
+      'Create a String processing program using various String methods',
+      'Build a calculator using Math class methods',
+      'Write methods that demonstrate parameter passing with primitives and objects'
     ]
   },
   {
@@ -458,38 +731,107 @@ const apCsaTopics = [
     category: 'Unit 2',
     difficulty: 'Easy',
     examWeight: '25-35%',
-    description: 'Boolean expressions, conditional statements, and loops for program control flow.',
-    detailedExplanation: 'This unit covers how to make programs make decisions and repeat actions. Students learn about boolean logic, conditional statements, and different types of loops to create interactive and dynamic programs.',
-    realWorldUse: 'Fundamental to all programming, used in user interfaces, data validation, game logic, and business applications.',
+    description: 'Boolean logic, conditional statements, and iteration structures in Java. Master if statements, loops, and boolean expressions.',
+    detailedExplanation: 'This unit covers boolean expressions, operator precedence, De Morgan\'s laws, and short-circuit evaluation with && and ||. Learn conditional statements including if, if-else, and nested if statements. Master iteration with for loops (classic and enhanced), while loops, and do-while loops.',
+    realWorldUse: 'Used in all programming applications for decision-making, user input validation, data processing loops, game logic, and algorithm implementation.',
+    subsections: [
+      {
+        id: '2.1',
+        title: 'Boolean Expressions and if Statements',
+        content: 'Understanding boolean data type (true/false), boolean expressions, and basic if statements. Learn to write conditions that evaluate to true or false. Boolean literals, comparison operators (==, !=, <, >, <=, >=), and simple conditional logic. Syntax: if (condition) { statements; }. Understanding when code blocks execute based on boolean conditions.'
+      },
+      {
+        id: '2.2',
+        title: 'if Statements and Control Flow',
+        content: 'Single if statements, if-else statements, and nested if statements. Understanding how program flow changes based on conditions. Syntax: if (condition) { } else { }, if (condition1) { } else if (condition2) { } else { }. Control flow: sequential execution vs conditional branching. Nested conditionals and proper indentation for readability.'
+      },
+      {
+        id: '2.3',
+        title: 'Boolean Expressions and Logical Operators',
+        content: 'Logical operators: && (AND), || (OR), ! (NOT). Understanding operator precedence and how to combine boolean expressions. Short-circuit evaluation: && stops at first false, || stops at first true. De Morgan\'s laws: !(a && b) = !a || !b, !(a || b) = !a && !b. Complex boolean expressions and parentheses for clarity.'
+      },
+      {
+        id: '2.4',
+        title: 'Comparing Objects',
+        content: 'Comparing objects vs primitives. Using .equals() for String comparison, understanding reference equality (==) vs content equality (.equals()). String comparison: str1.equals(str2), str1.equalsIgnoreCase(str2). Common mistake: using == for String comparison. Object comparison principles and when to override equals() method.'
+      },
+      {
+        id: '2.5',
+        title: 'for Loops',
+        content: 'Classic for loops: for (int i = 0; i < n; i++). Understanding loop initialization, condition, and increment. Loop variable scope and lifetime. Loop patterns: counting up/down, stepping by different amounts. Common for loop variations: for (int i = 1; i <= n; i++), for (int i = n; i >= 0; i--). Loop bounds and avoiding off-by-one errors.'
+      },
+      {
+        id: '2.6',
+        title: 'while Loops',
+        content: 'while loops: while (condition) { statements; } and do-while loops: do { statements; } while (condition). Understanding when to use each type. Loop conditions and avoiding infinite loops. Pre-test vs post-test loops. Common while loop patterns: input validation, processing until sentinel value, counting with conditions.'
+      },
+      {
+        id: '2.7',
+        title: 'Developing Algorithms Using Conditionals',
+        content: 'Creating algorithms that use conditional statements. Decision-making in programs, branching logic, and algorithm design. Algorithm patterns: selection algorithms, validation algorithms, classification algorithms. Using conditionals for data validation, error checking, and program flow control. Nested conditionals for complex decision trees.'
+      },
+      {
+        id: '2.8',
+        title: 'Developing Algorithms Using Iteration',
+        content: 'Creating algorithms that use loops. Iterative problem solving, loop patterns, and common loop-based algorithms. Algorithm types: counting algorithms, accumulation algorithms, search algorithms, processing algorithms. Loop invariants and understanding what remains true throughout loop execution. Efficiency considerations in iterative algorithms.'
+      },
+      {
+        id: '2.9',
+        title: 'Developing Algorithms Using Strings',
+        content: 'String processing algorithms using loops and conditionals. Character-by-character processing, string manipulation, and text analysis. Common string algorithms: character counting, substring searching, text parsing, string validation. String traversal: for (int i = 0; i < str.length(); i++) and charAt(i). String building and manipulation techniques.'
+      },
+      {
+        id: '2.10',
+        title: 'Nested Iteration',
+        content: 'Nested loops and their applications. 2D array traversal, pattern generation, and complex iterative algorithms. Nested loop structure: for (int i = 0; i < rows; i++) for (int j = 0; j < cols; j++). Applications: matrix operations, pattern printing, grid-based problems. Efficiency considerations: O(n²) complexity for nested loops.'
+      },
+      {
+        id: '2.11',
+        title: 'Informal Code Analysis',
+        content: 'Understanding algorithm efficiency informally. Counting operations, recognizing O(n) vs O(n²) patterns, and performance considerations. Time complexity concepts: constant O(1), linear O(n), quadratic O(n²). Space complexity and memory usage. Algorithm comparison and choosing appropriate algorithms for different problem sizes.'
+      },
+      {
+        id: '2.12',
+        title: 'Using the Math Class',
+        content: 'Advanced Math class usage in loops and conditionals. Random number generation: Math.random() for 0.0 to 0.999..., scaling to different ranges. Mathematical calculations: Math.sqrt(), Math.pow(), Math.abs(), Math.max(), Math.min(). Statistical operations: finding averages, standard deviations, ranges. Math class in algorithmic contexts and simulations.'
+      }
+    ],
     keyConcepts: [
-      'Boolean expressions and logical operators',
-      'if, else if, and nested if statements',
-      'Compound Boolean logic (&&, ||, !)',
-      'while loops and for loops',
-      'Nested loops and loop control',
-      'String algorithms and processing',
-      'Informal runtime and performance analysis',
-      'Iteration over collections and arrays',
-      'Loop patterns and common algorithms'
+      'Boolean expressions, operator precedence, De Morgan\'s laws',
+      'Short-circuit && and || evaluation',
+      'Conditional statements: if, if-else, nested if',
+      'Iteration: for loop (classic and enhanced), while, do-while',
+      'Loop invariants and tracing loop variables',
+      'Traversing arrays and ArrayLists with loops',
+      'Trace tables for nested loops',
+      'Off-by-one checks and boundary testing',
+      'Short-circuit evaluation for safety',
+      'Loop control and break/continue statements'
     ],
     examples: [
-      'Menu-driven programs with user choices',
-      'Data validation with input loops',
-      'Pattern printing programs',
-      'Game logic with conditional statements',
-      'Data processing with loops',
-      'User authentication systems'
+      'Short-circuit safety: if (a!=0 && 100/a > 1) prevents division by zero',
+      'Enhanced for loop: for (int v : arr) for read-only access',
+      'Loop bounds: for (int i = 0; i < arr.length - 1; i++) to avoid IndexOutOfBounds',
+      'Boolean logic: !(a && b) = !a || !b (De Morgan\'s law)',
+      'Nested loops for 2D array traversal'
     ],
     studyTips: [
-      'Practice writing nested loops',
-      'Understand boolean logic thoroughly',
-      'Learn common loop patterns',
-      'Practice tracing through code execution'
+      'Create trace tables for complex nested loops',
+      'Always test loops on smallest, typical, and boundary inputs',
+      'Use short-circuit evaluation to prevent runtime errors',
+      'Practice writing loop bounds to avoid off-by-one errors',
+      'Learn when to use enhanced for loops vs indexed loops',
+      'Master boolean logic and De Morgan\'s laws',
+      'Practice tracing through loops step by step',
+      'Understand operator precedence in boolean expressions'
     ],
     practiceProblems: [
-      'Create a number guessing game',
-      'Build a student grade management system',
-      'Develop a text analysis program'
+      'Write a method that returns true if arr contains two adjacent equal elements',
+      'Create a program that finds the maximum value in an array using loops',
+      'Build a number guessing game with hints and validation',
+      'Write nested loops to print patterns or traverse 2D arrays',
+      'Implement a program that validates user input with boolean logic',
+      'Create trace tables for complex nested loop scenarios'
     ]
   },
   {
@@ -500,37 +842,81 @@ const apCsaTopics = [
     difficulty: 'Medium',
     examWeight: '10-18%',
     description: 'Writing classes with constructors, instance variables, and methods to model real-world entities.',
-    detailedExplanation: 'Students learn to design and implement their own classes, understanding encapsulation, constructors, and the relationship between classes and objects. This is the foundation of object-oriented programming.',
+    detailedExplanation: 'Design classes with private instance variables and public methods, constructors, and proper encapsulation principles.',
     realWorldUse: 'Core of object-oriented programming, used in all modern software development for modeling real-world entities and organizing code.',
+    subsections: [
+      {
+        id: '3.1',
+        title: 'Abstraction and Program Design',
+        content: 'Understanding abstraction as a fundamental concept in programming. How to identify essential features and hide unnecessary details when designing classes. Abstraction levels: high-level (what the class does) vs low-level (how it does it). Real-world modeling: identifying objects, their attributes (instance variables), and behaviors (methods). Design principles: single responsibility, clear interfaces, and separation of concerns.'
+      },
+      {
+        id: '3.2',
+        title: 'Impact of Program Design',
+        content: 'How good program design affects maintainability, readability, and extensibility. Understanding the importance of clean, well-structured code. Code quality metrics: readability, modularity, reusability. The cost of poor design: debugging difficulties, maintenance nightmares, and scalability issues. Design patterns and best practices for creating robust, maintainable software.'
+      },
+      {
+        id: '3.3',
+        title: 'Anatomy of a Class',
+        content: 'The structure of a Java class: class declaration (public class ClassName), instance variables (private dataType variableName), methods (public returnType methodName(parameters)), and the relationship between these components. Class header, instance variables section, constructor section, and methods section. Proper organization and formatting of class components.'
+      },
+      {
+        id: '3.4',
+        title: 'Constructors',
+        content: 'Special methods used to initialize objects. Default constructors (no parameters), parameterized constructors (with parameters), and constructor overloading (multiple constructors with different parameter lists). Constructor syntax: public ClassName(parameters) { body }. Constructor chaining and the role of constructors in object initialization. When constructors are called and their relationship to the new keyword.'
+      },
+      {
+        id: '3.5',
+        title: 'Writing Methods',
+        content: 'How to write methods in classes. Method signatures: public/private returnType methodName(parameterType parameterName). Method bodies, return statements, and void methods. Method decomposition: breaking complex problems into smaller, manageable methods. Method organization, naming conventions, and the relationship between methods and instance variables.'
+      },
+      {
+        id: '3.6',
+        title: 'Accessor Methods',
+        content: 'Getter methods (accessors): public returnType getVariableName() { return variableName; }. Setter methods (mutators): public void setVariableName(parameterType parameter) { variableName = parameter; }. Understanding encapsulation and data protection. When to provide getters/setters vs keeping data private. Validation in setter methods and maintaining object integrity.'
+      },
+      {
+        id: '3.7',
+        title: 'Static Variables and Methods',
+        content: 'Static variables and methods belong to the class, not instances. Static variable declaration: private static dataType variableName. Static method declaration: public static returnType methodName(parameters). When and how to use static members effectively. Static vs instance: class-level vs object-level behavior. Common uses: counters, utility methods, constants. Accessing static members: ClassName.staticMember.'
+      },
+      {
+        id: '3.8',
+        title: 'Scope and Access',
+        content: 'Understanding variable scope and access modifiers (public, private). How scope affects variable visibility and lifetime. Local variables (method scope) vs instance variables (object scope) vs static variables (class scope). Access modifiers: public (accessible everywhere), private (accessible only within the class). Encapsulation principles and information hiding. Variable shadowing and naming conflicts.'
+      },
+      {
+        id: '3.9',
+        title: 'This Keyword',
+        content: 'Using the this keyword to refer to the current object. When and why to use this in constructors and methods. Common uses: this.variableName (disambiguating instance variables from parameters), this.methodName() (calling other methods), this(parameters) (constructor chaining). Understanding implicit vs explicit this usage. When this is required vs optional.'
+      }
+    ],
     keyConcepts: [
-      'Abstraction and program design principles',
-      'Writing classes with constructors',
-      'Instance variables and static variables',
-      'Instance methods and static methods',
-      'Scope and access modifiers (public, private)',
-      'Encapsulation and data hiding',
+      'Design classes with private instance variables and public methods',
+      'Constructors, getters/setters, toString() method',
+      'Static fields and methods belong to the class, not instances',
+      'Access control: public, private',
+      'Method decomposition and class design principles',
       'this keyword and object references',
-      'Passing and returning object references',
-      'Use of classes and objects in program design'
+      'Correct signatures and method bodies for AP grading'
     ],
     examples: [
-      'Student class with grades and GPA calculation',
-      'Bank account with deposit/withdrawal methods',
-      'Car class with speed and fuel management',
-      'Library book management system',
-      'Game character with health and abilities',
-      'Employee payroll system'
+      'Book class: private String title, author; public Book(String t, String a) constructor',
+      'Static counter: private static int count; public static int getCount() { return count; }',
+      'Getter/Setter pattern: public String getTitle() { return title; }',
+      'toString() method: public String toString() { return title + " by " + author; }'
     ],
     studyTips: [
-      'Practice designing classes before coding',
-      'Understand the difference between static and instance',
-      'Learn proper encapsulation techniques',
-      'Practice with constructors and method overloading'
+      'Always use private for instance variables, public for methods',
+      'Include constructors, getters, setters, and toString() in class design',
+      'Understand when to use static vs instance methods',
+      'Practice writing correct method signatures for AP FRQs',
+      'Master precondition/postcondition documentation'
     ],
     practiceProblems: [
-      'Design a Rectangle class with area and perimeter',
-      'Create a BankAccount class with transactions',
-      'Build a Student class with course management'
+      'Design a Rectangle class with area and perimeter methods',
+      'Create a BankAccount class with deposit/withdrawal and balance tracking',
+      'Build a Student class with course management and GPA calculation'
     ]
   },
   {
@@ -540,39 +926,111 @@ const apCsaTopics = [
     category: 'Unit 4',
     difficulty: 'Medium',
     examWeight: '30-40%',
-    description: 'Working with arrays, ArrayLists, and implementing searching and sorting algorithms.',
-    detailedExplanation: 'This is the largest unit, covering how to work with collections of data. Students learn about arrays, ArrayLists, and implement fundamental algorithms for searching and sorting data.',
-    realWorldUse: 'Essential for data processing, database operations, and any application that works with collections of information.',
+    description: 'Working with arrays, ArrayLists, 2D arrays, searching & sorting, recursion, and file I/O. This is the heaviest unit with most FRQs.',
+    detailedExplanation: 'This is a heavy unit; most FRQs involve ArrayList or 2D arrays. Know traversal patterns, mutation patterns, and the official allowed library methods.',
+    realWorldUse: 'Essential for data processing, database operations, image processing, game development, and any application that works with collections of information.',
+    subsections: [
+      {
+        id: '4.1',
+        title: 'Ethical and Social Implications',
+        content: 'Understanding the ethical considerations of data collection, privacy, and the social impact of algorithms and data processing systems. Topics include: data privacy and security, algorithmic bias and fairness, digital divide and accessibility, environmental impact of computing, intellectual property and copyright, cyberbullying and online safety, and the responsibility of programmers in creating ethical software.'
+      },
+      {
+        id: '4.2',
+        title: 'Introduction to Using Data Sets',
+        content: 'Working with collections of data, understanding data structures, and the importance of organizing information for processing. Concepts include: what constitutes a data set, types of data (numeric, text, categorical), data quality and validation, data preprocessing and cleaning, and the role of data in decision-making and problem-solving.'
+      },
+      {
+        id: '4.3',
+        title: 'Array Creation and Access',
+        content: 'Creating arrays: int[] arr = new int[10]; (declares and allocates) or int[] arr = {1,2,3}; (declares and initializes). Accessing elements with indices: arr[0], arr[1], etc. Understanding array bounds: valid indices are 0 to length-1. Array length property: arr.length. Common errors: ArrayIndexOutOfBoundsException, null pointer exceptions.'
+      },
+      {
+        id: '4.4',
+        title: 'Traversing Arrays',
+        content: 'Looping through arrays: for (int i = 0; i < arr.length; i++) (indexed access) and enhanced for (int v : arr) (read-only access). When to use each type: indexed for modification, enhanced for reading. Array traversal patterns: forward, backward, partial traversal. Common algorithms: finding max/min, counting, searching, summing.'
+      },
+      {
+        id: '4.5',
+        title: 'Developing Algorithms Using Arrays',
+        content: 'Creating algorithms that process arrays, including finding maximum/minimum values, counting occurrences, and array manipulation. Algorithm patterns: linear search, finding extremes, counting elements, array reversal, element swapping. Efficiency considerations: single-pass vs multiple-pass algorithms. Common AP algorithm types: array processing, element manipulation, statistical calculations.'
+      },
+      {
+        id: '4.6',
+        title: 'Using Text Files',
+        content: 'File I/O: Scanner(File), hasNext(), next(), nextLine(). Reading data from text files and processing file contents. File handling: opening files, reading line-by-line vs token-by-token, handling end-of-file, closing files. Exception handling: FileNotFoundException. Common file processing patterns: data parsing, line counting, text analysis.'
+      },
+      {
+        id: '4.9',
+        title: 'Traversing ArrayLists',
+        content: 'Working with ArrayList: size(), add(E), add(int, E), get(int), set(int, E), remove(int). Understanding ArrayList semantics: dynamic sizing, element shifting on insertion/deletion. Traversal methods: indexed loops, enhanced for loops. ArrayList vs array differences: size() vs length, dynamic vs fixed size, object storage vs primitive storage.'
+      },
+      {
+        id: '4.11',
+        title: '2D Arrays',
+        content: '2D arrays: int[][] grid = new int[rows][cols]; Access grid[r][c]. The first index is row, second is column. Understanding 2D array structure: array of arrays. Memory layout and indexing. Common 2D array operations: initialization, element access, bounds checking. Applications: matrices, game boards, image processing, data tables.'
+      },
+      {
+        id: '4.12',
+        title: 'Traversing 2D Arrays',
+        content: 'Nested loops for 2D array traversal: for (int r = 0; r < mat.length; r++) for (int c = 0; c < mat[r].length; c++). Row-major vs column-major traversal. Accessing elements: mat[r][c]. Common patterns: row processing, column processing, diagonal traversal, boundary traversal. Efficiency considerations and traversal order.'
+      },
+      {
+        id: '4.13',
+        title: 'Implementing 2D Array Algorithms',
+        content: 'Common 2D array algorithms: finding sums, searching for values, processing rows and columns, and matrix operations. Algorithm types: row/column sums, finding maximum/minimum, searching for specific values, matrix addition/multiplication, pattern recognition. AP exam patterns: grid-based problems, matrix manipulation, data processing.'
+      },
+      {
+        id: '4.14',
+        title: 'Searching',
+        content: 'Linear search: O(n) for arrays and ArrayList. Algorithm: check each element sequentially until found or end reached. Binary search: O(log n) but not required unless explicitly taught. Search variations: finding first occurrence, counting occurrences, finding all occurrences. Search efficiency and when to use each method.'
+      },
+      {
+        id: '4.15',
+        title: 'Sorting',
+        content: 'Selection sort: O(n²) in-place, find minimum and swap. Insertion sort: O(n²) worst-case, O(n) best-case when nearly sorted. Merge sort: O(n log n), implemented recursively with divide-and-conquer. Sorting algorithm characteristics: stability, in-place vs extra space, adaptive behavior. AP exam focus: understanding and implementing these three algorithms.'
+      },
+      {
+        id: '4.16',
+        title: 'Recursion',
+        content: 'Recursion: base case, recursive step, correctness via induction. Common AP recursion problems: array processing, string manipulation, mathematical calculations, tree traversal. Recursive thinking: breaking problems into smaller identical subproblems. Common pitfalls: infinite recursion, missing base cases, incorrect recursive calls.'
+      },
+      {
+        id: '4.17',
+        title: 'Recursive Searching and Sorting',
+        content: 'Implementing recursive versions of search and sort algorithms. Recursive binary search, recursive merge sort, recursive quick sort concepts. Understanding recursive thinking and algorithm design. Recursion vs iteration trade-offs: space complexity, readability, performance. AP exam patterns: recursive array processing, recursive string manipulation.'
+      }
+    ],
     keyConcepts: [
-      'Working with arrays and two-dimensional arrays',
-      'ArrayList usage and common methods',
-      'Traversal, searching, and sorting algorithms',
-      'Linear search and binary search',
-      'Selection sort, insertion sort, and merge sort',
-      'Recursive search and sort algorithms',
-      'Use of datasets and text files',
-      'Wrapper classes and autoboxing',
-      'Ethical and social issues around data collection',
-      'Efficiency considerations and runtime analysis'
+      '1D arrays: creation, traversal, enhanced for loops',
+      '2D arrays: declaration, access grid[r][c], nested loops',
+      'ArrayList methods: size(), add(E), add(int, E), get(int), set(int, E), remove(int)',
+      'Linear search: O(n) for arrays and ArrayList',
+      'Selection sort: O(n²) in-place implementation',
+      'Insertion sort: O(n²) worst-case, O(n) best-case when nearly sorted',
+      'Merge sort: O(n log n), implemented recursively',
+      'Recursion: base case, recursive step, correctness via induction',
+      'File I/O: Scanner(File), hasNext(), next(), nextLine()'
     ],
     examples: [
-      'Student grade management with arrays',
-      'Shopping cart system with ArrayList',
-      'Game score tracking and leaderboards',
-      'Data analysis programs',
-      'Image processing with 2D arrays',
-      'Database-like operations'
+      'Column sum: for (int r = 0; r < mat.length; r++) sum += mat[r][col];',
+      'ArrayList removal: for (int i = list.size()-1; i >= 0; i--) to avoid skipping',
+      'Selection sort: find min, swap with current position',
+      'File reading: Scanner sc = new Scanner(new File("data.txt")); while (sc.hasNext())'
     ],
     studyTips: [
-      'Master array indexing and bounds checking',
-      'Practice implementing sorting algorithms',
-      'Understand ArrayList vs array differences',
-      'Learn to trace through algorithm execution'
+      'Master array indexing and bounds checking to avoid IndexOutOfBounds',
+      'Practice implementing selection, insertion, and merge sort algorithms',
+      'Understand ArrayList vs array differences and when to use each',
+      'Learn to trace through algorithm execution with small examples',
+      'Practice 2D array problems with nested loops',
+      'Master recursion with clear base cases and recursive steps'
     ],
     practiceProblems: [
-      'Implement a contact management system',
-      'Create a grade book with statistical analysis',
-      'Build a simple database with search functionality'
+      'Write a method that returns the column with fewest occurrences of a target in 2D array',
+      'Implement removeAll(ArrayList<String> list, String target) that removes all occurrences',
+      'Create a program that reads data from a text file and processes it',
+      'Implement selection sort and merge sort algorithms'
     ]
   },
   {
@@ -742,24 +1200,7 @@ const Learn = () => {
   const currentCspTopic = apCspTopics.find((topic) => topic.id === selectedCspTopic) || apCspTopics[0];
   const currentCsaTopic = apCsaTopics.find((topic) => topic.id === selectedCsaTopic) || apCsaTopics[0];
 
-  // Debug: Check if arrays are properly loaded
-  console.log('Debug Info:');
-  console.log('- Active section:', activeSection);
-  console.log('- Selected CSP topic:', selectedCspTopic);
-  console.log('- Selected CSA topic:', selectedCsaTopic);
-  console.log('- CSP topics array length:', apCspTopics.length);
-  console.log('- CSA topics array length:', apCsaTopics.length);
-  console.log('- CSP topics IDs:', apCspTopics.map(t => t.id));
-  console.log('- CSA topics IDs:', apCsaTopics.map(t => t.id));
-  console.log('- Current CSP topic:', currentCspTopic);
-  console.log('- Current CSA topic:', currentCsaTopic);
-  
-  if (activeSection === 'ap-csp' && !currentCspTopic) {
-    console.error('CSP topic not found:', selectedCspTopic, 'Available topics:', apCspTopics.map(t => t.id));
-  }
-  if (activeSection === 'ap-csa' && !currentCsaTopic) {
-    console.error('CSA topic not found:', selectedCsaTopic, 'Available topics:', apCsaTopics.map(t => t.id));
-  }
+
 
 
   // Build steps using shared generators
@@ -931,66 +1372,8 @@ const Learn = () => {
 
   return (
     <div className="min-h-screen bg-[#0b1f24] text-white p-4 pt-20">
+      <StudyTools />
       <div className="max-w-7xl mx-auto">
-        {/* Pomodoro Timer */}
-        <motion.div 
-          className="mb-4"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="bg-white/[0.08] backdrop-blur-sm rounded-xl p-3 shadow-xl border border-white/10 max-w-xs mx-auto">
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-3">
-                <Timer className="h-4 w-4 text-blue-300 mr-2" />
-                <h3 className="text-sm font-semibold">Study Timer</h3>
-              </div>
-              
-              <div className={`text-2xl font-mono font-bold mb-3 ${
-                pomodoroMode === 'work' ? 'text-blue-300' : 'text-green-300'
-              }`}>
-                {formatTime(pomodoroTime)}
-              </div>
-              
-              <div className="flex items-center justify-center space-x-3 mb-3">
-                <div className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  pomodoroMode === 'work' 
-                    ? 'bg-blue-500/20 text-blue-200' 
-                    : 'bg-green-500/20 text-green-200'
-                }`}>
-                  {pomodoroMode === 'work' ? '🍅 Work' : '☕ Break'}
-                </div>
-                <div className="text-white/60 text-xs">
-                  Cycles: {pomodoroCycles}
-                </div>
-              </div>
-              
-              <div className="flex space-x-2 justify-center">
-                <motion.button
-                  onClick={isPomodoroRunning ? pausePomodoro : startPomodoro}
-                  className={`px-3 py-1.5 rounded-lg font-medium flex items-center space-x-1 text-xs ${
-                    isPomodoroRunning 
-                      ? 'bg-red-500/20 text-red-200 hover:bg-red-500/30' 
-                      : 'bg-blue-500/20 text-blue-200 hover:bg-blue-500/30'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {isPomodoroRunning ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
-                  <span>{isPomodoroRunning ? 'Pause' : 'Start'}</span>
-                </motion.button>
-                <motion.button
-                  onClick={resetPomodoro}
-                  className="px-3 py-1.5 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 text-xs"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <RotateCcw className="h-3 w-3" />
-                </motion.button>
-              </div>
-            </div>
-          </div>
-        </motion.div>
 
         {/* Header */}
         <div className="text-center mb-8">
@@ -1720,284 +2103,162 @@ const Learn = () => {
               </>
             )}
 
-            {/* AP CSP Content */}
+            {/* AP CSP Content - SIMPLE */}
             {activeSection === 'ap-csp' && (
-              <>
-                {currentCspTopic ? (
-                  /* AP CSP Topic Overview */
-                  <motion.div 
-                    className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-teal-600 rounded-xl flex items-center justify-center text-xl">
-                          {currentCspTopic.emoji}
-                        </div>
-                        <div>
-                          <h2 className="text-3xl font-bold">{currentCspTopic.name}</h2>
-                          <p className="text-white/70 mt-1">{currentCspTopic.category} • AP CSP</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="px-3 py-1 bg-green-500/20 text-green-200 rounded-full text-sm font-medium">
-                          {currentCspTopic.difficulty}
-                        </span>
-                      </div>
-                    </div>
+              <div className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10">
+                <div className="text-center mb-6">
+                  <h2 className="text-3xl font-bold text-white mb-2">{currentCspTopic.name}</h2>
+                  <p className="text-white/70">{currentCspTopic.category} • AP CSP</p>
+                  <div className="flex justify-center space-x-2 mt-2">
+                    <span className="px-3 py-1 bg-green-500/20 text-green-200 rounded-full text-sm">
+                      {currentCspTopic.difficulty}
+                    </span>
+                    <span className="px-3 py-1 bg-blue-500/20 text-blue-200 rounded-full text-sm">
+                      {currentCspTopic.examWeight}
+                    </span>
+                  </div>
+                </div>
 
-                    <div className="mb-6">
-                      <p className="text-lg text-white/85 leading-relaxed mb-4">
-                        {currentCspTopic.description}
-                      </p>
-                      <div className="bg-green-500/10 border border-green-400/20 rounded-xl p-4 mb-4">
-                        <p className="text-white/90 text-sm leading-relaxed">
-                          <strong className="text-green-200">Deep Dive:</strong>{' '}
-                          {currentCspTopic.detailedExplanation}
-                        </p>
-                      </div>
-                      <div className="bg-emerald-500/10 border border-emerald-400/20 rounded-xl p-4">
-                        <p className="text-white/90 text-sm">
-                          <strong className="text-emerald-200">Real-World Applications:</strong>{' '}
-                          {currentCspTopic.realWorldUse}
-                        </p>
-                      </div>
-                    </div>
+                <div className="space-y-4">
+                  <div className="bg-white/[0.05] p-4 rounded-xl">
+                    <h3 className="text-lg font-semibold text-white mb-2">Description</h3>
+                    <p className="text-white/80">{currentCspTopic.description}</p>
+                  </div>
 
-                    {/* Exam Weight */}
-                    {currentCspTopic.examWeight && (
-                      <div className="mb-6">
-                        <div className="bg-green-500/10 border border-green-400/20 rounded-xl p-4">
-                          <div className="flex items-center space-x-2">
-                            <span className="text-green-300 font-semibold">📊 Exam Weight:</span>
-                            <span className="text-green-200 font-bold text-lg">{currentCspTopic.examWeight}</span>
+                  <div className="bg-green-500/10 p-4 rounded-xl">
+                    <h3 className="text-lg font-semibold text-green-200 mb-2">Deep Dive</h3>
+                    <p className="text-white/80">{currentCspTopic.detailedExplanation}</p>
+                  </div>
+
+                  <div className="bg-emerald-500/10 p-4 rounded-xl">
+                    <h3 className="text-lg font-semibold text-emerald-200 mb-2">Real-World Use</h3>
+                    <p className="text-white/80">{currentCspTopic.realWorldUse}</p>
+                  </div>
+
+                  {/* Feynman Technique */}
+                  <div className="bg-purple-500/10 p-4 rounded-xl">
+                    <h3 className="text-lg font-semibold text-purple-200 mb-2">🎯 Feynman Technique</h3>
+                    <p className="text-white/80 mb-3">Explain this concept as if teaching a 12-year-old:</p>
+                    <div className="bg-white/[0.05] p-3 rounded-lg">
+                      <p className="text-sm text-white/70 italic">"{currentCspTopic.name} is like..."</p>
+                    </div>
+                  </div>
+
+                  {/* Subsections */}
+                  {currentCspTopic.subsections && (
+                    <div className="bg-white/[0.05] p-4 rounded-xl">
+                      <h3 className="text-lg font-semibold text-white mb-3">Unit Subsections</h3>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {currentCspTopic.subsections.map((subsection, index) => (
+                          <div key={index} className="bg-white/[0.05] p-3 rounded-lg border border-white/10">
+                            <h4 className="text-sm font-semibold text-green-200 mb-1">{subsection.id} - {subsection.title}</h4>
+                            <p className="text-xs text-white/70">{subsection.content}</p>
                           </div>
-                        </div>
+                        ))}
                       </div>
-                    )}
+                    </div>
+                  )}
 
-                    {/* Key Concepts and Examples */}
-                    <div className="grid md:grid-cols-2 gap-6 mb-6">
-                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <Brain className="h-5 w-5 text-green-300 mr-2" />
-                          Key Concepts
-                        </h4>
-                        <ul className="space-y-2">
-                          {currentCspTopic.keyConcepts.map((concept, index) => (
-                            <li key={index} className="text-sm text-white/80 flex items-start">
-                              <span className="text-green-300 mr-2">•</span>
-                              {concept}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <Code className="h-5 w-5 text-blue-300 mr-2" />
-                          Examples
-                        </h4>
-                        <ul className="space-y-2">
-                          {currentCspTopic.examples.map((example, index) => (
-                            <li key={index} className="text-sm text-white/80 flex items-start">
-                              <span className="text-blue-300 mr-2">•</span>
-                              {example}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-white/[0.05] p-4 rounded-xl">
+                      <h3 className="text-lg font-semibold text-white mb-2">Key Concepts</h3>
+                      <ul className="space-y-1">
+                        {currentCspTopic.keyConcepts.map((concept, index) => (
+                          <li key={index} className="text-sm text-white/80">• {concept}</li>
+                        ))}
+                      </ul>
                     </div>
 
-                    {/* Study Tips and Practice Problems */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <BookOpen className="h-5 w-5 text-purple-300 mr-2" />
-                          Study Tips
-                        </h4>
-                        <ul className="space-y-2">
-                          {currentCspTopic.studyTips?.map((tip, index) => (
-                            <li key={index} className="text-sm text-white/80 flex items-start">
-                              <span className="text-purple-300 mr-2">💡</span>
-                              {tip}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <Target className="h-5 w-5 text-orange-300 mr-2" />
-                          Practice Problems
-                        </h4>
-                        <ul className="space-y-2">
-                          {currentCspTopic.practiceProblems?.map((problem, index) => (
-                            <li key={index} className="text-sm text-white/80 flex items-start">
-                              <span className="text-orange-300 mr-2">🎯</span>
-                              {problem}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                    <div className="bg-white/[0.05] p-4 rounded-xl">
+                      <h3 className="text-lg font-semibold text-white mb-2">Examples</h3>
+                      <ul className="space-y-1">
+                        {currentCspTopic.examples.map((example, index) => (
+                          <li key={index} className="text-sm text-white/80">• {example}</li>
+                        ))}
+                      </ul>
                     </div>
-                  </motion.div>
-                ) : (
-                  /* Fallback content */
-                  <motion.div 
-                    className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    <div className="text-center">
-                      <h2 className="text-3xl font-bold text-white mb-4">AP CSP Topics</h2>
-                      <p className="text-white/70">Loading AP Computer Science Principles content...</p>
-                      <p className="text-white/50 text-sm mt-2">Debug: Selected topic: {selectedCspTopic}</p>
-                    </div>
-                  </motion.div>
-                )}
-              </>
+                  </div>
+                </div>
+              </div>
             )}
 
-            {/* AP CSA Content */}
+            {/* AP CSA Content - SIMPLE */}
             {activeSection === 'ap-csa' && (
-              <>
-                {currentCsaTopic ? (
-                  /* AP CSA Topic Overview */
-                  <motion.div 
-                    className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl flex items-center justify-center text-xl">
-                          {currentCsaTopic.emoji}
-                        </div>
-                        <div>
-                          <h2 className="text-3xl font-bold">{currentCsaTopic.name}</h2>
-                          <p className="text-white/70 mt-1">{currentCsaTopic.category} • AP CSA</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="px-3 py-1 bg-orange-500/20 text-orange-200 rounded-full text-sm font-medium">
-                          {currentCsaTopic.difficulty}
-                        </span>
-                      </div>
-                    </div>
+              <div className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10">
+                <div className="text-center mb-6">
+                  <h2 className="text-3xl font-bold text-white mb-2">{currentCsaTopic.name}</h2>
+                  <p className="text-white/70">{currentCsaTopic.category} • AP CSA</p>
+                  <div className="flex justify-center space-x-2 mt-2">
+                    <span className="px-3 py-1 bg-orange-500/20 text-orange-200 rounded-full text-sm">
+                      {currentCsaTopic.difficulty}
+                    </span>
+                    <span className="px-3 py-1 bg-blue-500/20 text-blue-200 rounded-full text-sm">
+                      {currentCsaTopic.examWeight}
+                    </span>
+                  </div>
+                </div>
 
-                    <div className="mb-6">
-                      <p className="text-lg text-white/85 leading-relaxed mb-4">
-                        {currentCsaTopic.description}
-                      </p>
-                      <div className="bg-orange-500/10 border border-orange-400/20 rounded-xl p-4 mb-4">
-                        <p className="text-white/90 text-sm leading-relaxed">
-                          <strong className="text-orange-200">Deep Dive:</strong>{' '}
-                          {currentCsaTopic.detailedExplanation}
-                        </p>
-                      </div>
-                      <div className="bg-emerald-500/10 border border-emerald-400/20 rounded-xl p-4">
-                        <p className="text-white/90 text-sm">
-                          <strong className="text-emerald-200">Real-World Applications:</strong>{' '}
-                          {currentCsaTopic.realWorldUse}
-                        </p>
-                      </div>
-                    </div>
+                <div className="space-y-4">
+                  <div className="bg-white/[0.05] p-4 rounded-xl">
+                    <h3 className="text-lg font-semibold text-white mb-2">Description</h3>
+                    <p className="text-white/80">{currentCsaTopic.description}</p>
+                  </div>
 
-                    {/* Exam Weight */}
-                    {currentCsaTopic.examWeight && (
-                      <div className="mb-6">
-                        <div className="bg-orange-500/10 border border-orange-400/20 rounded-xl p-4">
-                          <div className="flex items-center space-x-2">
-                            <span className="text-orange-300 font-semibold">📊 Exam Weight:</span>
-                            <span className="text-orange-200 font-bold text-lg">{currentCsaTopic.examWeight}</span>
+                  <div className="bg-orange-500/10 p-4 rounded-xl">
+                    <h3 className="text-lg font-semibold text-orange-200 mb-2">Deep Dive</h3>
+                    <p className="text-white/80">{currentCsaTopic.detailedExplanation}</p>
+                  </div>
+
+                  <div className="bg-emerald-500/10 p-4 rounded-xl">
+                    <h3 className="text-lg font-semibold text-emerald-200 mb-2">Real-World Use</h3>
+                    <p className="text-white/80">{currentCsaTopic.realWorldUse}</p>
+                  </div>
+
+                  {/* Feynman Technique */}
+                  <div className="bg-purple-500/10 p-4 rounded-xl">
+                    <h3 className="text-lg font-semibold text-purple-200 mb-2">🎯 Feynman Technique</h3>
+                    <p className="text-white/80 mb-3">Explain this concept as if teaching a 12-year-old:</p>
+                    <div className="bg-white/[0.05] p-3 rounded-lg">
+                      <p className="text-sm text-white/70 italic">"{currentCsaTopic.name} is like..."</p>
+                    </div>
+                  </div>
+
+                  {/* Subsections */}
+                  {currentCsaTopic.subsections && (
+                    <div className="bg-white/[0.05] p-4 rounded-xl mb-4">
+                      <h3 className="text-lg font-semibold text-white mb-3">Unit Subsections</h3>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {currentCsaTopic.subsections.map((subsection, index) => (
+                          <div key={index} className="bg-white/[0.05] p-3 rounded-lg border border-white/10">
+                            <h4 className="text-sm font-semibold text-orange-200 mb-1">{subsection.id} - {subsection.title}</h4>
+                            <p className="text-xs text-white/70">{subsection.content}</p>
                           </div>
-                        </div>
+                        ))}
                       </div>
-                    )}
+                    </div>
+                  )}
 
-                    {/* Key Concepts and Examples */}
-                    <div className="grid md:grid-cols-2 gap-6 mb-6">
-                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <Brain className="h-5 w-5 text-orange-300 mr-2" />
-                          Key Concepts
-                        </h4>
-                        <ul className="space-y-2">
-                          {currentCsaTopic.keyConcepts.map((concept, index) => (
-                            <li key={index} className="text-sm text-white/80 flex items-start">
-                              <span className="text-orange-300 mr-2">•</span>
-                              {concept}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <Code className="h-5 w-5 text-blue-300 mr-2" />
-                          Examples
-                        </h4>
-                        <ul className="space-y-2">
-                          {currentCsaTopic.examples.map((example, index) => (
-                            <li key={index} className="text-sm text-white/80 flex items-start">
-                              <span className="text-blue-300 mr-2">•</span>
-                              {example}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-white/[0.05] p-4 rounded-xl">
+                      <h3 className="text-lg font-semibold text-white mb-2">Key Concepts</h3>
+                      <ul className="space-y-1">
+                        {currentCsaTopic.keyConcepts.map((concept, index) => (
+                          <li key={index} className="text-sm text-white/80">• {concept}</li>
+                        ))}
+                      </ul>
                     </div>
 
-                    {/* Study Tips and Practice Problems */}
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <BookOpen className="h-5 w-5 text-purple-300 mr-2" />
-                          Study Tips
-                        </h4>
-                        <ul className="space-y-2">
-                          {currentCsaTopic.studyTips?.map((tip, index) => (
-                            <li key={index} className="text-sm text-white/80 flex items-start">
-                              <span className="text-purple-300 mr-2">💡</span>
-                              {tip}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="bg-white/[0.05] p-4 rounded-xl border border-white/10">
-                        <h4 className="font-semibold mb-3 flex items-center">
-                          <Target className="h-5 w-5 text-orange-300 mr-2" />
-                          Practice Problems
-                        </h4>
-                        <ul className="space-y-2">
-                          {currentCsaTopic.practiceProblems?.map((problem, index) => (
-                            <li key={index} className="text-sm text-white/80 flex items-start">
-                              <span className="text-orange-300 mr-2">🎯</span>
-                              {problem}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                    <div className="bg-white/[0.05] p-4 rounded-xl">
+                      <h3 className="text-lg font-semibold text-white mb-2">Examples</h3>
+                      <ul className="space-y-1">
+                        {currentCsaTopic.examples.map((example, index) => (
+                          <li key={index} className="text-sm text-white/80">• {example}</li>
+                        ))}
+                      </ul>
                     </div>
-                  </motion.div>
-                ) : (
-                  /* Fallback content */
-                  <motion.div 
-                    className="bg-white/[0.06] backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/10"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                  >
-                    <div className="text-center">
-                      <h2 className="text-3xl font-bold text-white mb-4">AP CSA Topics</h2>
-                      <p className="text-white/70">Loading AP Computer Science A content...</p>
-                      <p className="text-white/50 text-sm mt-2">Debug: Selected topic: {selectedCsaTopic}</p>
-                    </div>
-                  </motion.div>
-                )}
-              </>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
