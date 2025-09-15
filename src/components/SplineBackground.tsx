@@ -6,7 +6,7 @@ const SplineBackground = () => {
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
       <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100" />}>
         <Spline
-          scene="https://prod.spline.design/CplnNP8sYjni6y5qscene.splinecode"
+          scene="https://prod.spline.design/CplnNP8sYjni6y5q/scene.splinecode"
           className="w-full h-full object-cover"
         />
       </Suspense>

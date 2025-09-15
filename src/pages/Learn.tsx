@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, RotateCcw, ChevronRight, Clock, HardDrive, Zap, CheckCircle, Timer, Coffee, Brain, BookOpen, HelpCircle, Code, Database, Network, Shield } from 'lucide-react';
+import { Play, Pause, RotateCcw, ChevronRight, ChevronLeft, Clock, HardDrive, Zap, CheckCircle, Timer, Coffee, Brain, BookOpen, HelpCircle, Code, Database, Network, Shield } from 'lucide-react';
 import { generateAlgorithmSteps } from '@/lib/algorithms';
 import StudyTools from '@/components/StudyTools';
 
@@ -1357,6 +1357,18 @@ const Learn = () => {
     setTargetFound(-1);
   };
 
+  const handlePreviousStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const handleNextStep = () => {
+    if (currentStep < currentAlgorithm.steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'Easy':
@@ -1736,12 +1748,30 @@ const Learn = () => {
                     <span>{isPlaying ? 'Pause' : 'Play'}</span>
                   </motion.button>
                   <motion.button
+                    onClick={handlePreviousStep}
+                    disabled={currentStep === 0}
+                    className="px-4 py-2 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition-all duration-200 border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                    whileHover={{ scale: currentStep > 0 ? 1.05 : 1 }}
+                    whileTap={{ scale: currentStep > 0 ? 0.95 : 1 }}
+                  >
+                    ⬅️
+                  </motion.button>
+                  <motion.button
+                    onClick={handleNextStep}
+                    disabled={currentStep >= currentAlgorithm.steps.length - 1}
+                    className="px-4 py-2 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition-all duration-200 border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                    whileHover={{ scale: currentStep < currentAlgorithm.steps.length - 1 ? 1.05 : 1 }}
+                    whileTap={{ scale: currentStep < currentAlgorithm.steps.length - 1 ? 0.95 : 1 }}
+                  >
+                    ➡️
+                  </motion.button>
+                  <motion.button
                     onClick={handleReset}
                     className="px-4 py-2 bg-white/10 text-white rounded-lg font-medium hover:bg-white/20 transition-all duration-200 border border-white/10"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <RotateCcw className="h-4 w-4" />
+                    🔄
                   </motion.button>
                 </div>
               </div>

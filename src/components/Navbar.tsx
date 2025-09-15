@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Brain, Code, BookOpen, User } from 'lucide-react';
+import { Brain, Code, BookOpen, User, LogOut } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
   const location = useLocation();
+  const { user, logout } = useAuth();
   
   const navItems = [
     { name: 'Learn', path: '/learn', icon: Brain },
@@ -48,12 +50,29 @@ const Navbar = () => {
 
           {/* Auth Buttons */}
           <div className="flex items-center space-x-4">
-            <Link to="/login">
-              <Button variant="ghost" className="text-slate-600 hover:text-slate-900">
-                <User className="w-4 h-4 mr-2" />
-                Login
-              </Button>
-            </Link>
+            {user ? (
+              <>
+                <div className="flex items-center space-x-2 text-slate-600">
+                  <User className="w-4 h-4" />
+                  <span className="hidden sm:inline">Welcome, {user.name}</span>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  onClick={logout}
+                  className="text-slate-600 hover:text-slate-900"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Link to="/login">
+                <Button variant="ghost" className="text-slate-600 hover:text-slate-900">
+                  <User className="w-4 h-4 mr-2" />
+                  Login
+                </Button>
+              </Link>
+            )}
             <Link to="/contact">
               <Button className="btn-primary">
                 Contact Us

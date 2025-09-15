@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface User {
   id: string;
@@ -33,11 +33,36 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
+  // Load user from localStorage on mount
+  useEffect(() => {
+    const savedUser = localStorage.getItem('algoflow_user');
+    if (savedUser) {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (error) {
+        console.error('Error parsing saved user:', error);
+        localStorage.removeItem('algoflow_user');
+      }
+    }
+  }, []);
+
+  // Save user to localStorage whenever user changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('algoflow_user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('algoflow_user');
+    }
+  }, [user]);
+
   const login = async (email: string, password: string): Promise<boolean> => {
     // Simulate login - in real app, this would call your backend
     if (email && password) {
+      // Generate unique user ID based on email and timestamp
+      const userId = btoa(email + Date.now()).replace(/[^a-zA-Z0-9]/g, '').substring(0, 12);
+      
       setUser({
-        id: '1',
+        id: userId,
         email,
         name: email.split('@')[0],
         progress: {
@@ -54,8 +79,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signup = async (email: string, password: string, name: string): Promise<boolean> => {
     // Simulate signup - in real app, this would call your backend
     if (email && password && name) {
+      // Generate unique user ID based on email and timestamp
+      const userId = btoa(email + Date.now()).replace(/[^a-zA-Z0-9]/g, '').substring(0, 12);
+      
       setUser({
-        id: '1',
+        id: userId,
         email,
         name,
         progress: {

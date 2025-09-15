@@ -100,22 +100,6 @@ const Login = () => {
     }
   };
 
-  const handleDemoLogin = async () => {
-    setIsLoading(true);
-    setErr(null);
-    setEmailErr(null);
-    setPasswordErr(null);
-
-    try {
-      // Change these if your AuthContext expects specific demo creds
-      await login?.('demo@algoflow.dev', 'demo1234');
-      navigate('/dashboard');
-    } catch (e: any) {
-      setErr(e?.message || 'Demo login is disabled. Ask an admin to enable it.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   // On tab change, clear top-level error banners but keep field-level
   const onTabChange = (value: string) => {
@@ -124,7 +108,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 animate-glow">
@@ -309,7 +293,7 @@ const Login = () => {
 
         <div className="mt-8 text-center">
           <p className="text-gray-600">
-            Demo credentials: click “Try Demo Login”, or use any email and password if your AuthContext allows it.
+            Try our demo to explore AlgoFlow without creating an account. Your progress will be saved locally.
           </p>
         </div>
       </div>

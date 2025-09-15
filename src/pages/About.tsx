@@ -39,10 +39,10 @@ const About = () => {
   ];
 
   const stats = [
-    { number: '6', label: 'Core Algorithms' },
-    { number: '15+', label: 'Practice Problems' },
-    { number: 'Unlimited', label: 'User Interaction' },
-    { number: '24/7', label: 'Available Learning' }
+    { number: '🔢', label: 'Core Algorithms' },
+    { number: '📚', label: 'Practice Problems' },
+    { number: '♾️', label: 'User Interaction' },
+    { number: '🕐', label: 'Available Learning' }
   ];
 
   return (
@@ -81,30 +81,30 @@ const About = () => {
               <CardContent className="p-12">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                   <div>
-                    <h2 className="text-3xl font-bold text-slate-900 mb-6">Our Mission</h2>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-6">🎯 Our Mission</h2>
                     <p className="text-lg text-slate-700 leading-relaxed mb-6">
-                      We believe that understanding algorithms shouldn't be about memorizing code or 
-                      struggling through abstract concepts. AlgoFlow transforms the way students learn 
-                      by combining visual storytelling with hands-on practice.
+                      A centralized website that brings all your algorithm learning needs into one place. 
+                      No more switching between multiple tabs, platforms, or tools - everything you need 
+                      for learning, practicing, and mastering algorithms is right here.
                     </p>
                     <p className="text-lg text-slate-700 leading-relaxed mb-6">
                       Our platform is designed specifically for High School and Early College 
                       students who want to build a solid foundation in algorithmic thinking and 
-                      problem-solving skills.
+                      problem-solving skills. Talk about AI features coming soon and talk about high school ambassador roles coming soon
                     </p>
                     <p className="text-lg text-slate-700 leading-relaxed mb-8">
-                      We're a <span className="font-semibold text-slate-900">centralized website</span> built for students by students, 
+                      We're a <span className="font-semibold text-slate-900">centralized website</span> <span className="font-semibold text-slate-900">built by students, for students</span>, 
                       with <span className="font-semibold text-slate-900">AI features coming soon</span> to enhance your learning experience.
                     </p>
                     <div className="flex items-center space-x-4 text-lg">
-                      ❤️
-                      <span className="text-slate-700 font-medium">Made with passion for education</span>
+                      
+                      <span className="text-slate-700 font-semibold">Built by students, for students.</span>
                     </div>
                   </div>
                   <div className="relative">
                     <div className="w-80 h-80 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full mx-auto flex items-center justify-center">
                       <div className="w-60 h-60 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl text-6xl">
-                        👥
+                        💻
                       </div>
                     </div>
                   </div>
@@ -121,7 +121,7 @@ const About = () => {
             className="mb-20"
           >
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">Why Choose AlgoFlow?</h2>
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">✨ Why Choose AlgoFlow?</h2>
               <p className="text-xl text-slate-600 max-w-2xl mx-auto">
                 We've designed every feature to make algorithm learning intuitive and effective.
               </p>
@@ -165,25 +165,26 @@ const About = () => {
             <Card className="glass-panel border-0 shadow-2xl">
               <CardContent className="p-12">
                 <div className="text-center mb-10">
-                  <h2 className="text-3xl font-bold text-slate-900 mb-4">Algorithms We Cover</h2>
+                  <h2 className="text-3xl font-bold text-slate-900 mb-4">🔗 Additional Resources</h2>
                   <p className="text-lg text-slate-600 max-w-2xl mx-auto">
                     From fundamental sorting algorithms to advanced search techniques, 
                     we cover the essential algorithms every CS student should master.
                   </p>
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {algorithms.map((algorithm, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.4, delay: 0.05 * index }}
-                      className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4 text-center hover:shadow-lg transition-all duration-300 hover:scale-105"
-                    >
-                      <span className="text-slate-800 font-medium">{algorithm}</span>
-                    </motion.div>
-                  ))}
+                <div className="flex justify-center">
+                  <motion.a
+                    href="https://opennote.com/?refer=6856aff5-c92d-4e04-849e-724f5fc2cf74"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6 }}
+                    whileHover={{ scale: 1.05 }}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
+                  >
+                    📝 Opennote
+                  </motion.a>
                 </div>
               </CardContent>
             </Card>
@@ -230,13 +231,13 @@ const About = () => {
                 <div className="max-w-2xl mx-auto">
                   <div className="text-5xl mb-6">⭐</div>
                   <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                    Ready to Master Algorithms?
+                    Want to get involved?
                   </h2>
                   <p className="text-lg text-slate-600 mb-6 leading-relaxed">
                     We're looking for feedback and bugs - if you catch any, please reach out to us via contact!
                   </p>
                   <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                    We want to eventually get high school ambassadors, so if you're interested, please reach out to us via contact and we'll send you an application.
+                    We want to eventually recruit high school ambassadors, so if you're interested, please reach out to us via contact and we'll send you an application.
                   </p>
                   <div className="flex justify-center">
                     <Link to="/contact">
