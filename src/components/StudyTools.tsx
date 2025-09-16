@@ -218,9 +218,44 @@ const StudyTools = () => {
         </div>
       </motion.div>
 
+      {/* Music Help Modal */}
+      {showMusicHelp && (
+        <motion.div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setShowMusicHelp(false)}
+        >
+          <motion.div
+            className="bg-white/[0.1] backdrop-blur-md rounded-xl p-6 max-w-md w-full border border-white/20"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-white">Focus Music Help</h3>
+              <button
+                onClick={() => setShowMusicHelp(false)}
+                className="p-1 hover:bg-white/10 rounded-full transition-colors"
+              >
+                <X className="h-4 w-4 text-white/60" />
+              </button>
+            </div>
+            <div className="space-y-3 text-sm text-white/80">
+              <p>🎵 <strong>Lofi Study Music:</strong> Ambient background music designed to enhance focus and concentration.</p>
+              <p>🎧 <strong>Features:</strong> Customizable beats, ambient sounds, and relaxing melodies.</p>
+              <p>⚙️ <strong>Controls:</strong> Use the embedded player to adjust volume, tempo, and instrument levels.</p>
+              <p>💡 <strong>Tip:</strong> Lower volume settings work best for maintaining focus while studying.</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
       {/* Music Widget */}
       {isMusicOpen && (
-        <motion.div 
+        <motion.div
           className="bg-white/[0.08] backdrop-blur-sm rounded-xl p-3 shadow-xl border border-white/10 w-80"
           initial={{ opacity: 0, y: 10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}

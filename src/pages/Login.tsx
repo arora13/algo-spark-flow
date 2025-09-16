@@ -101,6 +101,7 @@ const Login = () => {
   };
 
 
+
   // On tab change, clear top-level error banners but keep field-level
   const onTabChange = (value: string) => {
     setTab(value as 'login' | 'signup');
@@ -190,16 +191,6 @@ const Login = () => {
                     className="w-full bg-gradient-primary hover:opacity-90 text-white rounded-full py-3 font-medium transition-all duration-200 hover:scale-105 disabled:opacity-60"
                   >
                     {isLoading ? 'Signing in...' : 'Sign In'}
-                  </Button>
-
-                  <Button
-                    type="button"
-                    onClick={handleDemoLogin}
-                    disabled={isLoading}
-                    variant="outline"
-                    className="w-full rounded-full py-3 font-medium mt-2"
-                  >
-                    {isLoading ? 'Please wait...' : 'Try Demo Login'}
                   </Button>
                 </form>
               </TabsContent>
@@ -291,11 +282,6 @@ const Login = () => {
           </CardContent>
         </Card>
 
-        <div className="mt-8 text-center">
-          <p className="text-gray-600">
-            Try our demo to explore AlgoFlow without creating an account. Your progress will be saved locally.
-          </p>
-        </div>
       </div>
     </div>
   );
