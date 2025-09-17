@@ -3,6 +3,7 @@
     {
       "id": 1,
       "title": "Bubble Sort Basic Algorithm",
+      "difficulty": "Easy",
       "description": "Given an array of unsorted numbers, implement a basic bubble sorting algorithm which takes that input and orders the numbers from lowest to highest using that implementation",
       "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
       "output_desc": "A new array of numbers sorted from lowest to highest using bubble sort",
@@ -17,12 +18,13 @@
         }
       ],
       "constraints": [
-        "The sorting must be done using bubble sort. Other sorting implementation will not suffice"
+        "The sorting must be done using bubble sort. Other sorting implementations will not suffice"
       ]
     },
     {
       "id": 2,
       "title": "Count swaps in Bubble Sort",
+      "difficulty": "Easy",
       "description": "Given an array of integers, implement a bubble sort algorithm which not only sorts the integers in ascending order, but also counts the amount of times a number was swapped during the sorting process. Return the number of swaps as an integer.",
       "input_desc": "An array of integers arr where 1 ≤ len(arr) ≤ 1000.",
       "output_desc": "An integer representing the total number of swaps the bubble sort algorithm performs to sort the array.",
@@ -39,6 +41,73 @@
       "constraints": [
         "You must implement bubble sort manually; built-in sorting functions like sorted() or .sort() are not allowed.",
         "Count every swap between neighboring elements."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Bubble Sort Strings",
+      "difficulty": "Medium",
+      "description": "Given an array of strings, implement a bubble sort algorithm which sorts the array in ascending alphabetical order. Return the sorted array.",
+      "input_desc": "An array of strings arr, where 1 ≤ len(arr) ≤ 1000. Each string consists of lowercase or uppercase English letters.",
+      "output_desc": "A new array representing the finished product after alphabetically sorting using a bubble_sort algorithm",
+      "examples": [
+        {
+          "input": ["banana", "apple", "cherry"],
+          "output": ["apple", "banana", "cherry"]
+        },
+        {
+          "input": ["dog", "zebra", "cat", "ant", "hippo"],
+          "output": ["ant", "cat", "dog", "hippo", "zebra"]
+        }
+      ],
+      "constraints": [
+        "You must implement bubble sort manually; built-in sorting functions like sorted() or .sort() are not allowed.",
+        "When sorting make sure to know uppercase letters come before lowercase letters in ASCII order."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Bubble Sort Iteration Counter",
+      "difficulty": "Medium",
+      "description": "Given an array of unsorted integers, implement a bubble sorting algorithm which sorts the array from lowest to highest. Instead of returning the sorted array, count the number of iterations taken to fully sort the array. An iteration is defined as one complete traversal of the array (from the first element to the last) where neighboring elements may be swapped.",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "An integer representing the number of iterations taken to complete the bubble_sort process",
+      "examples": [
+        {
+          "input": [6, 3, 2, 5, 9],
+          "output": 3
+        },
+        {
+          "input": [75, 89, 35, 12, 9, 100],
+          "output": 5
+        }
+      ],
+      "constraints": [
+        "You must write bubble sort yourself; you cannot use built-in sorting functions like sorted() or .sort().",
+        "If an iteration makes no swaps, count that as the last run-through, since the array is already sorted, and return the full count."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Custom Bubble Sort",
+      "difficulty": "Hard",
+      "description": "Given an array of integers, implement a bubble sort algorithm with a single constraint. You can only swap neighboring elements just like a normal bubble sort algorithm; however, the left element has to be even. Return the sorted array according to this rule. If the array cannot be fully sorted due to the constraint, return the partially sorted array.",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "An array of integers representing the array sorted as much as possible under the constraint.",
+      "examples": [
+        {
+          "input": [4, 3, 2, 1, 9],
+          "output": [3, 1, 4, 2, 9]
+        },
+        {
+          "input": [68, 11, 46, 35, 28, 51],
+          "output": [11, 35, 28, 46, 51, 68]
+        }
+      ],
+      "constraints": [
+        "You must implement bubble sort manually; built-in sorting functions like sorted() or .sort() are not allowed.",
+        "Only swap neighboring elements if the left element is even.",
+        "Stop iterating early if no swaps are possible in a full iteration."
       ]
     }
   ]
