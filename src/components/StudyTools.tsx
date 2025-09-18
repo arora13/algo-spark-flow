@@ -77,7 +77,7 @@ const StudyTools = () => {
   };
 
   return (
-    <div className="fixed top-20 left-2 right-2 sm:left-4 sm:right-auto z-50 flex flex-col space-y-3 w-auto sm:w-72 max-w-[calc(100vw-1rem)] sm:max-w-none">
+    <div className="fixed top-20 left-2 right-2 sm:left-4 sm:right-auto z-40 flex flex-col space-y-3 w-auto sm:w-80 max-w-[calc(100vw-2rem)] sm:max-w-sm lg:max-w-md">
       {/* Header */}
       <motion.div 
         className="bg-white/[0.08] backdrop-blur-sm rounded-xl p-3 shadow-xl border border-white/10"
@@ -259,7 +259,7 @@ const StudyTools = () => {
       {/* Music Widget */}
       {musicPlayerOpen && (
         <motion.div
-          className="bg-white/[0.08] backdrop-blur-sm rounded-xl p-3 shadow-xl border border-white/10 w-80"
+          className="bg-white/[0.08] backdrop-blur-sm rounded-xl p-3 shadow-xl border border-white/10 w-full max-w-sm"
           initial={{ opacity: 0, y: 10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}

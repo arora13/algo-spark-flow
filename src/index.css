@@ -5,6 +5,25 @@
 @tailwind utilities;
 
 @layer base {
+  /* Set default zoom to 67% for better StudyTools visibility */
+  html {
+    zoom: 0.67;
+  }
+  
+  /* Set zoom for mobile devices to 75% for better fit */
+  @media (max-width: 768px) {
+    html {
+      zoom: 0.75;
+    }
+  }
+  
+  /* Set zoom for very small mobile devices to 80% */
+  @media (max-width: 480px) {
+    html {
+      zoom: 0.8;
+    }
+  }
+  
   :root {
     /* Enhanced dark emerald/teal theme tokens (RGB) - High contrast for readability */
     --background: 8 18 18;           /* deeper teal */

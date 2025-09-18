@@ -19,6 +19,18 @@ const AITutor = () => {
       type: 'ai',
       content: "Hoot hoot! 🦉 I'm Algo, your wise owl tutor! I wear these glasses to see through complex algorithms and help you understand them better. What would you like to learn today?",
       timestamp: new Date()
+    },
+    {
+      id: '2',
+      type: 'ai',
+      content: "I can help you with sorting algorithms like bubble sort, merge sort, and selection sort! Just ask me anything about computer science concepts.",
+      timestamp: new Date()
+    },
+    {
+      id: '3',
+      type: 'ai',
+      content: "Try asking me: 'How does bubble sort work?' or 'Explain merge sort step by step' - I'm here to help you understand! 🦉",
+      timestamp: new Date()
     }
   ]);
   const [userInput, setUserInput] = useState('');
@@ -241,7 +253,7 @@ const AITutor = () => {
       <AnimatePresence>
         {chatOpen && (
           <motion.div
-            className="bg-white/[0.08] backdrop-blur-sm rounded-xl shadow-xl border border-white/10 w-full sm:w-80 max-h-96 flex flex-col"
+            className="bg-white/[0.08] backdrop-blur-sm rounded-xl shadow-xl border border-white/10 w-full max-w-sm h-[28rem] flex flex-col"
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -265,7 +277,23 @@ const AITutor = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-2 sm:p-3 space-y-3 max-h-64">
+            <div 
+              className="flex-1 overflow-y-auto p-2 sm:p-3 space-y-3" 
+              style={{ 
+                scrollbarWidth: 'thin', 
+                scrollbarColor: 'rgba(255,255,255,0.3) transparent',
+                WebkitScrollbar: {
+                  width: '6px'
+                },
+                WebkitScrollbarTrack: {
+                  background: 'transparent'
+                },
+                WebkitScrollbarThumb: {
+                  background: 'rgba(255,255,255,0.3)',
+                  borderRadius: '3px'
+                }
+              }}
+            >
               {chatHistory.map((message) => (
                 <motion.div
                   key={message.id}

@@ -6,6 +6,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import FloatingElements from "@/components/FloatingElements";
 import StudyTools from "@/components/StudyTools";
+import problemsData from "@/data/problems.json";
+import { testSolution, getProblemTemplate } from "@/lib/codeRunner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Play,
   Code,
@@ -662,9 +665,11 @@ const Practice = () => {
   const [activeSection, setActiveSection] = useState<'algorithms' | 'ap-csp' | 'ap-csa'>('algorithms');
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<string | null>(null);
   const [selectedProblem, setSelectedProblem] = useState<string | null>(null);
+  const [selectedProblemData, setSelectedProblemData] = useState<any>(null);
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("python");
   const [testResults, setTestResults] = useState<
     Array<{ passed: boolean; input: string; expected: string; actual: string }>
   >([]);
@@ -681,6 +686,22 @@ const Practice = () => {
   const [apCsaSelections, setApCsaSelections] = useState<Record<string, string>>({});
   const [apCsaSubmitted, setApCsaSubmitted] = useState(false);
   const [apCsaScore, setApCsaScore] = useState<number | null>(null);
+
+  // Handle problem selection from Vivan's problems.json
+  const handleProblemSelect = (algorithmType: string, problem: any) => {
+    setSelectedAlgorithm(algorithmType);
+    setSelectedProblemData(problem);
+    setSelectedProblem(problem.id.toString());
+    setActiveSection('algorithms');
+  };
+
+  // Update code template when language changes
+  useEffect(() => {
+    if (selectedProblemData && selectedAlgorithm) {
+      const newTemplate = getProblemTemplate(selectedAlgorithm, selectedProblemData.id, selectedLanguage as any);
+      setCode(newTemplate);
+    }
+  }, [selectedLanguage, selectedProblemData, selectedAlgorithm]);
 
   // Worker state
   const workerRef = useRef<Worker | null>(null);
@@ -740,14 +761,6 @@ const Practice = () => {
 
   /* --------------------------------- DATA --------------------------------- */
   const algorithms = [
-    {
-      id: "merge-sort",
-      name: "Merge Sort",
-      description: "Master divide and conquer with these challenging problems",
-      problemCount: 3,
-      difficulty: "Medium",
-      color: "from-blue-500 to-cyan-400",
-    },
     {
       id: "quick-sort",
       name: "Quick Sort",
@@ -1006,13 +1019,273 @@ ${answers[index]}
 
   /* ------------------------------- RENDERING ------------------------------- */
 
+  // Show problem details when a problem from Vivan's problems.json is selected
+  if (selectedProblemData && selectedAlgorithm && Object.keys(problemsData).includes(selectedAlgorithm)) {
+    const runProblemTests = () => {
+      if (!code.trim()) {
+        setOutput("Please write some code first!");
+        return;
+      }
+      
+      setIsRunning(true);
+      setOutput("Running tests...");
+      
+      try {
+        const results = testSolution(selectedAlgorithm, selectedProblemData.id, code, selectedLanguage as any);
+        const passedCount = results.filter(r => r.passed).length;
+        const totalCount = results.length;
+        
+        let outputText = `Test Results: ${passedCount}/${totalCount} tests passed\n\n`;
+        
+        results.forEach((result, index) => {
+          outputText += `Test ${index + 1}: ${result.passed ? 'PASSED' : 'FAILED'}\n`;
+          outputText += `Input: ${JSON.stringify(result.input)}\n`;
+          outputText += `Expected: ${JSON.stringify(result.expected)}\n`;
+          outputText += `Your Output: ${JSON.stringify(result.actual)}\n`;
+          if (result.error) {
+            outputText += `Error: ${result.error}\n`;
+          }
+          outputText += '\n';
+        });
+        
+        setOutput(outputText);
+        setTestResults(results);
+      } catch (error) {
+        setOutput(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      } finally {
+        setIsRunning(false);
+      }
+    };
+
+    return (
+      <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
+        <FloatingElements />
+        <StudyTools />
+        <div className="relative z-10 pt-24 pb-16 ml-0 sm:ml-80 lg:ml-96">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="mb-6">
+              <Button
+                onClick={() => {
+                  setSelectedProblemData(null);
+                  setSelectedProblem(null);
+                  setSelectedAlgorithm(null);
+                  setCode("");
+                  setOutput("");
+                }}
+                variant="ghost"
+                className="text-white/90 hover:text-white hover:bg-white/10 p-3 rounded-xl"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Problems
+              </Button>
+            </motion.div>
+            
+            {/* Two Column Layout */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-6"
+            >
+              {/* Left Column - Problem Description */}
+              <div className="space-y-6">
+                <Card className="bg-white/5 backdrop-blur-sm border-white/10">
+                  <CardContent className="p-6">
+                    {/* Problem Header */}
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h2 className="text-2xl font-bold text-white">{selectedProblemData.title}</h2>
+                          <Badge className={`${
+                            selectedProblemData.difficulty === 'Easy' ? 'bg-green-500/20 text-green-300 border-green-500/30' :
+                            selectedProblemData.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' :
+                            'bg-red-500/20 text-red-300 border-red-500/30'
+                          }`}>
+                            {selectedProblemData.difficulty}
+                          </Badge>
+                        </div>
+                        <p className="text-white/80 text-sm">
+                          Algorithm: <span className="font-semibold text-blue-300">{selectedAlgorithm.replace('_', ' ').toUpperCase()}</span>
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Problem Description */}
+                    <div className="mb-6">
+                      <h3 className="text-lg font-semibold text-white mb-3">📝 Description</h3>
+                      <p className="text-white/90 leading-relaxed">{selectedProblemData.description}</p>
+                    </div>
+
+                    {/* Examples */}
+                    <div className="mb-6">
+                      <h3 className="text-lg font-semibold text-white mb-3">💡 Examples</h3>
+                      <div className="space-y-4">
+                        {selectedProblemData.examples.map((example: any, index: number) => (
+                          <div key={index} className="bg-white/5 border border-white/10 rounded-lg p-4">
+                            <div className="grid md:grid-cols-2 gap-4">
+                              <div>
+                                <h5 className="font-medium text-white mb-2">Input:</h5>
+                                <code className="bg-black/30 text-green-300 p-2 rounded text-sm block">
+                                  {JSON.stringify(example.input)}
+                                </code>
+                              </div>
+                              <div>
+                                <h5 className="font-medium text-white mb-2">Output:</h5>
+                                <code className="bg-black/30 text-blue-300 p-2 rounded text-sm block">
+                                  {JSON.stringify(example.output)}
+                                </code>
+                              </div>
+                            </div>
+                            {example.explanation && (
+                              <div className="mt-3">
+                                <h5 className="font-medium text-white mb-1">Explanation:</h5>
+                                <p className="text-white/80 text-sm">{example.explanation}</p>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Constraints */}
+                    <div className="mb-6">
+                      <h3 className="text-lg font-semibold text-white mb-3">⚠️ Constraints</h3>
+                      <ul className="space-y-2">
+                        {selectedProblemData.constraints.map((constraint: string, index: number) => (
+                          <li key={index} className="flex items-start gap-2 text-white/80">
+                            <span className="text-red-400 mt-1">•</span>
+                            <span className="text-sm">{constraint}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Console Output */}
+                <Card className="bg-white/5 backdrop-blur-sm border-white/10">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold text-white mb-3">📤 Console Output</h3>
+                    <div className="bg-black/30 border border-white/20 rounded-lg p-4 min-h-[200px]">
+                      {output ? (
+                        <pre className="text-white/90 text-sm whitespace-pre-wrap">{output}</pre>
+                      ) : (
+                        <p className="text-white/60 text-sm">
+                          Welcome to AlgoFlow Practice. Write your solution and click 'Run Code'. Happy coding!
+                        </p>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Right Column - Code Editor */}
+              <div>
+                <Card className="bg-white/5 backdrop-blur-sm border-white/10 h-full">
+                  <CardContent className="p-6 h-full flex flex-col">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                        <Code className="h-5 w-5" />
+                        Code Editor
+                      </h3>
+                      <div className="flex items-center gap-3">
+                        <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+                          <SelectTrigger className="w-32 bg-white/10 border-white/20 text-white">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="python">Python</SelectItem>
+                            <SelectItem value="javascript">JavaScript</SelectItem>
+                            <SelectItem value="java">Java</SelectItem>
+                            <SelectItem value="cpp">C++</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <Button
+                          onClick={runProblemTests}
+                          disabled={isRunning || !code.trim()}
+                          className="bg-blue-600 hover:bg-blue-700 text-white"
+                        >
+                          {isRunning ? (
+                            <>
+                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                              Running...
+                            </>
+                          ) : (
+                            <>
+                              <Play className="h-4 w-4 mr-2" />
+                              Run Code
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <Textarea
+                      value={code}
+                      onChange={(e) => setCode(e.target.value)}
+                      placeholder={getProblemTemplate(selectedAlgorithm, selectedProblemData.id, selectedLanguage as any)}
+                      className="flex-1 min-h-[400px] bg-black/30 border-white/20 text-white font-mono text-sm resize-none"
+                    />
+                    
+                    {/* Algo the Owl Help Text */}
+                    <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                      <p className="text-blue-300 text-sm">
+                        🦉 <strong>Need help?</strong> If you feel like your code is still right, paste it into Algo the Owl and ask him if this code works for the problem!
+                      </p>
+                    </div>
+
+                    {/* Test Results */}
+                    {testResults.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-4 space-y-3"
+                      >
+                        <h3 className="text-lg font-semibold text-white">🧪 Test Results</h3>
+                        {testResults.map((result, index) => (
+                          <div
+                            key={index}
+                            className={`p-3 rounded-lg border ${
+                              result.passed
+                                ? 'bg-green-500/10 border-green-500/20'
+                                : 'bg-red-500/10 border-red-500/20'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 mb-2">
+                              {result.passed ? (
+                                <CheckCircle className="h-4 w-4 text-green-400" />
+                              ) : (
+                                <XCircle className="h-4 w-4 text-red-400" />
+                              )}
+                              <span className="font-medium text-white text-sm">
+                                Test {index + 1} {result.passed ? 'Passed' : 'Failed'}
+                              </span>
+                            </div>
+                            {result.error && (
+                              <div className="text-red-400 text-xs">
+                                Error: {result.error}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Main section selection - show practice hub when no specific algorithm is selected
   if (!selectedAlgorithm) {
     return (
       <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
         <FloatingElements />
         <StudyTools />
-        <div className="relative z-10 pt-28 pb-20">
+        <div className="relative z-10 pt-28 pb-20 ml-0 sm:ml-80 lg:ml-96">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -1062,8 +1335,78 @@ ${answers[index]}
 
             {/* Algorithms Section */}
             {activeSection === 'algorithms' && (
-              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                {algorithms.map((algorithm, index) => (
+              <div className="space-y-12">
+                {/* Vivan's Algorithm Problems */}
+                <div>
+                  <motion.h2 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-3xl font-bold text-center mb-8"
+                  >
+                    🧮 Algorithm Problems
+                  </motion.h2>
+                  <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+                    {Object.entries(problemsData).map(([algorithmType, problems]) => (
+                      <motion.div
+                        key={algorithmType}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10"
+                      >
+                        <div className="text-center mb-4">
+                          <div className="text-3xl mb-2">
+                            {algorithmType === 'bubble_sort' && '🫧'}
+                            {algorithmType === 'merge_sort' && '📊'}
+                            {algorithmType === 'selection_sort' && '✅'}
+                          </div>
+                          <h3 className="text-xl font-bold text-white">
+                            {algorithmType.replace('_', ' ').toUpperCase()}
+                          </h3>
+                          <p className="text-white/60 text-sm">
+                            {problems.length} problem{problems.length !== 1 ? 's' : ''}
+                          </p>
+                        </div>
+                        <div className="space-y-2">
+                          {problems.map((problem: any) => (
+                            <button
+                              key={problem.id}
+                              onClick={() => handleProblemSelect(algorithmType, problem)}
+                              className="w-full text-left p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors border border-white/10"
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="text-white text-sm font-medium">
+                                  {problem.title}
+                                </span>
+                                <Badge 
+                                  className={`text-xs ${
+                                    problem.difficulty === 'Easy' ? 'bg-green-500/20 text-green-300' :
+                                    problem.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-300' :
+                                    'bg-red-500/20 text-red-300'
+                                  }`}
+                                >
+                                  {problem.difficulty}
+                                </Badge>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Original Algorithm Cards */}
+                <div>
+                  <motion.h2 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-3xl font-bold text-center mb-8"
+                  >
+                    🎯 Interactive Algorithms
+                  </motion.h2>
+                  <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    {algorithms.map((algorithm, index) => (
                   <motion.div
                     key={algorithm.id}
                     initial={{ opacity: 0, y: 50 }}
@@ -1104,13 +1447,15 @@ ${answers[index]}
                       </CardContent>
                     </Card>
                   </motion.div>
-                ))}
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
 
             {/* AP CSP Section */}
             {activeSection === 'ap-csp' && (
-              <div className="max-w-4xl mx-auto">
+              <div className="max-w-4xl mx-auto ml-0 sm:ml-80 lg:ml-96">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -1258,7 +1603,7 @@ ${answers[index]}
 
             {/* AP CSA Section */}
             {activeSection === 'ap-csa' && (
-              <div className="max-w-4xl mx-auto">
+              <div className="max-w-4xl mx-auto ml-0 sm:ml-80 lg:ml-96">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
