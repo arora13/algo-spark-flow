@@ -2581,7 +2581,7 @@ const Learn = () => {
                       <h3 className="text-lg font-semibold text-white mb-2">Key Concepts</h3>
                       <ul className="space-y-1">
                         {currentCspTopic.keyConcepts.map((concept, index) => (
-                          <li key={index} className="text-sm text-white/80">• {concept}</li>
+                          <li key={index} className="text-sm text-white/80">{concept}</li>
                         ))}
                       </ul>
                     </div>
@@ -2590,7 +2590,7 @@ const Learn = () => {
                       <h3 className="text-lg font-semibold text-white mb-2">Examples</h3>
                       <ul className="space-y-1">
                         {currentCspTopic.examples.map((example, index) => (
-                          <li key={index} className="text-sm text-white/80">• {example}</li>
+                          <li key={index} className="text-sm text-white/80">{example}</li>
                         ))}
                       </ul>
                     </div>
@@ -2660,7 +2660,7 @@ const Learn = () => {
                       <h3 className="text-lg font-semibold text-white mb-2">Key Concepts</h3>
                       <ul className="space-y-1">
                         {currentCsaTopic.keyConcepts.map((concept, index) => (
-                          <li key={index} className="text-sm text-white/80">• {concept}</li>
+                          <li key={index} className="text-sm text-white/80">{concept}</li>
                         ))}
                       </ul>
                     </div>
@@ -2669,7 +2669,7 @@ const Learn = () => {
                       <h3 className="text-lg font-semibold text-white mb-2">Examples</h3>
                       <ul className="space-y-1">
                         {currentCsaTopic.examples.map((example, index) => (
-                          <li key={index} className="text-sm text-white/80">• {example}</li>
+                          <li key={index} className="text-sm text-white/80">{example}</li>
                         ))}
                       </ul>
                     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Timer, Play, Pause, RotateCcw, Music, HelpCircle, X } from 'lucide-react';
+import AITutor from './AITutor';
 
 const StudyTools = () => {
   // Pomodoro Timer State
@@ -176,11 +177,11 @@ const StudyTools = () => {
               </button>
             </div>
             <ul className="text-xs text-blue-100 space-y-1">
-              <li>• Improves focus and concentration</li>
-              <li>• Prevents burnout with regular breaks</li>
-              <li>• Creates sense of urgency and productivity</li>
-              <li>• Helps track study time effectively</li>
-              <li>• Reduces procrastination</li>
+              <li>Improves focus and concentration</li>
+              <li>Prevents burnout with regular breaks</li>
+              <li>Creates sense of urgency and productivity</li>
+              <li>Helps track study time effectively</li>
+              <li>Reduces procrastination</li>
             </ul>
           </motion.div>
         )}
@@ -276,6 +277,9 @@ const StudyTools = () => {
           </div>
         </motion.div>
       )}
+
+      {/* AI Tutor */}
+      <AITutor />
     </div>
   );
 };
