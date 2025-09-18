@@ -10,10 +10,10 @@ interface Message {
 }
 
 const AITutor = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
-  const [showChatHelp, setShowChatHelp] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
+  const [chatOpen, setChatOpen] = useState(false);
+  const [showMainHelp, setShowMainHelp] = useState(false);
+  const [showPromptHelp, setShowPromptHelp] = useState(false);
+  const [chatHistory, setChatHistory] = useState<Message[]>([
     {
       id: '1',
       type: 'ai',
@@ -21,8 +21,8 @@ const AITutor = () => {
       timestamp: new Date()
     }
   ]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [userInput, setUserInput] = useState('');
+  const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -31,46 +31,47 @@ const AITutor = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [chatHistory]);
 
+  // Send a message to Algo - the magic happens here! ✨
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+    if (!userInput.trim() || isThinking) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       type: 'user',
-      content: inputMessage,
+      content: userInput,
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
-    setIsLoading(true);
+    setChatHistory(prev => [...prev, userMessage]);
+    setUserInput('');
+    setIsThinking(true);
 
     try {
       // Import the API function dynamically to avoid SSR issues
       const { callGeminiAPI } = await import('@/lib/api');
-      const result = await callGeminiAPI(inputMessage, 'algorithm-learning');
+      const result = await callGeminiAPI(userInput, 'algorithm-learning');
       
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'ai',
-        content: result.response || "I'm sorry, I couldn't process your request right now. Please try again.",
+        content: result.response || "Hoot hoot! Sorry, I'm having trouble thinking right now. Try again in a moment! 🦉",
         timestamp: new Date()
       };
 
-      setMessages(prev => [...prev, aiMessage]);
+      setChatHistory(prev => [...prev, aiMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'ai',
-        content: "I'm having trouble connecting right now. Please check your internet connection and try again.",
+        content: "Hoot hoot! I'm having trouble connecting right now. Check your internet and try again! 🦉",
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setChatHistory(prev => [...prev, errorMessage]);
     } finally {
-      setIsLoading(false);
+      setIsThinking(false);
     }
   };
 
@@ -81,6 +82,7 @@ const AITutor = () => {
     }
   };
 
+  // Quick questions for lazy typers (like me! 😅)
   const quickQuestions = [
     "Explain merge sort",
     "Review my code",
@@ -88,6 +90,7 @@ const AITutor = () => {
     "Give me a hint"
   ];
 
+  // Example prompts to help users know what to ask
   const examplePrompts = [
     "Explain [algorithm name] step by step",
     "What's the difference between [algorithm A] and [algorithm B]?",
@@ -101,8 +104,9 @@ const AITutor = () => {
     "How can I optimize this code?"
   ];
 
+  // Auto-fill and send quick questions
   const sendQuickQuestion = (question: string) => {
-    setInputMessage(question);
+    setUserInput(question);
     setTimeout(() => sendMessage(), 100);
   };
 
@@ -123,7 +127,7 @@ const AITutor = () => {
             </div>
             <h3 className="text-sm font-semibold ml-2">Algo the Owl</h3>
             <button
-              onClick={() => setShowHelp(!showHelp)}
+              onClick={() => setShowMainHelp(!showMainHelp)}
               className="ml-2 p-1 hover:bg-white/10 rounded-full transition-colors"
             >
               <HelpCircle className="h-3 w-3 text-white/60" />
@@ -131,27 +135,27 @@ const AITutor = () => {
           </div>
           
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setChatOpen(!chatOpen)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              isOpen
+              chatOpen
                 ? 'bg-blue-500/20 text-blue-200 hover:bg-blue-500/30'
                 : 'bg-blue-500/10 text-blue-300 hover:bg-blue-500/20'
             }`}
           >
-            {isOpen ? '🦉 Hide Algo' : '🦉 Chat with Algo'}
+            {chatOpen ? '🦉 Hide Algo' : '🦉 Chat with Algo'}
           </button>
         </div>
       </motion.div>
 
       {/* Help Modal */}
       <AnimatePresence>
-        {showHelp && (
+        {showMainHelp && (
           <motion.div
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setShowHelp(false)}
+            onClick={() => setShowMainHelp(false)}
           >
             <motion.div
               className="bg-white/[0.1] backdrop-blur-md rounded-xl p-6 max-w-md w-full border border-white/20"
@@ -169,7 +173,7 @@ const AITutor = () => {
                   <h3 className="text-lg font-semibold text-white">Meet Algo the Owl</h3>
                 </div>
                 <button
-                  onClick={() => setShowHelp(false)}
+                  onClick={() => setShowMainHelp(false)}
                   className="p-1 hover:bg-white/10 rounded-full transition-colors"
                 >
                   <X className="h-4 w-4 text-white/60" />
@@ -189,13 +193,13 @@ const AITutor = () => {
 
       {/* Chat Help Modal */}
       <AnimatePresence>
-        {showChatHelp && (
+        {showPromptHelp && (
           <motion.div
             className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setShowChatHelp(false)}
+            onClick={() => setShowPromptHelp(false)}
           >
             <motion.div
               className="bg-white/[0.1] backdrop-blur-md rounded-xl p-6 max-w-lg w-full border border-white/20 max-h-[80vh] overflow-y-auto"
@@ -207,7 +211,7 @@ const AITutor = () => {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-white">Example Prompts</h3>
                 <button
-                  onClick={() => setShowChatHelp(false)}
+                  onClick={() => setShowPromptHelp(false)}
                   className="p-1 hover:bg-white/10 rounded-full transition-colors"
                 >
                   <X className="h-4 w-4 text-white/60" />
@@ -219,8 +223,8 @@ const AITutor = () => {
                   <button
                     key={index}
                     onClick={() => {
-                      setInputMessage(prompt);
-                      setShowChatHelp(false);
+                      setUserInput(prompt);
+                      setShowPromptHelp(false);
                     }}
                     className="w-full text-left p-2 bg-white/5 hover:bg-white/10 rounded-lg transition-colors border border-white/10"
                   >
@@ -235,9 +239,9 @@ const AITutor = () => {
 
       {/* Chat Interface */}
       <AnimatePresence>
-        {isOpen && (
+        {chatOpen && (
           <motion.div
-            className="bg-white/[0.08] backdrop-blur-sm rounded-xl shadow-xl border border-white/10 w-80 max-h-96 flex flex-col"
+            className="bg-white/[0.08] backdrop-blur-sm rounded-xl shadow-xl border border-white/10 w-full sm:w-80 max-h-96 flex flex-col"
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -253,7 +257,7 @@ const AITutor = () => {
                 <h4 className="text-sm font-semibold text-blue-200">Algo the Owl</h4>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={() => setChatOpen(false)}
                 className="p-1 hover:bg-white/10 rounded-full transition-colors"
               >
                 <X className="h-3 w-3 text-white/60" />
@@ -261,8 +265,8 @@ const AITutor = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-3 space-y-3 max-h-64">
-              {messages.map((message) => (
+            <div className="flex-1 overflow-y-auto p-2 sm:p-3 space-y-3 max-h-64">
+              {chatHistory.map((message) => (
                 <motion.div
                   key={message.id}
                   initial={{ opacity: 0, y: 10 }}
@@ -280,7 +284,7 @@ const AITutor = () => {
                   </div>
                 </motion.div>
               ))}
-              {isLoading && (
+              {isThinking && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -299,7 +303,7 @@ const AITutor = () => {
             </div>
 
             {/* Quick Questions */}
-            <div className="p-2 border-t border-white/10">
+            <div className="p-2 sm:p-3 border-t border-white/10">
               <div className="flex flex-wrap gap-1 mb-2">
                 {quickQuestions.map((question, index) => (
                   <button
@@ -314,10 +318,10 @@ const AITutor = () => {
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-white/10">
+            <div className="p-2 sm:p-3 border-t border-white/10">
               <div className="flex space-x-2">
                 <button
-                  onClick={() => setShowChatHelp(true)}
+                  onClick={() => setShowPromptHelp(true)}
                   className="p-2 bg-white/5 hover:bg-white/10 text-white/60 rounded-lg transition-colors"
                   title="See example prompts"
                 >
@@ -325,16 +329,16 @@ const AITutor = () => {
                 </button>
                 <input
                   type="text"
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
+                  value={userInput}
+                  onChange={(e) => setUserInput(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Ask me anything about algorithms..."
                   className="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                  disabled={isLoading}
+                  disabled={isThinking}
                 />
                 <button
                   onClick={sendMessage}
-                  disabled={!inputMessage.trim() || isLoading}
+                  disabled={!userInput.trim() || isThinking}
                   className="p-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-200 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="h-3 w-3" />

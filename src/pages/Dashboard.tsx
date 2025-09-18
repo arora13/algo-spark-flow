@@ -6,9 +6,10 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth(); // Get current user info
+  const navigate = useNavigate(); // For navigation
 
+  // Redirect to login if no user - security first! 🔒
   React.useEffect(() => {
     if (!user) {
       navigate('/login');
@@ -17,6 +18,7 @@ const Dashboard = () => {
 
   if (!user) return null;
 
+  // Some mock data for the dashboard - in real app this would come from API
   const totalAlgorithms = 10;
   const totalProblems = 15;
   const completionRate = Math.round(

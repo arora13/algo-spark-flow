@@ -10,10 +10,12 @@ import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import { trackPageView, trackContact } from '@/lib/analytics';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '@/config/emailjs';
+import StudyTools from '@/components/StudyTools';
 
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Form state - keeping it simple! 📝
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,11 +23,12 @@ const Contact = () => {
     message: ''
   });
 
-  // Track page view when component mounts
+  // Track page view when component mounts - analytics are cool! 📊
   useEffect(() => {
     trackPageView('/contact');
   }, []);
 
+  // Handle form submission - the magic happens here! ✨
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);

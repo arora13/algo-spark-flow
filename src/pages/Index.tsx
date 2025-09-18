@@ -3,22 +3,25 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SplineBackground from '@/components/SplineBackground';
+import StudyTools from '@/components/StudyTools';
 import { trackPageView } from '@/lib/analytics';
 
 const Index = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // For routing around the app
 
-  // Track page view when component mounts
+  // Track page view when component mounts - analytics are cool! 📊
   useEffect(() => {
     trackPageView('/');
   }, []);
 
+  // Handle contact button click - simple but effective! 🎯
   const handleContactClick = () => {
     console.log('Contact button clicked!');
     navigate('/contact');
   };
 
-  const algorithms = [
+  // Our featured algorithms - the stars of the show! ⭐
+  const featuredAlgorithms = [
     { name: 'Merge Sort', description: 'Divide and conquer sorting with guaranteed O(n log n) performance', emoji: '📊', color: 'from-blue-500 to-cyan-400', difficulty: 'Medium', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center' },
     { name: 'Quick Sort', description: 'Efficient in-place sorting with excellent average-case performance', emoji: '⚡', color: 'from-purple-500 to-pink-400', difficulty: 'Medium', image: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&crop=center' },
     { name: 'Binary Search', description: 'Lightning-fast search through sorted data structures', emoji: '🎯', color: 'from-emerald-500 to-teal-400', difficulty: 'Easy', image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop&crop=center' },
@@ -50,15 +53,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative">
+      <StudyTools />
       {/* Hero Section */}
       <section className="relative section-padding pt-24 overflow-hidden">
         <SplineBackground />
         <div className="container-width relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
+            <div className="text-center max-w-4xl mx-auto px-4">
 
             {/* AlgoFlow Branding */}
             <div className="mb-3 animate-slide-up" style={{ animationDelay: '0s' }}>
-              <span className="text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              <span className="text-xl sm:text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent">
                 AlgoFlow
               </span>
             </div>
@@ -68,14 +72,14 @@ const Index = () => {
               <span>The Modern Way to Master Algorithms</span>
             </div>
 
-            <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight animate-slide-up font-dm-sans" style={{ animationDelay: '0.1s' }}>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight animate-slide-up font-dm-sans px-4" style={{ animationDelay: '0.1s' }}>
               Master Algorithms with
               <span className="block bg-gradient-primary bg-clip-text text-transparent mt-2">
                 Visual Learning
               </span>
             </h1>
 
-            <p className="text-lg lg:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto animate-slide-up px-4" style={{ animationDelay: '0.2s' }}>
               The perfect platform for High School and Early College students to understand 
               core algorithms through stunning animations and <span className="font-semibold text-purple-600"> hands-on practice</span>.
             </p>
@@ -130,8 +134,8 @@ const Index = () => {
           </div>
 
           {/* Algorithms Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {algorithms.map((algorithm, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16 px-4">
+            {featuredAlgorithms.map((algorithm, index) => (
               <div key={index} className="algorithm-card group hover-lift" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="p-6">
                   <div className="flex items-center mb-4">

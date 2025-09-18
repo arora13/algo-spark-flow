@@ -15,19 +15,19 @@ const emailRegex =
 const MIN_PASSWORD = 6;
 
 const Login = () => {
-  const [tab, setTab] = React.useState<'login' | 'signup'>('login');
+  const [currentTab, setCurrentTab] = React.useState<'login' | 'signup'>('login');
 
-  // shared state across tabs so switching doesn’t wipe inputs
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [err, setErr] = React.useState<string | null>(null);
+  // Keep user inputs when switching tabs - no one likes retyping stuff! 😤
+  const [userEmail, setUserEmail] = React.useState('');
+  const [userPassword, setUserPassword] = React.useState('');
+  const [userName, setUserName] = React.useState('');
+  const [isThinking, setIsThinking] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
-  // field-level errors
-  const [emailErr, setEmailErr] = React.useState<string | null>(null);
-  const [passwordErr, setPasswordErr] = React.useState<string | null>(null);
-  const [nameErr, setNameErr] = React.useState<string | null>(null);
+  // Individual field errors - we'll show these per field
+  const [emailError, setEmailError] = React.useState<string | null>(null);
+  const [passwordError, setPasswordError] = React.useState<string | null>(null);
+  const [nameError, setNameError] = React.useState<string | null>(null);
 
   const { login, signup, user } = useAuth();
   const navigate = useNavigate();
@@ -37,75 +37,79 @@ const Login = () => {
     if (user) navigate('/dashboard');
   }, [user, navigate]);
 
-  const validateLogin = () => {
-    let ok = true;
-    setEmailErr(null);
-    setPasswordErr(null);
-    setErr(null);
+  // Check if login looks good before we try it
+  const checkLoginForm = () => {
+    let looksGood = true;
+    setEmailError(null);
+    setPasswordError(null);
+    setErrorMessage(null);
 
-    if (!emailRegex.test(email.trim())) {
-      setEmailErr('Please enter a valid email address.');
-      ok = false;
+    if (!emailRegex.test(userEmail.trim())) {
+      setEmailError('Hmm, that email doesn\'t look quite right 🤔');
+      looksGood = false;
     }
-    if (password.length < MIN_PASSWORD) {
-      setPasswordErr(`Password must be at least ${MIN_PASSWORD} characters.`);
-      ok = false;
+    if (userPassword.length < MIN_PASSWORD) {
+      setPasswordError(`Password needs at least ${MIN_PASSWORD} characters (security first! 🔒)`);
+      looksGood = false;
     }
-    return ok;
+    return looksGood;
   };
 
-  const validateSignup = () => {
-    let ok = validateLogin();
-    setNameErr(null);
+  // Check signup form - same as login but with name
+  const checkSignupForm = () => {
+    let looksGood = checkLoginForm();
+    setNameError(null);
 
-    if (!name.trim()) {
-      setNameErr('Please enter your full name.');
-      ok = false;
+    if (!userName.trim()) {
+      setNameError('We\'d love to know your name! 😊');
+      looksGood = false;
     }
-    return ok;
+    return looksGood;
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
+  // The login magic happens here ✨
+  const doTheLoginThing = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateLogin()) return;
+    if (!checkLoginForm()) return;
 
-    setIsLoading(true);
-    setErr(null);
+    setIsThinking(true);
+    setErrorMessage(null);
 
     try {
-      // Most contexts resolve on success and throw on error
-      await login?.(email.trim(), password);
+      // Try to log them in - fingers crossed! 🤞
+      await login?.(userEmail.trim(), userPassword);
       navigate('/dashboard');
-    } catch (e: any) {
-      setErr(e?.message || 'Login failed. Check your email and password.');
+    } catch (error: any) {
+      setErrorMessage(error?.message || 'Oops! Something went wrong. Double-check your email and password! 😅');
     } finally {
-      setIsLoading(false);
+      setIsThinking(false);
     }
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
+  // Create a new account - welcome to the family! 🎉
+  const createNewAccount = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateSignup()) return;
+    if (!checkSignupForm()) return;
 
-    setIsLoading(true);
-    setErr(null);
+    setIsThinking(true);
+    setErrorMessage(null);
 
     try {
-      await signup?.(email.trim(), password, name.trim());
+      await signup?.(userEmail.trim(), userPassword, userName.trim());
       navigate('/dashboard');
-    } catch (e: any) {
-      setErr(e?.message || 'Signup failed. Please try a different email or password.');
+    } catch (error: any) {
+      setErrorMessage(error?.message || 'Hmm, that didn\'t work. Maybe try a different email? 🤷‍♀️');
     } finally {
-      setIsLoading(false);
+      setIsThinking(false);
     }
   };
 
 
 
-  // On tab change, clear top-level error banners but keep field-level
-  const onTabChange = (value: string) => {
-    setTab(value as 'login' | 'signup');
-    setErr(null);
+  // When switching tabs, clear the main error but keep field errors
+  const switchTab = (value: string) => {
+    setCurrentTab(value as 'login' | 'signup');
+    setErrorMessage(null);
   };
 
   return (
@@ -125,24 +129,24 @@ const Login = () => {
 
         <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-xl">
           <CardContent className="p-8">
-            <Tabs value={tab} onValueChange={onTabChange} className="w-full">
+            <Tabs value={currentTab} onValueChange={switchTab} className="w-full">
               <TabsList className="grid w-full grid-cols-2 mb-8">
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
 
-              {err && (
+              {errorMessage && (
                 <div
                   className="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700 border border-red-200"
                   role="alert"
                   aria-live="assertive"
                 >
-                  {err}
+                  {errorMessage}
                 </div>
               )}
 
               <TabsContent value="login">
-                <form onSubmit={handleLogin} className="space-y-6" noValidate>
+                <form onSubmit={doTheLoginThing} className="space-y-6" noValidate>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <div className="relative">
@@ -151,16 +155,16 @@ const Login = () => {
                         id="email"
                         type="email"
                         placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={`pl-10 ${emailErr ? 'border-red-300 focus-visible:ring-0' : ''}`}
+                        value={userEmail}
+                        onChange={(e) => setUserEmail(e.target.value)}
+                        className={`pl-10 ${emailError ? 'border-red-300 focus-visible:ring-0' : ''}`}
                         required
                         autoComplete="email"
-                        disabled={isLoading}
+                        disabled={isThinking}
                       />
                     </div>
-                    {emailErr && (
-                      <p className="text-xs text-red-600 mt-1">{emailErr}</p>
+                    {emailError && (
+                      <p className="text-xs text-red-600 mt-1">{emailError}</p>
                     )}
                   </div>
 
@@ -172,31 +176,31 @@ const Login = () => {
                         id="password"
                         type="password"
                         placeholder="Enter your password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className={`pl-10 ${passwordErr ? 'border-red-300 focus-visible:ring-0' : ''}`}
+                        value={userPassword}
+                        onChange={(e) => setUserPassword(e.target.value)}
+                        className={`pl-10 ${passwordError ? 'border-red-300 focus-visible:ring-0' : ''}`}
                         required
                         autoComplete="current-password"
-                        disabled={isLoading}
+                        disabled={isThinking}
                       />
                     </div>
-                    {passwordErr && (
-                      <p className="text-xs text-red-600 mt-1">{passwordErr}</p>
+                    {passwordError && (
+                      <p className="text-xs text-red-600 mt-1">{passwordError}</p>
                     )}
                   </div>
 
                   <Button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isThinking}
                     className="w-full bg-gradient-primary hover:opacity-90 text-white rounded-full py-3 font-medium transition-all duration-200 hover:scale-105 disabled:opacity-60"
                   >
-                    {isLoading ? 'Signing in...' : 'Sign In'}
+                    {isThinking ? 'Signing in...' : 'Sign In'}
                   </Button>
                 </form>
               </TabsContent>
 
               <TabsContent value="signup">
-                <form onSubmit={handleSignup} className="space-y-6" noValidate>
+                <form onSubmit={createNewAccount} className="space-y-6" noValidate>
                   <div className="space-y-2">
                     <Label htmlFor="signup-name">Full Name</Label>
                     <div className="relative">
@@ -205,16 +209,16 @@ const Login = () => {
                         id="signup-name"
                         type="text"
                         placeholder="Enter your full name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className={`pl-10 ${nameErr ? 'border-red-300 focus-visible:ring-0' : ''}`}
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        className={`pl-10 ${nameError ? 'border-red-300 focus-visible:ring-0' : ''}`}
                         required
                         autoComplete="name"
-                        disabled={isLoading}
+                        disabled={isThinking}
                       />
                     </div>
-                    {nameErr && (
-                      <p className="text-xs text-red-600 mt-1">{nameErr}</p>
+                    {nameError && (
+                      <p className="text-xs text-red-600 mt-1">{nameError}</p>
                     )}
                   </div>
 
@@ -226,16 +230,16 @@ const Login = () => {
                         id="signup-email"
                         type="email"
                         placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={`pl-10 ${emailErr ? 'border-red-300 focus-visible:ring-0' : ''}`}
+                        value={userEmail}
+                        onChange={(e) => setUserEmail(e.target.value)}
+                        className={`pl-10 ${emailError ? 'border-red-300 focus-visible:ring-0' : ''}`}
                         required
                         autoComplete="email"
-                        disabled={isLoading}
+                        disabled={isThinking}
                       />
                     </div>
-                    {emailErr && (
-                      <p className="text-xs text-red-600 mt-1">{emailErr}</p>
+                    {emailError && (
+                      <p className="text-xs text-red-600 mt-1">{emailError}</p>
                     )}
                   </div>
 
@@ -247,25 +251,25 @@ const Login = () => {
                         id="signup-password"
                         type="password"
                         placeholder="Create a password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className={`pl-10 ${passwordErr ? 'border-red-300 focus-visible:ring-0' : ''}`}
+                        value={userPassword}
+                        onChange={(e) => setUserPassword(e.target.value)}
+                        className={`pl-10 ${passwordError ? 'border-red-300 focus-visible:ring-0' : ''}`}
                         required
                         autoComplete="new-password"
-                        disabled={isLoading}
+                        disabled={isThinking}
                       />
                     </div>
-                    {passwordErr && (
-                      <p className="text-xs text-red-600 mt-1">{passwordErr}</p>
+                    {passwordError && (
+                      <p className="text-xs text-red-600 mt-1">{passwordError}</p>
                     )}
                   </div>
 
                   <Button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isThinking}
                     className="w-full bg-gradient-primary hover:opacity-90 text-white rounded-full py-3 font-medium transition-all duration-200 hover:scale-105 disabled:opacity-60"
                   >
-                    {isLoading ? 'Creating account...' : 'Create Account'}
+                    {isThinking ? 'Creating account...' : 'Create Account'}
                   </Button>
                 </form>
               </TabsContent>

@@ -1013,7 +1013,7 @@ ${answers[index]}
         <FloatingElements />
         <StudyTools />
         <div className="relative z-10 pt-28 pb-20">
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1419,7 +1419,7 @@ ${answers[index]}
         <FloatingElements />
         <StudyTools />
         <div className="relative z-10 pt-28 pb-20">
-          <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="mb-8">
               <Button
                 onClick={() => setSelectedAlgorithm(null)}
@@ -1521,7 +1521,7 @@ ${answers[index]}
       <FloatingElements />
       <StudyTools />
       <div className="relative z-10 pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="mb-6">
             <Button
               onClick={() => setSelectedProblem(null)}

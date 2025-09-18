@@ -4,9 +4,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import FloatingElements from '@/components/FloatingElements';
+import StudyTools from '@/components/StudyTools';
 
 const About = () => {
-  const features = [
+  // What makes AlgoFlow special - our awesome features! ✨
+  const awesomeFeatures = [
     {
       emoji: '🧠',
       title: 'Visual Learning',
@@ -48,6 +50,7 @@ const About = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <FloatingElements />
+      <StudyTools />
       
       <div className="relative z-10 pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">
@@ -128,7 +131,7 @@ const About = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              {features.map((feature, index) => (
+              {awesomeFeatures.map((feature, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}

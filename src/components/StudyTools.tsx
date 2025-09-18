@@ -4,45 +4,45 @@ import { Timer, Play, Pause, RotateCcw, Music, HelpCircle, X } from 'lucide-reac
 import AITutor from './AITutor';
 
 const StudyTools = () => {
-  // Pomodoro Timer State
-  const [pomodoroTime, setPomodoroTime] = useState(25 * 60); // 25 minutes in seconds
-  const [isPomodoroRunning, setIsPomodoroRunning] = useState(false);
-  const [pomodoroMode, setPomodoroMode] = useState<'work' | 'break'>('work');
-  const [pomodoroCycles, setPomodoroCycles] = useState(0);
-  const pomodoroIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // Pomodoro Timer - the productivity magic! ⏰
+  const [studyTime, setStudyTime] = useState(25 * 60); // 25 minutes in seconds
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [currentMode, setCurrentMode] = useState<'work' | 'break'>('work');
+  const [completedCycles, setCompletedCycles] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Music Widget State
-  const [isMusicOpen, setIsMusicOpen] = useState(false);
+  // Music Widget - for those who need beats to focus 🎵
+  const [musicPlayerOpen, setMusicPlayerOpen] = useState(false);
   
-  // Help State
-  const [showPomodoroHelp, setShowPomodoroHelp] = useState(false);
+  // Help modals - when users need guidance 🤔
+  const [showTimerHelp, setShowTimerHelp] = useState(false);
   const [showMusicHelp, setShowMusicHelp] = useState(false);
 
-  // Format time helper
-  const formatTime = (seconds: number) => {
+  // Make time look pretty - no one likes raw seconds! 😅
+  const makeTimeLookPretty = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Pomodoro timer logic
+  // The timer magic happens here - countdown and mode switching ✨
   useEffect(() => {
-    if (isPomodoroRunning && pomodoroTime > 0) {
-      pomodoroIntervalRef.current = setInterval(() => {
-        setPomodoroTime((prev) => {
+    if (isTimerRunning && studyTime > 0) {
+      timerRef.current = setInterval(() => {
+        setStudyTime((prev) => {
           if (prev <= 1) {
-            // Timer finished
-            setIsPomodoroRunning(false);
+            // Ding! Time's up! 🔔
+            setIsTimerRunning(false);
             
-            if (pomodoroMode === 'work') {
-              // Switch to break
-              setPomodoroMode('break');
-              setPomodoroTime(5 * 60); // 5 minute break
-              setPomodoroCycles(prev => prev + 1);
+            if (currentMode === 'work') {
+              // Switch to break - you earned it! 🎉
+              setCurrentMode('break');
+              setStudyTime(5 * 60); // 5 minute break
+              setCompletedCycles(prev => prev + 1);
             } else {
-              // Switch to work
-              setPomodoroMode('work');
-              setPomodoroTime(25 * 60); // 25 minute work
+              // Back to work! 💪
+              setCurrentMode('work');
+              setStudyTime(25 * 60); // 25 minute work
             }
             
             return 0;
@@ -51,31 +51,33 @@ const StudyTools = () => {
         });
       }, 1000);
     } else {
-      if (pomodoroIntervalRef.current) {
-        clearInterval(pomodoroIntervalRef.current);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     }
 
     return () => {
-      if (pomodoroIntervalRef.current) {
-        clearInterval(pomodoroIntervalRef.current);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
       }
     };
-  }, [isPomodoroRunning, pomodoroTime, pomodoroMode]);
+  }, [isTimerRunning, studyTime, currentMode]);
 
-  const togglePomodoro = () => {
-    setIsPomodoroRunning(!isPomodoroRunning);
+  // Start/stop the timer - simple but effective! 🎯
+  const toggleTimer = () => {
+    setIsTimerRunning(!isTimerRunning);
   };
 
-  const resetPomodoro = () => {
-    setIsPomodoroRunning(false);
-    setPomodoroMode('work');
-    setPomodoroTime(25 * 60);
-    setPomodoroCycles(0);
+  // Reset everything back to square one 🔄
+  const resetTimer = () => {
+    setIsTimerRunning(false);
+    setCurrentMode('work');
+    setStudyTime(25 * 60);
+    setCompletedCycles(0);
   };
 
   return (
-    <div className="fixed top-20 left-4 z-50 flex flex-col space-y-3 w-72">
+    <div className="fixed top-20 left-2 right-2 sm:left-4 sm:right-auto z-50 flex flex-col space-y-3 w-auto sm:w-72 max-w-[calc(100vw-1rem)] sm:max-w-none">
       {/* Header */}
       <motion.div 
         className="bg-white/[0.08] backdrop-blur-sm rounded-xl p-3 shadow-xl border border-white/10"
@@ -101,7 +103,7 @@ const StudyTools = () => {
             <Timer className="h-4 w-4 text-blue-300 mr-2" />
             <h3 className="text-sm font-semibold">Study Timer</h3>
             <button
-              onClick={() => setShowPomodoroHelp(!showPomodoroHelp)}
+              onClick={() => setShowTimerHelp(!showTimerHelp)}
               className="ml-2 p-1 hover:bg-white/10 rounded-full transition-colors"
             >
               <HelpCircle className="h-3 w-3 text-white/60" />
@@ -109,34 +111,34 @@ const StudyTools = () => {
           </div>
           
           <div className={`text-2xl font-mono font-bold mb-3 ${
-            pomodoroMode === 'work' ? 'text-blue-300' : 'text-green-300'
+            currentMode === 'work' ? 'text-blue-300' : 'text-green-300'
           }`}>
-            {formatTime(pomodoroTime)}
+            {makeTimeLookPretty(studyTime)}
           </div>
           
           <div className="flex items-center justify-center space-x-3 mb-3">
             <div className={`px-2 py-1 rounded-full text-xs font-medium ${
-              pomodoroMode === 'work' 
+              currentMode === 'work' 
                 ? 'bg-blue-500/20 text-blue-200' 
                 : 'bg-green-500/20 text-green-200'
             }`}>
-              {pomodoroMode === 'work' ? '🍅 Work' : '☕ Break'}
+              {currentMode === 'work' ? '🍅 Work' : '☕ Break'}
             </div>
             <div className="text-white/60 text-xs">
-              Cycles: {pomodoroCycles}
+              Cycles: {completedCycles}
             </div>
           </div>
           
           <div className="flex space-x-2 justify-center">
             <button
-              onClick={togglePomodoro}
+              onClick={toggleTimer}
               className={`px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
-                isPomodoroRunning
+                isTimerRunning
                   ? 'bg-red-500/20 text-red-200 hover:bg-red-500/30'
                   : 'bg-green-500/20 text-green-200 hover:bg-green-500/30'
               }`}
             >
-              {isPomodoroRunning ? (
+              {isTimerRunning ? (
                 <>
                   <Pause className="h-3 w-3 inline mr-1" />
                   Pause
@@ -150,7 +152,7 @@ const StudyTools = () => {
             </button>
             
             <button
-              onClick={resetPomodoro}
+              onClick={resetTimer}
               className="px-3 py-1 rounded-lg text-xs font-medium bg-white/10 text-white/80 hover:bg-white/20 transition-colors"
             >
               <RotateCcw className="h-3 w-3 inline mr-1" />
@@ -160,7 +162,7 @@ const StudyTools = () => {
         </div>
         
         {/* Pomodoro Help */}
-        {showPomodoroHelp && (
+        {showTimerHelp && (
           <motion.div 
             className="mt-3 p-3 bg-blue-500/10 border border-blue-400/20 rounded-lg"
             initial={{ opacity: 0, height: 0 }}
@@ -170,7 +172,7 @@ const StudyTools = () => {
             <div className="flex justify-between items-start mb-2">
               <h4 className="text-sm font-semibold text-blue-200">Benefits of Pomodoro Timer:</h4>
               <button
-                onClick={() => setShowPomodoroHelp(false)}
+                onClick={() => setShowTimerHelp(false)}
                 className="p-1 hover:bg-white/10 rounded-full"
               >
                 <X className="h-3 w-3 text-white/60" />
@@ -207,14 +209,14 @@ const StudyTools = () => {
           </div>
           
           <button
-            onClick={() => setIsMusicOpen(!isMusicOpen)}
+            onClick={() => setMusicPlayerOpen(!musicPlayerOpen)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              isMusicOpen
+              musicPlayerOpen
                 ? 'bg-purple-500/20 text-purple-200 hover:bg-purple-500/30'
                 : 'bg-purple-500/10 text-purple-300 hover:bg-purple-500/20'
             }`}
           >
-            {isMusicOpen ? '🎵 Hide Player' : '🎵 Show Player'}
+            {musicPlayerOpen ? '🎵 Hide Player' : '🎵 Show Player'}
           </button>
         </div>
       </motion.div>
@@ -255,7 +257,7 @@ const StudyTools = () => {
       )}
 
       {/* Music Widget */}
-      {isMusicOpen && (
+      {musicPlayerOpen && (
         <motion.div
           className="bg-white/[0.08] backdrop-blur-sm rounded-xl p-3 shadow-xl border border-white/10 w-80"
           initial={{ opacity: 0, y: 10, scale: 0.95 }}

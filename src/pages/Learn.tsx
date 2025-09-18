@@ -1744,14 +1744,14 @@ const Learn = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b1f24] text-white p-4 pt-20">
+    <div className="min-h-screen bg-[#0b1f24] text-white p-2 sm:p-4 pt-20">
       <StudyTools />
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
         <div className="text-center mb-8">
           <motion.h1 
-            className="text-3xl lg:text-4xl font-bold mb-4"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
