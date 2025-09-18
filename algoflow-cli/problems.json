@@ -229,5 +229,112 @@
         "Only pairs where i < j are considered."
       ]
     }
+  ],
+  "selection_sort": [
+    {
+      "id": 1,
+      "title": "Find the Minimum Index",
+      "difficulty": "Easy",
+      "description": "Given an array of unsorted integers, find the index of the smallest element in the array. Using built-in functions like min() is not permitted",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 100000).",
+      "output_desc": "An integer representing the index of the smallest element in the array. If there are multiple occurrences of the minimum, return the first index.",
+      "examples": [
+        {
+          "input": [5, 2, 9, 1, 5, 6],
+          "output": 3
+        },
+        {
+          "input": [10, 7, 8, 3, 2, 1],
+          "output": 5
+        }
+      ],
+      "constraints": [
+        "You must find the minimum element manually; built-in functions like min() are not allowed."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Selection Sort Basic Algorithm",
+      "difficulty": "Easy",
+      "description": "Given an array of unsorted numbers, sort the array in ascending order using the selection sort algorithm.",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 100000).",
+      "output_desc": "A new array of numbers sorted from lowest to highest using selection sort.",
+      "examples": [
+        {
+          "input": [5, 2, 9, 1, 5, 6],
+          "output": [1, 2, 5, 5, 6, 9]
+        },
+        {
+          "input": [10, 7, 8, 3, 2, 1],
+          "output": [1, 2, 3, 7, 8, 10]
+        }
+      ],
+      "constraints": [
+        "You must implement selection sort manually; built-in sorting functions like sorted() or .sort() are not allowed.",
+        "You must repeatedly find the minimum element and move it to the correct position."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Custom Selection Sort Comparison",
+      "difficulty": "Medium",
+      "description": "Given an array of integers, sort the array in ascending order using selection sort, but with a custom comparison rule. Even numbers should come before odd numbers. Within each group of numbers, maintain ascending order. You must implement this using selection sort manually; built-in sorting functions are not allowed.",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 100000).",
+      "output_desc": "A new array of numbers sorted according to the custom rule.",
+      "examples": [
+        {
+          "input": [5, 2, 9, 1, 4, 6],
+          "output": [2, 4, 6, 1, 5, 9]
+        },
+        {
+          "input": [10, 7, 8, 3, 2, 1],
+          "output": [2, 8, 10, 1, 3, 7]
+        }
+      ],
+      "constraints": [
+        "You must implement selection sort manually; built-in sorting functions like sorted() or .sort() are not allowed.",
+        "Even numbers always precede odd numbers.",
+        "Maintain ascending order within the even and odd groups."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Selection Sort Students by Score",
+      "difficulty": "Hard",
+      "description": "Given a list of student records, each containing a name and a score, sort the list in descending order of scores using selection sort. If two students have the same score, maintain their original relative order. Built-in sorting functions are not allowed.",
+      "input_desc": "An array of objects, where each object has 'name' (string) and 'score' (integer). The array length is 1 ≤ len(arr) ≤ 1000.",
+      "output_desc": "A new array of student records sorted in descending order by score.",
+      "examples": [
+        {
+          "input": [
+            {"name": "Alice", "score": 85},
+            {"name": "Bob", "score": 92},
+            {"name": "Charlie", "score": 85}
+          ],
+          "output": [
+            {"name": "Bob", "score": 92},
+            {"name": "Alice", "score": 85},
+            {"name": "Charlie", "score": 85}
+          ]
+        },
+        {
+          "input": [
+            {"name": "David", "score": 70},
+            {"name": "Eve", "score": 90},
+            {"name": "Frank", "score": 80}
+          ],
+          "output": [
+            {"name": "Eve", "score": 90},
+            {"name": "Frank", "score": 80},
+            {"name": "David", "score": 70}
+          ]
+        }
+      ],
+      "constraints": [
+        "You must implement selection sort manually; built-in sorting functions like sorted() or .sort() are not allowed.",
+        "Sort in descending order by score.",
+        "Maintain relative order for students with the same score."
+      ]
+    }
   ]
 }
