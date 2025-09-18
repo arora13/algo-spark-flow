@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import SplineBackground from '@/components/SplineBackground';
-import StudyTools from '@/components/StudyTools';
 import { trackPageView } from '@/lib/analytics';
 
 const Index = () => {
@@ -53,7 +52,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative">
-      <StudyTools />
       {/* Hero Section */}
       <section className="relative section-padding pt-24 overflow-hidden">
         <SplineBackground />

@@ -10,7 +10,6 @@ import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import { trackPageView, trackContact } from '@/lib/analytics';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '@/config/emailjs';
-import StudyTools from '@/components/StudyTools';
 
 const Contact = () => {
   const { toast } = useToast();

@@ -4,7 +4,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import FloatingElements from '@/components/FloatingElements';
-import StudyTools from '@/components/StudyTools';
 
 const About = () => {
   // What makes AlgoFlow special - our awesome features! ✨
@@ -50,7 +49,6 @@ const About = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <FloatingElements />
-      <StudyTools />
       
       <div className="relative z-10 pt-32 pb-20">
         <div className="max-w-6xl mx-auto px-6">
