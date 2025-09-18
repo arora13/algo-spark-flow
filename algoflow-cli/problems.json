@@ -110,5 +110,124 @@
         "Stop iterating early if no swaps are possible in a full iteration."
       ]
     }
+  ],
+  "merge_sort": [
+    {
+      "id": 1,
+      "title": "Merge Two Sorted Arrays",
+      "difficulty": "Easy",
+      "description": "Given two sorted arrays, merge them into one single sorted array in ascending order.",
+      "input_desc": "Two arrays of numbers, arr1 and arr2, each sorted in ascending order. (1 ≤ len(arr1), len(arr2) ≤ 1000)",
+      "output_desc": "A new array containing all elements from arr1 and arr2 in ascending order.",
+      "examples": [
+        {
+          "input": [[1, 3, 5], [2, 4, 6]],
+          "output": [1, 2, 3, 4, 5, 6]
+        },
+        {
+          "input": [[10, 20], [5, 15, 25]],
+          "output": [5, 10, 15, 20, 25]
+        }
+      ],
+      "constraints": [
+        "You must implement the merge process manually; using built-in sorting functions like sorted() or .sort() are not permitted",
+        "The inputs are guaranteed to be sorted arrays"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Recursive Maximum of an Array",
+      "difficulty": "Easy",
+      "description": "Given an array of integers, find the maximum value within the array using recursion. Loops and built-in functions like max() are not permitted.",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "A single integer which represents the largest number in the given array",
+      "examples": [
+        {
+          "input": [3, 1, 7, 4],
+          "output": 7
+        },
+        {
+          "input": [10, 2, 5, 8, 6],
+          "output": 10
+        }
+      ],
+      "constraints": [
+        "You must implement the search process using recursion",
+        "Using built-in functions like max() or loops are not permitted"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Merge Sort Basic Algorithm",
+      "difficulty": "Medium",
+      "description": "Given an array of unsorted numbers, implement a basic merge sorting algorithm which takes that input and puts the integers in ascending order using the merge sort algorithm.",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "A new array of numbers sorted from lowest to highest using merge sort",
+      "examples": [
+        {
+          "input": [8, 3, 1, 7, 0, 10, 2],
+          "output": [0, 1, 2, 3, 7, 8, 10]
+        },
+        {
+          "input": [15, 9, 27, 6, 12],
+          "output": [6, 9, 12, 15, 27]
+        }
+      ],
+      "constraints": [
+        "The sorting must be done using merge sort. Other sorting implementations will not suffice",
+        "Built-in sorting functions like sorted() or .sort() are not allowed.",
+        "Your solution must use a recursive divide-and-conquer approach"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Count Inversions using Merge Sort",
+      "difficulty": "Medium",
+      "description": "Using elements of the Merge Sort algorithm, count the number of inversions found in the given array after recursively splitting it into halves. An inversion is defined as a pair of elements (arr[i], arr[j]) such that i < j and arr[i] > arr[j].",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "An integer representing the total number of inversions in the array.",
+      "examples": [
+        {
+          "input": [2, 4, 1, 3, 5],
+          "output": 3
+        },
+        {
+          "input": [5, 4, 3, 2, 1],
+          "output": 10
+        }
+      ],
+      "constraints": [
+        "You may use recursion and the Merge Sort concept but do not implement the entire sort",
+        "Aim for O(n log n) complexity using the merge idea.",
+        "Built-in sorting functions like sorted() or .sort() are not allowed.",
+        "Resource: https://www.geeksforgeeks.org/dsa/inversion-count-in-array-using-merge-sort/"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Counting Reverse Pairs",
+      "difficulty": "Hard",
+      "description": "Given an array of integers, count the number of reverse pairs in the given array. A reverse pair is defined as a pair (i, j) where i < j and arr[i] > 2 * arr[j]. Implement a solution using a modified Merge Sort algorithm.",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 100000).",
+      "output_desc": "An integer representing the total number of reverse pairs in the array.",
+      "examples": [
+        {
+          "input": [1, 3, 2, 3, 1],
+          "output": 2,
+          "explanation": "The reverse pairs are (1, 4) and (3, 4)."
+        },
+        {
+          "input": [2, 4, 3, 5, 1],
+          "output": 3,
+          "explanation": "The reverse pairs are (1, 4), (2, 4), and (3, 4)."
+        }
+      ],
+      "constraints": [
+        "You may use recursion and the Merge Sort concept but do not implement the entire sort",
+        "Aim for O(n log n) complexity using the merge idea.",
+        "Built-in sorting functions like sorted() or .sort() are not allowed.",
+        "Only pairs where i < j are considered."
+      ]
+    }
   ]
 }
