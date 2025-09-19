@@ -1,9 +1,8 @@
-// Backend API Integration for AlgoFlow 🚀
-// This file handles all communication with the Flask backend
+// API calls to backend
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://Algoflow-backend-env.eba-mbk6m5u4.us-east-2.elasticbeanstalk.com/api';
 
-// Types for our API responses
+// API types
 interface User {
   id: number;
   email: string;
@@ -41,12 +40,12 @@ interface ProfileResponse {
   progress: UserProgress;
 }
 
-// Helper function to get auth token from localStorage
+// Get auth token
 const getAuthToken = (): string | null => {
   return localStorage.getItem('auth_token');
 };
 
-// Helper function to make authenticated requests
+// Make API requests with auth
 const apiRequest = async (endpoint: string, options: RequestInit = {}): Promise<Response> => {
   const token = getAuthToken();
   
@@ -74,9 +73,8 @@ const apiRequest = async (endpoint: string, options: RequestInit = {}): Promise<
   return response;
 };
 
-// Authentication API functions
+// Auth functions
 export const authAPI = {
-  // Register a new user - welcome to the family! 🎉
   register: async (email: string, password: string, name: string): Promise<AuthResponse> => {
     const response = await apiRequest('/auth/register', {
       method: 'POST',
@@ -85,7 +83,7 @@ export const authAPI = {
     
     const data = await response.json();
     
-    // Store the token for future requests
+    // Save token
     if (data.access_token) {
       localStorage.setItem('auth_token', data.access_token);
     }
@@ -93,7 +91,7 @@ export const authAPI = {
     return data;
   },
 
-  // Login existing user - welcome back! 👋
+  // Login
   login: async (email: string, password: string): Promise<AuthResponse> => {
     const response = await apiRequest('/auth/login', {
       method: 'POST',
@@ -102,7 +100,7 @@ export const authAPI = {
     
     const data = await response.json();
     
-    // Store the token for future requests
+    // Save token
     if (data.access_token) {
       localStorage.setItem('auth_token', data.access_token);
     }
@@ -110,7 +108,7 @@ export const authAPI = {
     return data;
   },
 
-  // Logout user - see ya! 👋
+  // Logout
   logout: (): void => {
     localStorage.removeItem('auth_token');
   },

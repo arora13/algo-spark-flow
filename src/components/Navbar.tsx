@@ -9,7 +9,7 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
-  // The main navigation destinations - where the magic happens ✨
+  // Navigation links
   const learningDestinations = [
     { name: 'Learn', path: '/learn', emoji: '🧠', icon: Brain },
     { name: 'Practice', path: '/practice', emoji: '💻', icon: Code },
@@ -20,7 +20,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-200/30 backdrop-blur-md border-b border-blue-300/40">
       <div className="container-width">
         <div className="flex items-center justify-between h-20">
-          {/* AlgoFlow Logo */}
+          {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
             <img 
               src="/assets/algoflow-logo.png" 
@@ -29,7 +29,7 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* The main navigation - where users explore our awesome features 🚀 */}
+          {/* Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {learningDestinations.map((destination) => {
               const isCurrentlyHere = location.pathname === destination.path;

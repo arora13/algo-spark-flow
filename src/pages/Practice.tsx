@@ -139,10 +139,39 @@ const Practice = () => {
               <CardContent className="p-8">
                 <div className="text-4xl mb-4">🚧</div>
                 <h3 className="text-2xl font-bold text-white mb-4">Interactive Practice Coming Soon!</h3>
-                <p className="text-slate-300 max-w-2xl mx-auto">
+                <p className="text-slate-300 max-w-2xl mx-auto mb-6">
                   We're working on bringing you interactive coding challenges with real-time feedback, 
                   step-by-step solutions, and progress tracking for each algorithm.
                 </p>
+                <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-6 border border-blue-500/30">
+                  <h4 className="text-xl font-semibold text-white mb-3">🚀 Major Features Coming:</h4>
+                  <div className="grid md:grid-cols-2 gap-4 text-left">
+                    <div>
+                      <h5 className="text-lg font-medium text-white mb-2">💻 Interactive Code Editor</h5>
+                      <p className="text-sm text-slate-300">
+                        Real-time code execution with syntax highlighting, auto-completion, and instant feedback
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="text-lg font-medium text-white mb-2">📚 More Algorithms</h5>
+                      <p className="text-sm text-slate-300">
+                        Advanced sorting, searching, graph algorithms, and dynamic programming problems
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="text-lg font-medium text-white mb-2">⚡ Live Execution</h5>
+                      <p className="text-sm text-slate-300">
+                        Run your code instantly with test cases, performance analysis, and debugging tools
+                      </p>
+                    </div>
+                    <div>
+                      <h5 className="text-lg font-medium text-white mb-2">🎯 Smart Hints</h5>
+                      <p className="text-sm text-slate-300">
+                        AI-powered hints and explanations that adapt to your learning progress
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </motion.div>
