@@ -51,38 +51,38 @@ const Practice = () => {
         return "bg-red-500/20 text-red-400 border-red-500/30";
       default:
         return "bg-gray-500/20 text-gray-400 border-gray-500/30";
-    }
-  };
+      }
+    };
 
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
-      <FloatingElements />
-      <StudyTools />
-      <div className="relative z-10 pt-28 pb-16 max-w-6xl mx-auto px-4">
+    return (
+      <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
+        <FloatingElements />
+        <StudyTools />
+      <div className="relative z-10 pt-36 pb-16 max-w-6xl mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-12"
+            >
             <h1 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
               Algorithm Problems
             </h1>
             <p className="text-lg text-slate-300 max-w-2xl mx-auto">
               Practice sorting algorithms with interactive challenges
             </p>
-          </motion.div>
+            </motion.div>
 
           {/* Algorithm Categories */}
           <div className="grid lg:grid-cols-3 gap-8">
             {algorithmCategories.map((category, index) => (
-              <motion.div
+                      <motion.div
                 key={category.title}
                 initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
+                        animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 * index }}
                 className="h-full"
               >
@@ -92,11 +92,11 @@ const Practice = () => {
                     <div className="flex items-center mb-6">
                       <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl flex items-center justify-center mr-4 text-2xl">
                         {category.icon}
-                      </div>
+                          </div>
                       <div>
                         <h2 className="text-xl font-bold text-white">{category.title}</h2>
                         <p className="text-sm text-slate-400">{category.problems.length} problems</p>
-                      </div>
+                        </div>
                     </div>
 
                     {/* Problems List */}
@@ -112,26 +112,26 @@ const Practice = () => {
                           <div className="flex items-center justify-between p-3 rounded-lg bg-slate-700/30 hover:bg-slate-600/40 transition-all duration-300 cursor-pointer group-hover:scale-[1.02]">
                             <span className="text-white text-sm font-medium flex-1">
                               {problem.name}
-                            </span>
-                            <Badge 
+                                </span>
+                                <Badge 
                               className={`text-xs px-2 py-1 border ${getDifficultyColor(problem.difficulty)}`}
-                            >
-                              {problem.difficulty}
-                            </Badge>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                                >
+                                  {problem.difficulty}
+                                </Badge>
+                        </div>
+                      </motion.div>
+                    ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                    ))}
+                  </div>
 
           {/* Coming Soon Notice */}
-          <motion.div
+                <motion.div
             initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="mt-16 text-center"
           >
@@ -146,37 +146,37 @@ const Practice = () => {
                 <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-6 border border-blue-500/30">
                   <h4 className="text-xl font-semibold text-white mb-3">🚀 Major Features Coming:</h4>
                   <div className="grid md:grid-cols-2 gap-4 text-left">
-                    <div>
+                <div>
                       <h5 className="text-lg font-medium text-white mb-2">💻 Interactive Code Editor</h5>
                       <p className="text-sm text-slate-300">
                         Real-time code execution with syntax highlighting, auto-completion, and instant feedback
-                      </p>
-                    </div>
+                                  </p>
+                                </div>
                     <div>
                       <h5 className="text-lg font-medium text-white mb-2">📚 More Algorithms</h5>
                       <p className="text-sm text-slate-300">
                         Advanced sorting, searching, graph algorithms, and dynamic programming problems
-                      </p>
-                    </div>
-                    <div>
+                                    </p>
+                                  </div>
+                <div>
                       <h5 className="text-lg font-medium text-white mb-2">⚡ Live Execution</h5>
                       <p className="text-sm text-slate-300">
                         Run your code instantly with test cases, performance analysis, and debugging tools
-                      </p>
-                    </div>
-                    <div>
+                                  </p>
+                                </div>
+                        <div>
                       <h5 className="text-lg font-medium text-white mb-2">🎯 Smart Hints</h5>
                       <p className="text-sm text-slate-300">
                         AI-powered hints and explanations that adapt to your learning progress
-                      </p>
+                              </p>
+                            </div>
+                        </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </div>
     </div>
   );
 };
