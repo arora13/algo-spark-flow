@@ -1744,7 +1744,7 @@ const Learn = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b1f24] text-white p-2 sm:p-4 pt-28">
+    <div className="min-h-screen bg-[#0b1f24] text-white p-2 sm:p-4" style={{ paddingTop: '6rem' }}>
       <StudyTools />
       <div className="max-w-6xl mx-auto px-4">
 

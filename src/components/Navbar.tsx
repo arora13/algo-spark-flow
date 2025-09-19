@@ -32,7 +32,7 @@ const Navbar = () => {
               <img 
                 src="/assets/algoflow-logo.png" 
                 alt="AlgoFlow Logo" 
-                className="h-16 w-auto"
+                className="h-20 w-32"
                 onError={(e) => {
                   console.log('Image failed to load:', e);
                   e.currentTarget.style.display = 'none';
