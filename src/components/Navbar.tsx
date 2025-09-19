@@ -19,13 +19,13 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-blue-200/30 backdrop-blur-md border-b border-blue-300/40">
       <div className="container-width">
-        <div className="flex items-center justify-between h-32">
+        <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
             <img 
               src="/assets/algoflow-logo.png" 
               alt="AlgoFlow Logo" 
-              className="h-32 w-auto md:h-34"
+              className="h-20 w-auto md:h-22"
             />
           </Link>
 
