@@ -1,7 +1,7 @@
 // Backend API Integration for AlgoFlow 🚀
 // This file handles all communication with the Flask backend
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://Algoflow-backend-env.eba-mbk6m5u4.us-east-2.elasticbeanstalk.com/api';
 
 // Types for our API responses
 interface User {
