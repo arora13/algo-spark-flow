@@ -88,7 +88,7 @@ const Navbar = () => {
             <Link to="/contact">
               <Button className="btn-primary">
                 <span className="mr-2">💬</span>
-                Let's Chat!
+                Let's Connect!
               </Button>
             </Link>
           </div>
