@@ -156,40 +156,6 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Algorithms Covered */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mb-20"
-          >
-            <Card className="glass-panel border-0 shadow-2xl">
-              <CardContent className="p-12">
-                <div className="text-center mb-10">
-                  <h2 className="text-3xl font-bold text-slate-900 mb-4">🔗 Additional Resources</h2>
-                  <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                    From fundamental sorting algorithms to advanced search techniques, 
-                    we cover the essential algorithms every CS student should master.
-                  </p>
-                </div>
-                
-                <div className="flex justify-center">
-                  <motion.a
-                    href="https://opennote.com/?refer=6856aff5-c92d-4e04-849e-724f5fc2cf74"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300"
-                  >
-                    📝 Opennote
-                  </motion.a>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
 
           {/* Stats Section */}
           <motion.div
