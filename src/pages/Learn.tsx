@@ -1744,9 +1744,9 @@ const Learn = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b1f24] text-white p-2 sm:p-4 pt-20">
+    <div className="min-h-screen bg-[#0b1f24] text-white p-2 sm:p-4 pt-24">
       <StudyTools />
-      <div className="max-w-7xl mx-auto ml-0 sm:ml-80 lg:ml-96">
+      <div className="max-w-6xl mx-auto px-4">
 
         {/* Header */}
         <div className="text-center mb-8">

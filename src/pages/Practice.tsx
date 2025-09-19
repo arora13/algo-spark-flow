@@ -1061,7 +1061,7 @@ ${answers[index]}
       <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
         <FloatingElements />
         <StudyTools />
-        <div className="relative z-10 pt-24 pb-16 ml-0 sm:ml-80 lg:ml-96">
+        <div className="relative z-10 pt-24 pb-16 max-w-6xl mx-auto px-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="mb-6">
               <Button
@@ -1285,7 +1285,7 @@ ${answers[index]}
       <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
         <FloatingElements />
         <StudyTools />
-        <div className="relative z-10 pt-28 pb-20 ml-0 sm:ml-80 lg:ml-96">
+        <div className="relative z-10 pt-28 pb-20 max-w-6xl mx-auto px-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -1763,7 +1763,7 @@ ${answers[index]}
       <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
         <FloatingElements />
         <StudyTools />
-        <div className="relative z-10 pt-28 pb-20">
+        <div className="relative z-10 pt-28 pb-20 max-w-6xl mx-auto px-4">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="mb-8">
               <Button
@@ -1865,7 +1865,7 @@ ${answers[index]}
     <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
       <FloatingElements />
       <StudyTools />
-      <div className="relative z-10 pt-24 pb-16">
+      <div className="relative z-10 pt-24 pb-16 max-w-6xl mx-auto px-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} className="mb-6">
             <Button
