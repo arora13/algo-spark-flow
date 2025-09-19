@@ -336,7 +336,7 @@
         "Maintain relative order for students with the same score."
       ]
     }
-  ]
+  ],
   "insertion_sort": [
     {
       "id": 1,
@@ -442,6 +442,131 @@
         "You must implement insertion sort manually. Built-in sorting functions like sorted() or .sort() are not allowed.",
         "You must define the comparator function according to the description for each case.",
         "he algorithm must use your comparator to determine correct insertion positions."
+      ]
+    }
+  ],
+  "quick_sort": [
+    {
+      "id": 1,
+      "title": "Partitioned Array around Pivot",
+      "difficulty": "Easy",
+      "description": "Given an array of integers and a pivot index, rearrange the array so that all elements less than the pivot value come before it, all elements greater than the pivot come after it, and the pivot is in its correct final position. The order of elements within the partitions does not matter. This problem is purely to understand how the partition is created",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000) and an integer pivot_index (0 ≤ pivot_index < len(arr)).",
+      "output_desc": "A new array where the pivot is in its final position, all elements less than it are to the left, and all elements greater are to the right.",
+      "examples": [
+        {
+          "input": {
+            "arr": [8, 3, 1, 7, 0, 10, 2],
+            "pivot_index": 1
+          },
+          "output": [1, 2, 0, 3, 8, 10, 7],
+          "explanation": "Pivot value is 3. Elements less than 3 (1, 0, 2) are on the left, elements greater than 3 (8, 7, 10) are on the right, and pivot 3 is in its correct position."
+        },
+        {
+          "input": {
+            "arr": [5, 2, 9, 1, 5, 6],
+            "pivot_index": 0
+          },
+          "output": [2, 1, 5, 5, 9, 6],
+          "explanation": "Pivot value is 5. Elements less than 5 (2, 1) are on the left, elements greater than 5 (9, 6) are on the right, and pivot 5 is in its correct position."
+        }
+      ],
+      "constraints": [
+        "You must implement the partition manually. Built-in sorting functions like sorted() or .sort() are not permitted.",
+        "The pivot must end up in its final position as it would in Quick Sort.",
+        "The relative order within the partitions does not matter."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Quick Sort Basic Algorithm",
+      "difficulty": "Easy",
+      "description": "Given an array of unsorted numbers, implement a basic Quick Sort sorting algorithm which takes that input and orders the numbers from lowest to highest using that implementation",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "A new array of numbers sorted from lowest to highest using quick sort",
+      "examples": [
+        {
+          "input": [8, 3, 1, 7, 0, 10, 2],
+          "output": [0, 1, 2, 3, 7, 8, 10]
+        },
+        {
+          "input": [15, 9, 27, 6, 12],
+          "output": [6, 9, 12, 15, 27]
+        }
+      ],
+      "constraints": [
+        "You must implement Quick Sort manually. Built-in sorting functions like sorted() or .sort() are not allowed.",
+        "You must use the divide-and-conquer approach. Select a pivot, partition, and recursively sort the partitions."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Quick Sort Subarray Partition Count",
+      "difficulty": "Medium",
+      "description": "Given an array of integers, implement a Quick Sorrt algorithm that recursively partitions the array around a pivot. Instead of returning the sorted array, count the total number of subarrays created during the recursive partitioning process. Count all subarrays generated including single-element subarrays.",
+      "input_desc": "An array of numbers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "An integer representing the total number of subarrays created during all recursive partitioning steps.",
+      "examples": [
+        {
+          "input": [8, 3, 1, 7, 0, 10, 2],
+          "output": 13
+        },
+        {
+          "input": [5, 2, 9, 1, 5, 6],
+          "output": 11
+        }
+      ],
+      "constraints": [
+        "You must implement Quick Sort partitioning manually. Built-in sorting functions like sorted() or .sort() are not allowed.",
+        "You may choose any element as the pivot for each recursive call.",
+        "You don't have to sort the array completely. Only count subarrays generated during partitioning."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Dutch National Flag Problem",
+      "difficulty": "Medium",
+      "description": "Given an array containing only 0s, 1s, and 2s, sort the array in place so that all 0s come first, then all 1s, and then all 2s. Use a three-way partitioning algorithm similar to the one used in quick sort. Swap elements to ensure 0s are on the left, 2s on the right, and 1s in the middle, iterating until mid > high.",
+      "input_desc": "An array of integers arr where each element is 0, 1, or 2. (1 ≤ len(arr) ≤ 1000)",
+      "output_desc": "The sorted array in-place with all 0s, then 1s, then 2s.",
+      "examples": [
+        {
+          "input": [2, 0, 1, 2, 1, 0],
+          "output": [0, 0, 1, 1, 2, 2]
+        },
+        {
+          "input": [0, 2, 1, 0, 1, 2, 0],
+          "output": [0, 0, 0, 1, 1, 2, 2]
+        }
+      ],
+      "constraints": [
+        "You must implement the three-way partitioning manually. Built-in sorting functions like sorted() or .sort() are not allowed.",
+        "The solution should run in O(n) time and O(1) extra space."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Quick Sort with Custom Pivot Rule",
+      "difficulty": "Hard",
+      "description": "Given an array of integers and a custom pivot selection rule, sort the array using a quick sort algorithm. The pivot selection rule is that the pivot is the median of the first, middle, and last elements of the current subarray. You must implement the quick sort algorithm manually and respect the pivot selection rule at every recursive step.",
+      "input_desc": "An array of integers arr (1 ≤ len(arr) ≤ 1000).",
+      "output_desc": "A new array of integers sorted in ascending order using the quick sort algorithm with the custom pivot rule.",
+      "examples": [
+        {
+          "input": [8, 3, 1, 7, 0, 10, 2],
+          "output": [0, 1, 2, 3, 7, 8, 10],
+          "explanation": "At each recursive step, choose the pivot as the median of the first, middle, and last element of the subarray. Partition the subarray around this pivot, then recursively quick sort the left and right partitions."
+        },
+        {
+          "input": [15, 9, 27, 6, 12],
+          "output": [6, 9, 12, 15, 27],
+          "explanation": "The median-of-three pivot selection ensures better partitioning than just taking the first or last element. After partitioning, recursively apply quick sort on the subarrays."
+        }
+      ],
+      "constraints": [
+        "You must implement quick sort manually. Built-in sorting functions like sorted() or .sort() are not allowed.",
+        "At each recursive step, select the pivot as the median of the first, middle, and last elements of the current subarray.",
+        "Your solution should aim for O(n log n) average time complexity.",
       ]
     }
   ]
