@@ -58,7 +58,7 @@ const Practice = () => {
       <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
         <FloatingElements />
         <StudyTools />
-      <div className="relative z-10 pt-28 pb-16 max-w-6xl mx-auto px-4">
+      <div className="relative z-10 pt-24 pb-16 max-w-6xl mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           
           {/* Header */}

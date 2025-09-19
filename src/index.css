@@ -410,9 +410,44 @@ p, span, div, a, button, label, input, textarea, li, td, th,
   z-index: 1;
 }
 
-/* Navigation and buttons */
-nav, nav * {
+/* Navigation and buttons - Allow navbar to have its own styling */
+nav {
   color: #ffffff !important;
+}
+
+/* Navbar specific overrides - allow proper contrast and functionality */
+nav .text-white\/80,
+nav .text-white\/90,
+nav .hover\:text-white:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+nav .hover\:text-white:hover {
+  color: #ffffff !important;
+}
+
+nav .text-emerald-400 {
+  color: #34d399 !important;
+}
+
+nav .bg-emerald-500 {
+  background-color: #10b981 !important;
+}
+
+nav .hover\:bg-emerald-600:hover {
+  background-color: #059669 !important;
+}
+
+nav .bg-emerald-500\/20 {
+  background-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+nav .border-emerald-500\/20 {
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+nav .border-emerald-500\/30 {
+  border-color: rgba(16, 185, 129, 0.3) !important;
 }
 
 /* Button specific styling - ensure proper contrast and functionality */
