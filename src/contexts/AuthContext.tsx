@@ -56,49 +56,92 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [user]);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulate login - in real app, this would call your backend
-    if (email && password) {
-      // Generate unique user ID based on email and timestamp
-      const userId = btoa(email + Date.now()).replace(/[^a-zA-Z0-9]/g, '').substring(0, 12);
+    try {
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://Algoflow-backend-env.eba-mbk6m5u4.us-east-2.elasticbeanstalk.com/api';
+      
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Login failed');
+      }
+
+      const data = await response.json();
       
       setUser({
-        id: userId,
-        email,
-        name: email.split('@')[0],
+        id: data.user.id.toString(),
+        email: data.user.email,
+        name: data.user.name,
         progress: {
-          completedAlgorithms: [],
-          solvedProblems: [],
-          totalScore: 0
+          completedAlgorithms: data.user.progress?.completed_algorithms || [],
+          solvedProblems: data.user.progress?.solved_problems || [],
+          totalScore: data.user.progress?.total_study_time || 0
         }
       });
+      
+      // Store the JWT token
+      if (data.access_token) {
+        localStorage.setItem('algoflow_token', data.access_token);
+      }
+      
       return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
     }
-    return false;
   };
 
   const signup = async (email: string, password: string, name: string): Promise<boolean> => {
-    // Simulate signup - in real app, this would call your backend
-    if (email && password && name) {
-      // Generate unique user ID based on email and timestamp
-      const userId = btoa(email + Date.now()).replace(/[^a-zA-Z0-9]/g, '').substring(0, 12);
+    try {
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://Algoflow-backend-env.eba-mbk6m5u4.us-east-2.elasticbeanstalk.com/api';
+      
+      const response = await fetch(`${API_BASE_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, name }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Registration failed');
+      }
+
+      const data = await response.json();
       
       setUser({
-        id: userId,
-        email,
-        name,
+        id: data.user.id.toString(),
+        email: data.user.email,
+        name: data.user.name,
         progress: {
           completedAlgorithms: [],
           solvedProblems: [],
           totalScore: 0
         }
       });
+      
+      // Store the JWT token
+      if (data.access_token) {
+        localStorage.setItem('algoflow_token', data.access_token);
+      }
+      
       return true;
+    } catch (error) {
+      console.error('Signup error:', error);
+      throw error;
     }
-    return false;
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('algoflow_token');
   };
 
   const updateProgress = (type: 'algorithm' | 'problem', id: string) => {
