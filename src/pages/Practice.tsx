@@ -1,43 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import FloatingElements from "@/components/FloatingElements";
 import StudyTools from "@/components/StudyTools";
+import { useNavigate } from "react-router-dom";
+import problemsData from "@/data/problems.json";
 
 const Practice = () => {
+  const navigate = useNavigate();
+
   const algorithmCategories = [
     {
       title: "BUBBLE SORT",
       icon: "🫧",
-      problems: [
-        { name: "Bubble Sort Basic Algorithm", difficulty: "Easy" },
-        { name: "Count swaps in Bubble Sort", difficulty: "Easy" },
-        { name: "Bubble Sort Strings", difficulty: "Medium" },
-        { name: "Bubble Sort Iteration Counter", difficulty: "Medium" },
-        { name: "Custom Bubble Sort", difficulty: "Hard" }
-      ]
+      key: "bubble_sort",
+      problems: problemsData.bubble_sort.map(problem => ({
+        name: problem.title,
+        difficulty: problem.difficulty,
+        id: problem.id,
+        description: problem.description
+      }))
     },
     {
       title: "MERGE SORT",
       icon: "📊",
-      problems: [
-        { name: "Merge Two Sorted Arrays", difficulty: "Easy" },
-        { name: "Recursive Maximum of an Array", difficulty: "Easy" },
-        { name: "Merge Sort Basic Algorithm", difficulty: "Medium" },
-        { name: "Count Inversions using Merge Sort", difficulty: "Medium" },
-        { name: "Counting Reverse Pairs", difficulty: "Hard" }
-      ]
+      key: "merge_sort",
+      problems: problemsData.merge_sort.map(problem => ({
+        name: problem.title,
+        difficulty: problem.difficulty,
+        id: problem.id,
+        description: problem.description
+      }))
     },
     {
       title: "SELECTION SORT",
       icon: "✅",
-      problems: [
-        { name: "Find the Minimum Index", difficulty: "Easy" },
-        { name: "Selection Sort Basic Algorithm", difficulty: "Easy" },
-        { name: "Custom Selection Sort Comparison", difficulty: "Medium" },
-        { name: "Selection Sort Students by Score", difficulty: "Hard" }
-      ]
+      key: "selection_sort",
+      problems: problemsData.selection_sort.map(problem => ({
+        name: problem.title,
+        difficulty: problem.difficulty,
+        id: problem.id,
+        description: problem.description
+      }))
+    },
+    {
+      title: "QUICK SORT",
+      icon: "⚡",
+      key: "quick_sort",
+      problems: problemsData.quick_sort.map(problem => ({
+        name: problem.title,
+        difficulty: problem.difficulty,
+        id: problem.id,
+        description: problem.description
+      }))
+    },
+    {
+      title: "INSERTION SORT",
+      icon: "📖",
+      key: "insertion_sort",
+      problems: problemsData.insertion_sort.map(problem => ({
+        name: problem.title,
+        difficulty: problem.difficulty,
+        id: problem.id,
+        description: problem.description
+      }))
     }
   ];
 
@@ -53,6 +81,23 @@ const Practice = () => {
         return "bg-gray-500/20 text-gray-400 border-gray-500/30";
       }
     };
+
+  const handleProblemClick = (categoryKey: string, problemId: number) => {
+    const problem = problemsData[categoryKey].find(p => p.id === problemId);
+    if (problem) {
+      // Navigate to coding page with problem data
+      navigate('/practice/coding', { 
+        state: { 
+          problem: {...problem, categoryKey},
+          initialCode: `def solve(input_data):
+        # Your solution here
+        # Example: ${problem.examples?.[0]?.input ? JSON.stringify(problem.examples[0].input) : 'input_data'}
+        return result`
+        }
+      });
+    }
+  };
+
 
     return (
       <div className="min-h-screen relative overflow-hidden bg-[#0b1f24] text-white">
@@ -109,7 +154,10 @@ const Practice = () => {
                           transition={{ duration: 0.5, delay: 0.1 * problemIndex }}
                           className="group"
                         >
-                          <div className="flex items-center justify-between p-3 rounded-lg bg-slate-700/30 hover:bg-slate-600/40 transition-all duration-300 cursor-pointer group-hover:scale-[1.02]">
+                          <button
+                            onClick={() => handleProblemClick(category.key, problem.id)}
+                            className="w-full flex items-center justify-between p-3 rounded-lg bg-slate-700/30 hover:bg-slate-600/40 transition-all duration-300 cursor-pointer group-hover:scale-[1.02] text-left"
+                          >
                             <span className="text-white text-sm font-medium flex-1">
                               {problem.name}
                                 </span>
@@ -118,7 +166,7 @@ const Practice = () => {
                                 >
                                   {problem.difficulty}
                                 </Badge>
-                        </div>
+                        </button>
                       </motion.div>
                     ))}
                         </div>
@@ -136,38 +184,38 @@ const Practice = () => {
             className="mt-16 text-center"
           >
             <Card className="glass-panel border-0 shadow-2xl bg-gradient-to-br from-purple-900/20 to-pink-900/20">
-              <CardContent className="p-8">
-                <div className="text-4xl mb-4">🚧</div>
-                <h3 className="text-2xl font-bold text-white mb-4">Interactive Practice Coming Soon!</h3>
-                <p className="text-slate-300 max-w-2xl mx-auto mb-6">
+              <CardContent className="p-6">
+                <div className="text-2xl mb-3">🚧</div>
+                <h3 className="text-xl font-bold text-white mb-3">Interactive Practice Coming Soon!</h3>
+                <p className="text-slate-300 max-w-xl mx-auto mb-4 text-sm">
                   We're working on bringing you interactive coding challenges with real-time feedback, 
                   step-by-step solutions, and progress tracking for each algorithm.
                 </p>
-                <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-6 border border-blue-500/30">
-                  <h4 className="text-xl font-semibold text-white mb-3">🚀 Major Features Coming:</h4>
-                  <div className="grid md:grid-cols-2 gap-4 text-left">
+                <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl p-4 border border-blue-500/30">
+                  <h4 className="text-lg font-semibold text-white mb-2">🚀 Major Features Coming:</h4>
+                  <div className="grid md:grid-cols-2 gap-3 text-left">
                 <div>
-                      <h5 className="text-lg font-medium text-white mb-2">💻 Interactive Code Editor</h5>
-                      <p className="text-sm text-slate-300">
-                        Real-time code execution with syntax highlighting, auto-completion, and instant feedback
+                      <h5 className="text-sm font-medium text-white mb-1">💻 Interactive Code Editor</h5>
+                      <p className="text-xs text-slate-300">
+                        Real-time code execution with syntax highlighting and instant feedback
                                   </p>
                                 </div>
                     <div>
-                      <h5 className="text-lg font-medium text-white mb-2">📚 More Algorithms</h5>
-                      <p className="text-sm text-slate-300">
-                        Advanced sorting, searching, graph algorithms, and dynamic programming problems
+                      <h5 className="text-sm font-medium text-white mb-1">📚 More Algorithms</h5>
+                      <p className="text-xs text-slate-300">
+                        Advanced sorting, searching, and graph algorithms
                                     </p>
                                   </div>
                 <div>
-                      <h5 className="text-lg font-medium text-white mb-2">⚡ Live Execution</h5>
-                      <p className="text-sm text-slate-300">
-                        Run your code instantly with test cases, performance analysis, and debugging tools
+                      <h5 className="text-sm font-medium text-white mb-1">⚡ Live Execution</h5>
+                      <p className="text-xs text-slate-300">
+                        Run code instantly with test cases and performance analysis
                                   </p>
                                 </div>
                         <div>
-                      <h5 className="text-lg font-medium text-white mb-2">🎯 Smart Hints</h5>
-                      <p className="text-sm text-slate-300">
-                        AI-powered hints and explanations that adapt to your learning progress
+                      <h5 className="text-sm font-medium text-white mb-1">🎯 Smart Hints</h5>
+                      <p className="text-xs text-slate-300">
+                        AI-powered hints that adapt to your learning progress
                               </p>
                             </div>
                         </div>
@@ -177,6 +225,7 @@ const Practice = () => {
             </motion.div>
                     </div>
                   </div>
+
     </div>
   );
 };

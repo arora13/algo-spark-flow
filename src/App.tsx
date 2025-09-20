@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import Learn from "./pages/Learn";
 import Practice from "./pages/Practice";
+import PracticeCoding from "./pages/PracticeCoding";
 import APTopics from "./pages/APTopics";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/learn" element={<Learn />} />
               <Route path="/practice" element={<Practice />} />
+              <Route path="/practice/coding" element={<PracticeCoding />} />
               <Route path="/ap-topics" element={<APTopics />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />

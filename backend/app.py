@@ -5,7 +5,24 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from datetime import datetime, timedelta
 import os
+import sys
+import tempfile
+import subprocess
+from pathlib import Path
 from dotenv import load_dotenv
+
+# Add the CLI tool to the path
+cli_path = Path(__file__).parent.parent / "algoflow-cli"
+sys.path.insert(0, str(cli_path))
+
+try:
+    from utils import load_problems, get_problem
+    from grader import grade
+except ImportError:
+    print("Warning: CLI tools not available")
+    load_problems = None
+    get_problem = None
+    grade = None
 
 # Load environment variables
 load_dotenv()
@@ -316,6 +333,72 @@ def get_activities():
         
     except Exception as e:
         return jsonify({'error': 'Failed to get activities', 'details': str(e)}), 500
+
+# Health check endpoint
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'cli_available': load_problems is not None and get_problem is not None and grade is not None
+    }), 200
+
+# API endpoint for running code with CLI tool
+@app.route('/api/run-code', methods=['POST'])
+def run_code():
+    """Run code using the AlgoFlow CLI tool"""
+    try:
+        if not load_problems or not get_problem or not grade:
+            return jsonify({'error': 'CLI tools not available'}), 500
+        
+        data = request.get_json()
+        code = data.get('code', '')
+        algorithm = data.get('algorithm', '')
+        problem_id = data.get('problemId', 1)
+        
+        if not code or not algorithm:
+            return jsonify({'error': 'Missing code or algorithm parameter'}), 400
+        
+        # Load problems
+        problems = load_problems()
+        
+        # Get the specific problem
+        problem = get_problem(problems, algorithm, problem_id)
+        if not problem:
+            return jsonify({'error': f'Problem {problem_id} not found for {algorithm}'}), 404
+        
+        # Create a temporary file with the user's code
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as temp_file:
+            temp_file.write(code)
+            temp_file_path = temp_file.name
+        
+        try:
+            # Create a simple solve function wrapper
+            def solve_wrapper(input_data):
+                # Import the user's code
+                import importlib.util
+                spec = importlib.util.spec_from_file_location("user_solution", temp_file_path)
+                user_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(user_module)
+                
+                # Call the solve function
+                if hasattr(user_module, 'solve'):
+                    return user_module.solve(input_data)
+                else:
+                    raise AttributeError("No 'solve' function found in your code")
+            
+            # Grade the solution
+            results = grade(solve_wrapper, problem, solution_file=temp_file_path)
+            
+            return jsonify({"results": results}), 200
+            
+        finally:
+            # Clean up temporary file
+            if os.path.exists(temp_file_path):
+                os.unlink(temp_file_path)
+                
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # Database initialization - create tables if they don't exist
 @app.before_first_request
