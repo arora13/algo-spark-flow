@@ -343,6 +343,25 @@ def health_check():
         'cli_available': load_problems is not None and get_problem is not None and grade is not None
     }), 200
 
+# Debug endpoint to check users
+@app.route('/api/debug/users', methods=['GET'])
+def debug_users():
+    """Debug endpoint to check registered users"""
+    try:
+        users = User.query.all()
+        return jsonify({
+            'total_users': len(users),
+            'users': [{
+                'id': user.id,
+                'email': user.email,
+                'name': user.name,
+                'created_at': user.created_at.isoformat() if user.created_at else None,
+                'last_login': user.last_login.isoformat() if user.last_login else None
+            } for user in users]
+        }), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 # API endpoint for running code with CLI tool
 @app.route('/api/run-code', methods=['POST'])
 def run_code():
