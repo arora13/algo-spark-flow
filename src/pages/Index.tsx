@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import HeroSplineBackground from '@/components/HeroSplineBackground';
+import NewSplineBackground from '@/components/NewSplineBackground';
+import ChainSplineBackground from '@/components/ChainSplineBackground';
+import BubbleSplineBackground from '@/components/BubbleSplineBackground';
 import { trackPageView } from '@/lib/analytics';
 
 const Index = () => {
@@ -119,8 +122,9 @@ const Index = () => {
       </section>
 
       {/* What You'll Master Section */}
-      <section className="section-padding py-16">
-        <div className="container-width">
+      <section className="section-padding py-16 relative">
+        <ChainSplineBackground />
+        <div className="container-width relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
               What <span className="bg-gradient-primary bg-clip-text text-transparent">You'll Master</span>
@@ -209,8 +213,9 @@ const Index = () => {
 
 
       {/* Why AlgoFlow Works Better */}
-      <section className="section-padding py-16">
-        <div className="container-width">
+      <section className="section-padding py-16 relative">
+        <BubbleSplineBackground />
+        <div className="relative z-10 container-width">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
               Why <span className="bg-gradient-primary bg-clip-text text-transparent">AlgoFlow</span> Works Better
@@ -239,8 +244,9 @@ const Index = () => {
 
 
       {/* CTA Section */}
-      <section className="section-padding py-16">
-        <div className="container-width">
+      <section className="section-padding py-16 relative">
+        <NewSplineBackground />
+        <div className="relative z-10 container-width">
           <div className="glass-panel p-8 rounded-3xl text-center max-w-3xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
               Ready to <span className="bg-gradient-primary bg-clip-text text-transparent">Master Algorithms</span>?
