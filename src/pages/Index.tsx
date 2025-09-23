@@ -58,29 +58,28 @@ const Index = () => {
         <div className="container-width relative z-10">
             <div className="text-center max-w-4xl mx-auto px-4">
 
-            {/* AlgoFlow Branding */}
-            <div className="mb-3 animate-slide-up" style={{ animationDelay: '0s' }}>
-              <span className="text-xl sm:text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-                AlgoFlow
-              </span>
-            </div>
-
-            <div className="inline-flex items-center space-x-2 px-3 py-1.5 bg-gradient-primary/10 rounded-full text-primary font-medium text-sm mb-6 animate-slide-up">
+            {/* Hidden Hero Badge (text removed but spacing stayed the same) */}
+            <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full text-sm mb-6 animate-slide-up" style={{ visibility: 'hidden' }}>
               <span className="text-sm">⚡</span>
               <span>The Modern Way to Master Algorithms</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight animate-slide-up font-dm-sans px-4" style={{ animationDelay: '0.1s' }}>
+
+            {/* Hidden Hero Heading (text removed but spacing stayed the same) */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight animate-slide-up font-dm-sans px-4" style={{ animationDelay: '0.1s', visibility: 'hidden' }}>
               Master Algorithms with
-              <span className="block bg-gradient-primary bg-clip-text text-transparent mt-2">
+              <span className="block mt-2">
                 Visual Learning
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto animate-slide-up px-4" style={{ animationDelay: '0.2s' }}>
+
+            {/* Hiddem Hero Subtitle (text removed but spacing stayed the same) */}
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto animate-slide-up px-4" style={{ animationDelay: '0.2s', visibility: 'hidden' }}>
               The perfect platform for High School and Early College students to understand 
-              core algorithms through stunning animations and <span className="font-semibold text-purple-600"> hands-on practice</span>.
+              core algorithms through stunning animations and <span className="font-semibold"> hands-on practice</span>.
             </p>
+
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <Link to="/learn">
@@ -210,7 +209,7 @@ const Index = () => {
 
 
       {/* Why AlgoFlow Works Better */}
-      <section className="section-padding py-16 bg-gradient-to-br from-slate-50 to-blue-50/50">
+      <section className="section-padding py-16">
         <div className="container-width">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
@@ -237,6 +236,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+
 
       {/* CTA Section */}
       <section className="section-padding py-16">
