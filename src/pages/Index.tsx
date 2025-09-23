@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import SplineBackground from '@/components/SplineBackground';
+import HeroSplineBackground from '@/components/HeroSplineBackground';
 import { trackPageView } from '@/lib/analytics';
 
 const Index = () => {
@@ -54,7 +54,7 @@ const Index = () => {
     <div className="min-h-screen relative">
       {/* Hero Section */}
       <section className="relative section-padding pt-24 overflow-hidden">
-        <SplineBackground />
+        <HeroSplineBackground />
         <div className="container-width relative z-10">
             <div className="text-center max-w-4xl mx-auto px-4">
 
