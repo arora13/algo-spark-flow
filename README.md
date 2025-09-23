@@ -1,2 +1,1 @@
-wait we're goated
-
+wait WE are goated
