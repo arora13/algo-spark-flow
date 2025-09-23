@@ -137,8 +137,16 @@ const Index = () => {
           {/* Algorithms Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16 px-4">
             {featuredAlgorithms.map((algorithm, index) => (
-              <div key={index} className="algorithm-card group hover-lift" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="p-6">
+              <div
+                key={index}
+                className="relative group hover-lift rounded-xl overflow-hidden"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Tinted glass panel background */}
+                <div className="absolute inset-0 z-0 rounded-xl bg-gray-900/40 backdrop-blur-md border border-gray-200/20"></div>
+
+                {/* Card content */}
+                <div className="relative z-10 p-6">
                   <div className="flex items-center mb-4">
                     <div className={`w-12 h-12 bg-gradient-to-r ${algorithm.color} rounded-xl flex items-center justify-center text-xl mr-4`}>
                       {algorithm.emoji}
@@ -149,12 +157,12 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       algorithm.difficulty === 'Easy'
-                        ? 'bg-emerald-100 text-emerald-700'
-                        : 'bg-amber-100 text-amber-700'
+                        ? 'bg-green-600 text-emerald-700'
+                        : 'bg-yellow-500 text-yellow-700'
                     }`}>
                       {algorithm.difficulty}
                     </span>
-                    <span className="text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all">➡️</span>
+                    <span className="text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all"></span>
                   </div>
                 </div>
               </div>
@@ -197,8 +205,8 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       topic.difficulty === 'Intermediate'
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'bg-purple-100 text-purple-700'
+                        ? 'bg-blue-600 text-blue-700'
+                        : 'bg-purple-600 text-purple-700'
                     }`}>
                       {topic.difficulty}
                     </span>
