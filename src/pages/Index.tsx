@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import SplineBackground from '@/components/SplineBackground';
+import HeroSplineBackground from '@/components/HeroSplineBackground';
+import NewSplineBackground from '@/components/NewSplineBackground';
+import ChainSplineBackground from '@/components/ChainSplineBackground';
+import BubbleSplineBackground from '@/components/BubbleSplineBackground';
 import { trackPageView } from '@/lib/analytics';
 
 const Index = () => {
@@ -54,33 +57,32 @@ const Index = () => {
     <div className="min-h-screen relative">
       {/* Hero Section */}
       <section className="relative section-padding pt-24 overflow-hidden">
-        <SplineBackground />
+        <HeroSplineBackground />
         <div className="container-width relative z-10">
             <div className="text-center max-w-4xl mx-auto px-4">
 
-            {/* AlgoFlow Branding */}
-            <div className="mb-3 animate-slide-up" style={{ animationDelay: '0s' }}>
-              <span className="text-xl sm:text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-400 bg-clip-text text-transparent">
-                AlgoFlow
-              </span>
-            </div>
-
-            <div className="inline-flex items-center space-x-2 px-3 py-1.5 bg-gradient-primary/10 rounded-full text-primary font-medium text-sm mb-6 animate-slide-up">
+            {/* Hidden Hero Badge (text removed but spacing stayed the same) */}
+            <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full text-sm mb-6 animate-slide-up" style={{ visibility: 'hidden' }}>
               <span className="text-sm">⚡</span>
               <span>The Modern Way to Master Algorithms</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight animate-slide-up font-dm-sans px-4" style={{ animationDelay: '0.1s' }}>
+
+            {/* Hidden Hero Heading (text removed but spacing stayed the same) */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight animate-slide-up font-dm-sans px-4" style={{ animationDelay: '0.1s', visibility: 'hidden' }}>
               Master Algorithms with
-              <span className="block bg-gradient-primary bg-clip-text text-transparent mt-2">
+              <span className="block mt-2">
                 Visual Learning
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto animate-slide-up px-4" style={{ animationDelay: '0.2s' }}>
+
+            {/* Hiddem Hero Subtitle (text removed but spacing stayed the same) */}
+            <p className="text-base sm:text-lg lg:text-xl text-slate-600 mb-8 leading-relaxed max-w-2xl mx-auto animate-slide-up px-4" style={{ animationDelay: '0.2s', visibility: 'hidden' }}>
               The perfect platform for High School and Early College students to understand 
-              core algorithms through stunning animations and <span className="font-semibold text-purple-600"> hands-on practice</span>.
+              core algorithms through stunning animations and <span className="font-semibold"> hands-on practice</span>.
             </p>
+
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-slide-up" style={{ animationDelay: '0.3s' }}>
               <Link to="/learn">
@@ -120,8 +122,9 @@ const Index = () => {
       </section>
 
       {/* What You'll Master Section */}
-      <section className="section-padding py-16">
-        <div className="container-width">
+      <section className="section-padding py-16 relative">
+        <ChainSplineBackground />
+        <div className="container-width relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
               What <span className="bg-gradient-primary bg-clip-text text-transparent">You'll Master</span>
@@ -134,8 +137,16 @@ const Index = () => {
           {/* Algorithms Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16 px-4">
             {featuredAlgorithms.map((algorithm, index) => (
-              <div key={index} className="algorithm-card group hover-lift" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="p-6">
+              <div
+                key={index}
+                className="relative group hover-lift rounded-xl overflow-hidden"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Tinted glass panel background */}
+                <div className="absolute inset-0 z-0 rounded-xl bg-gray-900/40 backdrop-blur-md border border-gray-200/20"></div>
+
+                {/* Card content */}
+                <div className="relative z-10 p-6">
                   <div className="flex items-center mb-4">
                     <div className={`w-12 h-12 bg-gradient-to-r ${algorithm.color} rounded-xl flex items-center justify-center text-xl mr-4`}>
                       {algorithm.emoji}
@@ -146,12 +157,12 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       algorithm.difficulty === 'Easy'
-                        ? 'bg-emerald-100 text-emerald-700'
-                        : 'bg-amber-100 text-amber-700'
+                        ? 'bg-green-600 text-emerald-700'
+                        : 'bg-yellow-500 text-yellow-700'
                     }`}>
                       {algorithm.difficulty}
                     </span>
-                    <span className="text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all">➡️</span>
+                    <span className="text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all"></span>
                   </div>
                 </div>
               </div>
@@ -194,8 +205,8 @@ const Index = () => {
                   <div className="flex items-center justify-between">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       topic.difficulty === 'Intermediate'
-                        ? 'bg-blue-100 text-blue-700'
-                        : 'bg-purple-100 text-purple-700'
+                        ? 'bg-blue-600 text-blue-700'
+                        : 'bg-purple-600 text-purple-700'
                     }`}>
                       {topic.difficulty}
                     </span>
@@ -210,8 +221,9 @@ const Index = () => {
 
 
       {/* Why AlgoFlow Works Better */}
-      <section className="section-padding py-16 bg-gradient-to-br from-slate-50 to-blue-50/50">
-        <div className="container-width">
+      <section className="section-padding py-16 relative">
+        <BubbleSplineBackground />
+        <div className="relative z-10 container-width">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
               Why <span className="bg-gradient-primary bg-clip-text text-transparent">AlgoFlow</span> Works Better
@@ -238,9 +250,11 @@ const Index = () => {
         </div>
       </section>
 
+
       {/* CTA Section */}
-      <section className="section-padding py-16">
-        <div className="container-width">
+      <section className="section-padding py-16 relative">
+        <NewSplineBackground />
+        <div className="relative z-10 container-width">
           <div className="glass-panel p-8 rounded-3xl text-center max-w-3xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 font-dm-sans">
               Ready to <span className="bg-gradient-primary bg-clip-text text-transparent">Master Algorithms</span>?
