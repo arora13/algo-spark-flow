@@ -16,7 +16,11 @@ const PracticeCoding = () => {
   useEffect(() => {
     if (location.state?.problem) {
       setProblem(location.state.problem);
-      setCode(location.state.initialCode || '');
+      const initialCode = location.state.initialCode || `def solve(input_data):
+    # Your solution here
+    # Example: ${location.state.problem.examples?.[0]?.input ? JSON.stringify(location.state.problem.examples[0].input) : 'input_data'}
+    return result`;
+      setCode(initialCode);
       setConsoleOutput([
         'Welcome to AlgoFlow! Ready to help you solve this problem.',
         'Tip: Click "Run Code" to test your solution!',
@@ -231,13 +235,21 @@ const PracticeCoding = () => {
               <h3 className="text-lg font-semibold text-white mb-3">💻 Code Editor</h3>
               <div className="bg-slate-900/50 rounded-lg p-4 h-full">
                 <textarea
-                  className="w-full h-full bg-transparent text-green-400 font-mono text-sm resize-none outline-none"
+                  className="w-full h-full bg-transparent text-green-400 font-mono text-sm resize-none outline-none border-none focus:ring-0 focus:outline-none"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
+                  onFocus={(e) => e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.1)'}
+                  onBlur={(e) => e.target.style.backgroundColor = 'transparent'}
                   placeholder={`def solve(input_data):
     # Your solution here
     # Example: ${problem.examples?.[0]?.input ? JSON.stringify(problem.examples[0].input) : 'input_data'}
     return result`}
+                  style={{
+                    minHeight: '300px',
+                    lineHeight: '1.5',
+                    padding: '12px',
+                    fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace'
+                  }}
                 />
               </div>
             </div>
